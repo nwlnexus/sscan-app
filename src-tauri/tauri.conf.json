@@ -12,7 +12,10 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "fs": {
+        "writeFile": true
+      }
     },
     "bundle": {
       "active": true,
@@ -29,7 +32,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.nwlnexus.sscanapp",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -50,16 +53,20 @@
     "security": {
       "csp": null
     },
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
     "updater": {
       "active": false
     },
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 720,
         "resizable": true,
         "title": "SoundScan App",
-        "width": 800
+        "width": 1280
       }
     ]
   }
