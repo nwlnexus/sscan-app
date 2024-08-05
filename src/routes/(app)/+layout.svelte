@@ -6,7 +6,4 @@
 	<main class="col-span-1 space-y-4 p-4">
 		<slot />
 	</main>
-	<!-- Sidebar (Right) -->
-	<!-- NOTE: hidden in smaller screen sizes -->
-	<aside class="sticky top-0 col-span-1 hidden h-screen p-4 xl:block"></aside>
 </div>

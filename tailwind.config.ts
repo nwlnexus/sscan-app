@@ -2,8 +2,7 @@ import type { Config } from 'tailwindcss';
 
 import { join } from 'path';
 import twPlugin from '@tailwindcss/typography';
-import { skeleton } from '@skeletonlabs/skeleton/plugin';
-import * as themes from '@skeletonlabs/skeleton/themes';
+import { skeleton } from '@skeletonlabs/tw-plugin';
 
 export default {
 	darkMode: 'class',
@@ -19,7 +18,12 @@ export default {
 	plugins: [
 		twPlugin,
 		skeleton({
-			themes: [themes.cerberus]
+			themes: {
+				preset: [
+					{ name: 'skeleton', enhancements: true },
+					{ name: 'crimson', enhancements: true }
+				]
+			}
 		})
 	]
 } satisfies Config;
