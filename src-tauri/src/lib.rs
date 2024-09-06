@@ -1,19 +1,28 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
-mod db;
+use tauri_plugin_sql::{Migration, MigrationKind};
 
 #[cfg(desktop)]
 mod tray;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let migrations = vec![Migration {
+        version: 1,
+        description: "create_intial_tables",
+        sql: "CREATE TABLE records (id INTEGER PRIMARY KEY);",
+        kind: MigrationKind::Up,
+    }];
+
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_sql::Builder::default().build())
+        .plugin(
+            tauri_plugin_sql::Builder::default()
+                .add_migrations("sqlite:sscan.sqlite", migrations)
+                .build(),
+        )
         .setup(|app| {
             let handle = app.handle();
-            db::init(handle)?;
             #[cfg(all(desktop))]
             {
                 tray::create_tray(handle)?;

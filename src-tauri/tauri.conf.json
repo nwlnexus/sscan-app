@@ -43,7 +43,11 @@
   "productName": "sscan-app",
   "version": "0.1.0",
   "identifier": "com.nwlnexus.sscanapp",
-  "plugins": {},
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:sscan.sqlite"]
+    }
+  },
   "app": {
     "security": {
       "capabilities": ["migrated","main-capability"]

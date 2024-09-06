@@ -3487,7 +3487,6 @@ dependencies = [
 name = "sscan_app"
 version = "0.1.0"
 dependencies = [
- "dirs",
  "serde",
  "serde_json",
  "tauri",

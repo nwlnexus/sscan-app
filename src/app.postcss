@@ -1,0 +1,32 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@font-face {
+    /* Reference name */
+    font-family: 'Inter';
+    /* For multiple files use commas, ex: url(), url(), ... */
+    src: url('/fonts/Inter-VariableFont_opsz,wght.ttf');
+    font-display: swap;
+}
+
+/* NOTE: set your target theme name (ex: skeleton, wintry, modern, etc) */
+
+:root [data-theme='crimson'] {
+    --theme-font-family-base: 'Inter', sans-serif;
+    --theme-font-family-heading: 'Inter', sans-serif;
+    /* ... */
+}
+
+html,
+body {
+    @apply h-full overflow-hidden;
+}
+
+.gradient-heading {
+    @apply bg-clip-text text-transparent box-decoration-clone;
+    /* Direction */
+    @apply bg-gradient-to-br;
+    /* Color Stops */
+    @apply from-primary-500 via-tertiary-500 to-secondary-500;
+}
