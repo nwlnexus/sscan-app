@@ -1,64 +1,56 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "build": {
     "beforeBuildCommand": "pnpm run build",
     "beforeDevCommand": "pnpm run dev",
-    "devPath": "http://localhost:5173",
-    "distDir": "../build"
+    "frontendDist": "../build",
+    "devUrl": "http://localhost:5173"
   },
-  "package": {
-    "productName": "sscan-app",
-    "version": "0.1.0"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "fs": {
-        "writeFile": true
-      }
+  "bundle": {
+    "active": true,
+    "category": "DeveloperTool",
+    "copyright": "",
+    "targets": "all",
+    "externalBin": [],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
     },
-    "bundle": {
-      "active": true,
-      "category": "DeveloperTool",
-      "copyright": "",
+    "longDescription": "",
+    "macOS": {
+      "entitlements": null,
+      "exceptionDomain": "",
+      "frameworks": [],
+      "providerShortName": null,
+      "signingIdentity": null
+    },
+    "resources": [],
+    "shortDescription": "",
+    "linux": {
       "deb": {
         "depends": []
-      },
-      "externalBin": [],
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "identifier": "com.nwlnexus.sscanapp",
-      "longDescription": "",
-      "macOS": {
-        "entitlements": null,
-        "exceptionDomain": "",
-        "frameworks": [],
-        "providerShortName": null,
-        "signingIdentity": null
-      },
-      "resources": [],
-      "shortDescription": "",
-      "targets": "all",
-      "windows": {
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": ""
       }
-    },
+    }
+  },
+  "productName": "sscan-app",
+  "version": "0.1.0",
+  "identifier": "com.nwlnexus.sscanapp",
+  "plugins": {},
+  "app": {
     "security": {
-      "csp": null
+      "capabilities": ["migrated","main-capability"]
     },
-    "systemTray": {
+    "trayIcon": {
       "iconPath": "icons/icon.png",
       "iconAsTemplate": true
-    },
-    "updater": {
-      "active": false
     },
     "windows": [
       {
