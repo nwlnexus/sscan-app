@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.postcss';
-	import Navbar from '$lib/components/ui/Navbar.svelte';
+	import Navbar from '$lib/components/Navbar.svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb';
 	import * as Sheet from '$lib/components/ui/sheet';
 	import { Button } from '$lib/components/ui/button';

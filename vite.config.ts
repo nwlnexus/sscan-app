@@ -6,5 +6,14 @@ export default defineConfig({
 	plugins: [sveltekit(), purgeCss()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
+	},
+	clearScreen: false,
+	server: {
+		port: 5173,
+		strictPort: true,
+		watch: {
+			// 3. tell vite to ignore watching `src-tauri`
+			ignored: ['**/src-tauri/**']
+		}
 	}
 });

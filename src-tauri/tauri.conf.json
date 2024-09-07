@@ -50,7 +50,7 @@
   },
   "app": {
     "security": {
-      "capabilities": ["migrated","main-capability"]
+      "capabilities": ["main-capability"]
     },
     "trayIcon": {
       "iconPath": "icons/icon.png",
