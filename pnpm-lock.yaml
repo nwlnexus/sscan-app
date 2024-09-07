@@ -14,9 +14,21 @@ importers:
       '@tauri-apps/plugin-process':
         specifier: ^2.0.0-rc
         version: 2.0.0-rc.1
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       lucide-svelte:
         specifier: ^0.424.0
         version: 0.424.0(svelte@5.0.0-next.208)
+      mode-watcher:
+        specifier: ^0.4.1
+        version: 0.4.1(svelte@5.0.0-next.208)
+      tailwind-merge:
+        specifier: ^2.5.2
+        version: 2.5.2
+      tailwind-variants:
+        specifier: ^0.2.1
+        version: 0.2.1(tailwindcss@3.4.7)
     devDependencies:
       '@eslint/js':
         specifier: ^9.8.0
@@ -24,12 +36,6 @@ importers:
       '@playwright/test':
         specifier: ^1.28.1
         version: 1.45.3
-      '@skeletonlabs/skeleton':
-        specifier: ^2.10.2
-        version: 2.10.2(svelte@5.0.0-next.208)
-      '@skeletonlabs/tw-plugin':
-        specifier: ^0.4.0
-        version: 0.4.0(tailwindcss@3.4.7)
       '@sveltejs/adapter-static':
         specifier: ^3.0.2
         version: 3.0.2(@sveltejs/kit@2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.208)(vite@5.3.5(@types/node@22.1.0)))(svelte@5.0.0-next.208)(vite@5.3.5(@types/node@22.1.0)))
@@ -411,16 +417,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@skeletonlabs/skeleton@2.10.2':
-    resolution: {integrity: sha512-TV2yWjvHpmtaF1F5luB8n7UbjKZcsrJMMiiJQHbZvqXjBWvudAcL8zywhE/NFKW5rYU//MtgOODdMZPZxvKu6w==}
-    peerDependencies:
-      svelte: ^3.56.0 || ^4.0.0
-
-  '@skeletonlabs/tw-plugin@0.4.0':
-    resolution: {integrity: sha512-v6Y4deBq9ByRx3kTRGgekhhYkWEYgNNNu8UXOwJngCStB7w8SwmbNFSeHkluxMbgCgMnJyp220EMpw9nj/rEsQ==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0'
-
   '@sveltejs/adapter-static@3.0.2':
     resolution: {integrity: sha512-/EBFydZDwfwFfFEuF1vzUseBoRziwKP7AoHAwv+Ot3M084sE/HTVBHf9mCmXfdM9ijprY5YEugZjleflncX5fQ==}
     peerDependencies:
@@ -751,6 +747,10 @@ packages:
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
+
+  clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
+    engines: {node: '>=6'}
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -1239,6 +1239,11 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
+  mode-watcher@0.4.1:
+    resolution: {integrity: sha512-bNC+1NXmwEFZtziCdZSgP7HFQTpqJPcQn9GwwJQGSf6SBF3neEPYV1uRwkYuAQwbsvsXIYtzaqgedDzJ7D1mhg==}
+    peerDependencies:
+      svelte: ^4.0.0 || ^5.0.0-next.1
+
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -1712,6 +1717,15 @@ packages:
     resolution: {integrity: sha512-gYABb68367fGnY/GIpb/j3DD5DUqhVWi6EodEBVpiRA9wLQTpY8QmuPg04xut/0EHqlFU3a40wbpjJKmpL3Y/g==}
     engines: {node: '>=18'}
 
+  tailwind-merge@2.5.2:
+    resolution: {integrity: sha512-kjEBm+pvD+6eAwzJL2Bi+02/9LFLal1Gs61+QB7HvTfQQ0aXwC5LGT8PEt1gS0CWKktKe6ysPTAy3cBC5MeiIg==}
+
+  tailwind-variants@0.2.1:
+    resolution: {integrity: sha512-2xmhAf4UIc3PijOUcJPA1LP4AbxhpcHuHM2C26xM0k81r0maAO6uoUSHl3APmvHZcY5cZCY/bYuJdfFa4eGoaw==}
+    engines: {node: '>=16.x', pnpm: '>=7.x'}
+    peerDependencies:
+      tailwindcss: '*'
+
   tailwindcss@3.4.7:
     resolution: {integrity: sha512-rxWZbe87YJb4OcSopb7up2Ba4U82BoiSGUdoDr3Ydrg9ckxFS/YWsvhN323GMcddgU65QRy7JndC7ahhInhvlQ==}
     engines: {node: '>=14.0.0'}
@@ -2118,15 +2132,6 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.19.2':
     optional: true
 
-  '@skeletonlabs/skeleton@2.10.2(svelte@5.0.0-next.208)':
-    dependencies:
-      esm-env: 1.0.0
-      svelte: 5.0.0-next.208
-
-  '@skeletonlabs/tw-plugin@0.4.0(tailwindcss@3.4.7)':
-    dependencies:
-      tailwindcss: 3.4.7
-
   '@sveltejs/adapter-static@3.0.2(@sveltejs/kit@2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.208)(vite@5.3.5(@types/node@22.1.0)))(svelte@5.0.0-next.208)(vite@5.3.5(@types/node@22.1.0)))':
     dependencies:
       '@sveltejs/kit': 2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.208)(vite@5.3.5(@types/node@22.1.0)))(svelte@5.0.0-next.208)(vite@5.3.5(@types/node@22.1.0))
@@ -2484,6 +2489,8 @@ snapshots:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+
+  clsx@2.1.1: {}
 
   color-convert@2.0.1:
     dependencies:
@@ -2966,6 +2973,10 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
+  mode-watcher@0.4.1(svelte@5.0.0-next.208):
+    dependencies:
+      svelte: 5.0.0-next.208
+
   mri@1.2.0: {}
 
   mrmime@2.0.0: {}
@@ -3361,6 +3372,13 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.11
       zimmerframe: 1.1.2
+
+  tailwind-merge@2.5.2: {}
+
+  tailwind-variants@0.2.1(tailwindcss@3.4.7):
+    dependencies:
+      tailwind-merge: 2.5.2
+      tailwindcss: 3.4.7
 
   tailwindcss@3.4.7:
     dependencies:

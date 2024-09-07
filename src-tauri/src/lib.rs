@@ -7,7 +7,7 @@ mod tray;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let migrations = vec![Migration {
+    let migrations: Vec<Migration> = vec![Migration {
         version: 1,
         description: "create_intial_tables",
         sql: "CREATE TABLE records (id INTEGER PRIMARY KEY);",
