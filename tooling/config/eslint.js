@@ -1,13 +1,15 @@
 import { fixupPluginRules } from '@eslint/compat'
+// @ts-expect-error Expected error
 import js from '@eslint/js'
 import eslintConfigPrettier from 'eslint-config-prettier'
+import svelte from 'eslint-plugin-svelte'
 import globals from 'globals'
 import tsEslint from 'typescript-eslint'
 
 const ERROR = 'error'
 const WARN = 'warn'
 
-const has = (pkg) => {
+const has = (/** @type {string} */ pkg) => {
 	try {
 		import.meta.resolve(pkg, import.meta.url)
 		return true
@@ -18,6 +20,7 @@ const has = (pkg) => {
 
 const hasTypeScript = has('typescript')
 const hasReact = has('react')
+const hasSvelte = has('svelte')
 const hasTestingLibrary = has('@testing-library/dom')
 const hasJestDom = has('@testing-library/jest-dom')
 const hasVitest = has('vitest')
@@ -26,6 +29,7 @@ const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles]
 const playwrightFiles = ['**/e2e/**']
 
 export const config = [
+	...js.configs.recommended,
 	...tsEslint.configs.recommended,
 	eslintConfigPrettier,
 	// all files
@@ -62,12 +66,27 @@ export const config = [
 				},
 			],
 		},
-	},
+  },
+  // Svelte
+  hasSvelte
+    ? Object.assign({}, ...svelte.configs["flat/recommended"],
+      ...svelte.configs["flat/prettier"],
+      {
+        files: ['**/*.svelte'],
+        plugins: {
+          svelte: (await import('eslint-plugin-svelte')).default,
+        },
+        languageOptions: {
+          parser: tsEslint.parser,
+        },
+      })
+    : null,
 	// JSX/TSX files
 	hasReact
 		? {
 				files: ['**/*.tsx', '**/*.jsx'],
 				plugins: {
+					// @ts-expect-error Expected error
 					react: (await import('eslint-plugin-react')).default,
 				},
 				languageOptions: {
@@ -88,6 +107,7 @@ export const config = [
 				files: ['**/*.ts?(x)', '**/*.js?(x)'],
 				plugins: {
 					'react-hooks': fixupPluginRules(
+						// @ts-expect-error Expected error
 						await import('eslint-plugin-react-hooks'),
 					),
 				},
@@ -242,6 +262,7 @@ export const config = [
 				files: testFiles,
 				ignores: [...playwrightFiles],
 				plugins: {
+					// @ts-expect-error Expected error
 					'testing-library': (await import('eslint-plugin-testing-library'))
 						.default,
 				},
@@ -258,6 +279,7 @@ export const config = [
 				files: testFiles,
 				ignores: [...playwrightFiles],
 				plugins: {
+					// @ts-expect-error Expected error
 					'jest-dom': (await import('eslint-plugin-jest-dom')).default,
 				},
 				rules: {
@@ -293,6 +315,9 @@ export const config = [
 			'**/playwright-report/**',
 			'**/server-build/**',
 			'**/dist/**',
+			'**/build/',
+			'.svelte-kit/',
+			'dist/',
 		],
 	},
 ].filter(Boolean)

@@ -33,6 +33,9 @@ const config = {
   ],
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
   importOrderTypeScriptVersion: "4.4.0",
+  useTabs: true,
+  singleQuote: true,
+  printWidth: 100,
   overrides: [
     {
       files: "*.json.hbs",
@@ -46,7 +49,13 @@ const config = {
         parser: "babel",
       },
     },
-  ]
+    {
+      files: "*.svelte",
+      options: {
+        parser: "svelte"
+      },
+    },
+  ],
 };
 
 export default config;

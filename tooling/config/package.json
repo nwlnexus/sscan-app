@@ -11,8 +11,8 @@
     "./eslint": "./eslint.js",
     "./typescript": "./library.json",
     "./react-library": "./react-library.json",
-    "./remix": "./remix.json",
-    "./worker": "./worker.json",
+    "./tsconfig/remix": "./remix.json",
+    "./tsconfig/worker": "./worker.json",
     "./prettier": "./prettier.js"
   },
   "type": "module",
@@ -33,6 +33,7 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-svelte": "^2.43.0",
     "eslint-plugin-testing-library": "^6.2.2",
     "eslint-plugin-unused-imports": "^4.0.0",
     "eslint-plugin-vitest": "^0.5.4",
@@ -48,5 +49,6 @@
   "peerDependencies": {
     "eslint": "^9.8.0",
     "prettier": "^3.3.3"
-  }
+  },
+  "prettier": "./prettier.js"
 }

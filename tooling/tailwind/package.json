@@ -1,0 +1,35 @@
+{
+  "name": "@repo/tailwind",
+  "version": "1.0.0",
+  "description": "Tailwind config for monorepo",
+  "type": "module",
+  "exports": {
+    "./base": "./base.ts",
+    "./web": "./web.ts",
+    "./native": "./native.ts"
+  },
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "sscan",
+    "tailwind",
+    "config"
+  ],
+  "author": "Nigel Williams-Lucas",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "eslint": "^9.8.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@repo/config": "workspace:*"
+  },
+  "prettier": "@repo/config/prettier"
+}
