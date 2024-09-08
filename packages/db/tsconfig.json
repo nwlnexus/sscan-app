@@ -1,0 +1,9 @@
+{
+	"extends": "@repo/config/typescript",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+	},
+	"include": ["schema"],
+	"exclude": ["node_modules"]
+}
