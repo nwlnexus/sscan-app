@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Tooltip from '$lib/components/ui/tooltip';
+	import { Tooltip } from '@sscan/ui';
 	import { House as Home, Disc3, Package2 } from 'lucide-svelte';
 </script>
 

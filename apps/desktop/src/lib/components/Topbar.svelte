@@ -1,8 +1,5 @@
 <script lang="ts">
-	import * as Breadcrumb from '$lib/components/ui/breadcrumb';
-	import * as Sheet from '$lib/components/ui/sheet';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
+	import { Breadcrumb, Button, Sheet, Input } from '@sscan/ui';
 	import PanelLeft from 'lucide-svelte/icons/panel-left';
 	import Home from 'lucide-svelte/icons/house';
 	import ShoppingCart from 'lucide-svelte/icons/shopping-cart';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.postcss';
+	import '@sscan/ui/styles/global.css';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Topbar from '$lib/components/Topbar.svelte';
 	import { ModeWatcher } from 'mode-watcher';

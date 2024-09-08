@@ -1,7 +1,5 @@
 <script>
-	import * as Card from '$lib/components/ui/card';
-	import * as Table from '$lib/components/ui/table';
-	import { Badge } from '$lib/components/ui/badge';
+	import { Badge, Card, Table } from '@sscan/ui';
 </script>
 
 <Card.Root>

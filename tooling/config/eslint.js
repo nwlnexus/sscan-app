@@ -1,35 +1,35 @@
-import { fixupPluginRules } from '@eslint/compat'
+import { fixupPluginRules } from '@eslint/compat';
 // @ts-expect-error Expected error
-import js from '@eslint/js'
-import eslintConfigPrettier from 'eslint-config-prettier'
-import svelte from 'eslint-plugin-svelte'
-import globals from 'globals'
-import tsEslint from 'typescript-eslint'
+import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import svelte from 'eslint-plugin-svelte';
+import globals from 'globals';
+import tsEslint from 'typescript-eslint';
 
-const ERROR = 'error'
-const WARN = 'warn'
+const ERROR = 'error';
+const WARN = 'warn';
 
 const has = (/** @type {string} */ pkg) => {
 	try {
-		import.meta.resolve(pkg, import.meta.url)
-		return true
+		import.meta.resolve(pkg, import.meta.url);
+		return true;
 	} catch {
-		return false
+		return false;
 	}
-}
+};
 
-const hasTypeScript = has('typescript')
-const hasReact = has('react')
-const hasSvelte = has('svelte')
-const hasTestingLibrary = has('@testing-library/dom')
-const hasJestDom = has('@testing-library/jest-dom')
-const hasVitest = has('vitest')
-const vitestFiles = ['**/__tests__/**/*', '**/*.test.*']
-const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles]
-const playwrightFiles = ['**/e2e/**']
+const hasTypeScript = has('typescript');
+const hasReact = has('react');
+const hasSvelte = has('svelte');
+const hasTestingLibrary = has('@testing-library/dom');
+const hasJestDom = has('@testing-library/jest-dom');
+const hasVitest = has('vitest');
+const vitestFiles = ['**/__tests__/**/*', '**/*.test.*'];
+const testFiles = ['**/tests/**', '**/#tests/**', ...vitestFiles];
+const playwrightFiles = ['**/e2e/**'];
 
 export const config = [
-	...js.configs.recommended,
+	js.configs.recommended,
 	...tsEslint.configs.recommended,
 	eslintConfigPrettier,
 	// all files
@@ -45,42 +45,30 @@ export const config = [
 		},
 		rules: {
 			'no-unexpected-multiline': ERROR,
-			'no-warning-comments': [
-				ERROR,
-				{ terms: ['FIXME'], location: 'anywhere' },
-			],
+			'no-warning-comments': [ERROR, { terms: ['FIXME'], location: 'anywhere' }],
 			'import/no-duplicates': [WARN, { 'prefer-inline': true }],
 			'import/order': [
 				WARN,
 				{
 					alphabetize: { order: 'asc', caseInsensitive: true },
 					pathGroups: [{ pattern: '~*/**', group: 'internal' }],
-					groups: [
-						'builtin',
-						'external',
-						'internal',
-						'parent',
-						'sibling',
-						'index',
-					],
+					groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
 				},
 			],
 		},
-  },
-  // Svelte
-  hasSvelte
-    ? Object.assign({}, ...svelte.configs["flat/recommended"],
-      ...svelte.configs["flat/prettier"],
-      {
-        files: ['**/*.svelte'],
-        plugins: {
-          svelte: (await import('eslint-plugin-svelte')).default,
-        },
-        languageOptions: {
-          parser: tsEslint.parser,
-        },
-      })
-    : null,
+	},
+	// Svelte
+	hasSvelte
+		? Object.assign({}, ...svelte.configs['flat/recommended'], ...svelte.configs['flat/prettier'], {
+				files: ['**/*.svelte'],
+				plugins: {
+					svelte: (await import('eslint-plugin-svelte')).default,
+				},
+				languageOptions: {
+					parser: tsEslint.parser,
+				},
+			})
+		: null,
 	// JSX/TSX files
 	hasReact
 		? {
@@ -172,10 +160,7 @@ export const config = [
 						},
 					],
 
-					'@typescript-eslint/no-misused-promises': [
-						'error',
-						{ checksVoidReturn: false },
-					],
+					'@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
 
 					'@typescript-eslint/no-floating-promises': 'error',
 
@@ -263,8 +248,7 @@ export const config = [
 				ignores: [...playwrightFiles],
 				plugins: {
 					// @ts-expect-error Expected error
-					'testing-library': (await import('eslint-plugin-testing-library'))
-						.default,
+					'testing-library': (await import('eslint-plugin-testing-library')).default,
 				},
 				rules: {
 					'testing-library/no-unnecessary-act': [ERROR, { isStrict: false }],
@@ -320,6 +304,6 @@ export const config = [
 			'dist/',
 		],
 	},
-].filter(Boolean)
+].filter(Boolean);
 
-export default config
+export default config;

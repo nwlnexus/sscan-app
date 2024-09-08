@@ -16,20 +16,24 @@
     "format:fix": "turbo run format --continue -- --write --cache --cache-location node_modules/.cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
     "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "ui-add": "turbo run ui-add"
   },
-  "keywords": ["sscan"],
+  "keywords": [
+    "sscan"
+  ],
   "author": "Nigel Williams-Lucas",
   "license": "ISC",
   "devDependencies": {
+    "@repo/config": "workspace:*",
     "@turbo/gen": "^2.1.1",
-    "prettier": "^3.3.3",
-    "turbo": "^2.1.1",
-    "typescript": "^5.5.4"
+    "drizzle-kit": "^0.24.2",
+    "turbo": "^2.1.1"
   },
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
+        "@typescript-eslint/eslint-plugin": "~8",
         "@typescript-eslint/parser": "~8",
         "eslint": "~9",
         "prettier": "^3.3.3",
@@ -38,11 +42,18 @@
     },
     "overrides": {
       "glob": "^10.4.1",
-      "rimraf": "^6.0.1",
       "prettier": "^3.3.3",
+      "rimraf": "^6.0.1",
+      "rollup-plugin-inject": "npm:@rollup/plugin-inject",
+      "sourcemap-codec": "npm:@jridgewell/sourcemap-codec",
       "svelte-hmr>svelte": "^5",
       "@melt-ui/svelte>svelte": "^5"
     }
   },
-  "prettier": "@repo/config/prettier"
+  "prettier": "@repo/config/prettier",
+  "dependencies": {
+    "eslint": "^9.10.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  }
 }

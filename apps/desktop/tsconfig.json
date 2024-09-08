@@ -1,6 +1,6 @@
 {
-  "extends": ["@repo/config/typescript", "./.svelte-kit/tsconfig.json"],
-  "compilerOptions": {
-    "sourceMap": true
-  }
+	"extends": ["@repo/config/typescript", "./.svelte-kit/tsconfig.json"],
+	"compilerOptions": {
+		"sourceMap": true
+	}
 }

@@ -1,12 +1,32 @@
 {
-  "name": "ui",
+  "name": "@sscan/ui",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "exports": {
+    ".": "./src/ui/index.ts",
+    "./styles": "./styles",
+    "./styles/*": "./styles/*"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "ui-add": "pnpm dlx shadcn-svelte@latest add"
+  },
+  "author": "Nigel Williams-Lucas",
+  "license": "MIT",
+  "devDependencies": {
+    "@repo/config": "workspace:*",
+    "@repo/tailwind": "workspace:*"
+  },
+  "prettier": "@repo/config/prettier",
+  "dependencies": {
+    "bits-ui": "^0.21.13",
+    "clsx": "^2.1.1",
+    "lucide-svelte": "^0.424.0",
+    "svelte-radix": "^1.1.1",
+    "tailwind-merge": "^2.5.2",
+    "tailwind-variants": "^0.2.1"
+  }
 }

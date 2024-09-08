@@ -1,0 +1,23 @@
+{
+  "name": "@sscan/db",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "drizzle-orm": "^0.33.0",
+    "drizzle-zod": "^0.5.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@repo/config": "workspace:*",
+    "eslint": "^9.10.0",
+    "prettier": "^3.3.3"
+  },
+  "prettier": "@repo/config/prettier"
+}
