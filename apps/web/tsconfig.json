@@ -1,3 +1,17 @@
 {
-	"extends": ["@repo/config/typescript", "./.svelte-kit/tsconfig.json"]
+	"extends": "@repo/config/tsconfig/remix",
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/.server/**/*.ts",
+		"**/.server/**/*.tsx",
+		"**/.client/**/*.ts",
+		"**/.client/**/*.tsx"
+	],
+	"compilerOptions": {
+		"types": ["@remix-run/cloudflare", "vite/client"],
+		"paths": {
+			"~/*": ["./app/*"]
+		}
+	}
 }
