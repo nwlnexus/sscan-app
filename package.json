@@ -9,6 +9,10 @@
     "build": "turbo run build",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo run clean",
+    "db:push": "turbo -F @sscan/db db:push",
+    "db:studio": "turbo -F @sscan/db db:studio",
+    "db:up": "turbo -F @sscan/db db:up",
+    "db:generate": "turbo -F @sscan/db db:generate",
     "dev": "turbo watch dev",
     "dev:web": "turbo watch dev -F @sscan/web...",
     "dev:desktop": "turbo watch dev -F @sscan/desktop...",
@@ -27,7 +31,6 @@
   "devDependencies": {
     "@repo/config": "workspace:*",
     "@turbo/gen": "^2.1.1",
-    "drizzle-kit": "^0.24.2",
     "turbo": "^2.1.1"
   },
   "pnpm": {
