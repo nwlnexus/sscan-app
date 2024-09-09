@@ -1,12 +1,36 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import { purgeCss } from 'vite-plugin-tailwind-purgecss';
-import { defineConfig } from 'vitest/config';
+import { vitePlugin as remix } from '@remix-run/dev';
+import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
+const isDev = process.env.NODE_ENV === 'development';
 export default defineConfig({
-	plugins: [sveltekit(), purgeCss()],
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}'],
+	build: {
+		cssMinify: !isDev,
+
+		rollupOptions: {
+			external: [/node:.*/, 'stream', 'crypto', 'fsevents'],
+		},
+
+		assetsInlineLimit: (source: string) => {
+			if (source.endsWith('sprite.svg')) {
+				return false;
+			}
+		},
+
+		sourcemap: true,
 	},
+	plugins: [
+		remix({
+			ssr: false,
+			future: {
+				v3_fetcherPersist: true,
+				v3_relativeSplatPath: true,
+				v3_throwAbortReason: true,
+				unstable_singleFetch: true,
+			},
+		}),
+		tsconfigPaths(),
+	],
 	clearScreen: false,
 	server: {
 		port: 1420,

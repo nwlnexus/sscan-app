@@ -18,6 +18,14 @@
       "persistent": true,
       "cache": false
     },
+    "full:dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "@sscan/desktop#tauri:dev": {
+      "persistent": true,
+      "dependsOn": ["db:push"]
+    },
     "@sscan/desktop#dev": {
       "persistent": true,
       "dependsOn": ["db:push"]

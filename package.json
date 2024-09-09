@@ -14,6 +14,7 @@
     "db:up": "turbo -F @sscan/db db:up",
     "db:generate": "turbo -F @sscan/db db:generate",
     "dev": "turbo watch dev",
+    "dev:full": "turbo watch full:dev",
     "dev:web": "turbo watch @sscan/web#dev",
     "dev:desktop": "turbo watch @sscan/desktop#dev",
     "format": "turbo run format --continue -- --cache --cache-location node_modules/.cache/.prettiercache",

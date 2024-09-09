@@ -7,7 +7,7 @@
 		"**/.server/**/*.tsx",
 		"**/.client/**/*.ts",
 		"**/.client/**/*.tsx"
-, "app/routes/_app._index"	],
+	],
 	"compilerOptions": {
 		"types": [
 			"@remix-run/cloudflare",
