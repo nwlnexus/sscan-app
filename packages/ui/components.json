@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
+  "style": "default",
   "tsx": true,
   "tailwind": {
     "config": "./tailwind.config.ts",
@@ -9,8 +9,10 @@
     "cssVariables": true
   },
   "aliases": {
-    "utils": "@sscan/ui",
-    "components": "src/",
-    "ui": "src/"
+    "lib": "@/lib",
+    "utils": "@/lib/utils",
+    "hooks": "@/hooks",
+    "components": "@/",
+    "ui": "@/ui"
   } 
 }

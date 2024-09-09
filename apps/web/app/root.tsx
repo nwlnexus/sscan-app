@@ -1,13 +1,13 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import { ThemeProvider } from 'next-themes';
 
-import '@sscan/ui/styles/global.css?url';
+import '@sscan/ui/styles/global.css';
 
 import { type PropsWithChildren } from 'react';
 
 export function Layout({ children }: PropsWithChildren) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning={true}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -7,11 +7,24 @@
 		"**/.server/**/*.tsx",
 		"**/.client/**/*.ts",
 		"**/.client/**/*.tsx"
-	],
+, "app/routes/_app._index"	],
 	"compilerOptions": {
-		"types": ["@remix-run/cloudflare", "vite/client"],
+		"types": [
+			"@remix-run/cloudflare",
+			"vite/client",
+			"@cloudflare/workers-types/experimental",
+			"@remix-run/react/future/single-fetch.d.ts"
+		],
 		"paths": {
-			"~/*": ["./app/*"]
+			"@css/*": ["./app/css/*"],
+			"@config/*": ["./app/config/*"],
+			"@context/*": ["./app/context/*"],
+			"@components": ["./app/components/index.ts"],
+			"@components/*": ["./app/components/*"],
+			"@hooks/*": ["./app/hooks/*"],
+			"@services/*": ["./app/services/*"],
+			"@assets/*": ["./app/assets/*"],
+			"@utils/*": ["./app/utils/*"]
 		}
 	}
 }

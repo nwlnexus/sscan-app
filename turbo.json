@@ -18,8 +18,13 @@
       "persistent": true,
       "cache": false
     },
-    "desktop#dev": {
-      "dependsOn": ["^web#dev"]
+    "@sscan/desktop#dev": {
+      "persistent": true,
+      "dependsOn": ["db:push"]
+    },
+    "@sscan/web#dev": {
+      "persistent": true,
+      "dependsOn": ["^db:push"]
     },
     "format": {
       "outputs": ["node_modules/.cache/.prettiercache"],
