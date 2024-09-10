@@ -1,11 +1,11 @@
 {
-  "id": "437ae07a-7001-4713-bca1-29645c10d817",
+  "id": "4a69b5d5-6ceb-46e4-a1c7-a7aea63f9a74",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.account": {
-      "name": "account",
+    "public.accounts": {
+      "name": "accounts",
       "schema": "",
       "columns": {
         "id": {
@@ -14,41 +14,28 @@
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
-        },
-        "userId": {
-          "name": "userId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
         },
         "name": {
           "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "account_userId_user_id_fk": {
-          "name": "account_userId_user_id_fk",
-          "tableFrom": "account",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.user": {
-      "name": "user",
+    "public.profiles": {
+      "name": "profiles",
       "schema": "",
       "columns": {
         "id": {
@@ -58,8 +45,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "name": {
-          "name": "name",
+        "display_name": {
+          "name": "display_name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
@@ -70,8 +57,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "emailVerified": {
-          "name": "emailVerified",
+        "email_verified": {
+          "name": "email_verified",
           "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false
@@ -82,16 +69,103 @@
           "primaryKey": false,
           "notNull": false
         },
-        "passwordHash": {
-          "name": "passwordHash",
+        "password_hash": {
+          "name": "password_hash",
           "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_admin": {
+          "name": "is_admin",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "profile_email_idx": {
+          "name": "profile_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.profiles_to_accounts": {
+      "name": "profiles_to_accounts",
+      "schema": "",
+      "columns": {
+        "profile_id": {
+          "name": "profile_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "account_id": {
+          "name": "account_id",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "foreignKeys": {
+        "profiles_to_accounts_profile_id_profiles_id_fk": {
+          "name": "profiles_to_accounts_profile_id_profiles_id_fk",
+          "tableFrom": "profiles_to_accounts",
+          "tableTo": "profiles",
+          "columnsFrom": [
+            "profile_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "profiles_to_accounts_account_id_accounts_id_fk": {
+          "name": "profiles_to_accounts_account_id_accounts_id_fk",
+          "tableFrom": "profiles_to_accounts",
+          "tableTo": "accounts",
+          "columnsFrom": [
+            "account_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "profiles_to_accounts_profile_id_account_id_pk": {
+          "name": "profiles_to_accounts_profile_id_account_id_pk",
+          "columns": [
+            "profile_id",
+            "account_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     }
   },

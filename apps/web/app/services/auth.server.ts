@@ -2,7 +2,7 @@ import { type AppLoadContext, type SessionStorage } from '@remix-run/cloudflare'
 import { getDB } from '@services/db.server';
 
 // prettier-ignore
-import { user, type User } from '@sscan/db/schema';
+import { profiles, type Profile } from '@sscan/db/schema';
 
 import { eq } from 'drizzle-orm';
 import { Authenticator, AuthorizationError } from 'remix-auth';
@@ -61,8 +61,8 @@ const getAuthenticator = async (context: AppLoadContext, sessionStorage: Session
 			throw new AuthorizationError('Bad Credentials: Email or Password is incorrect.');
 		}
 
-		const dbResult = await db.query.user.findFirst({
-			where: eq(user.email, email),
+		const dbResult = await db.query.profiles.findFirst({
+			where: eq(profiles.email, email),
 		});
 
 		if (!dbResult || !dbResult.passwordHash) {
@@ -79,7 +79,7 @@ const getAuthenticator = async (context: AppLoadContext, sessionStorage: Session
 
 		return dbResult;
 	});
-	const authenticator = new Authenticator<User | Error | null>(sessionStorage);
+	const authenticator = new Authenticator<Profile | Error | null>(sessionStorage);
 	authenticator.use(strategy, 'user-pass');
 	return authenticator;
 };

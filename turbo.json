@@ -53,8 +53,8 @@
       "cache": false
     },
     "db:generate": {
-      "cache": true,
-      "outputs": ["packages/db/migrations/*.sql"],
+      "cache": false,
+      "interactive": true,
       "env": ["DATABASE_URL"]
     },
     "db:migrate": {

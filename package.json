@@ -13,6 +13,8 @@
     "db:studio": "turbo -F @sscan/db db:studio",
     "db:up": "turbo -F @sscan/db db:up",
     "db:generate": "turbo -F @sscan/db db:generate",
+    "db:migrate": "turbo -F @sscan/db db:migrate",
+    "db:hash": "tsx scripts/generate-hash.ts",
     "dev": "turbo watch dev",
     "dev:full": "turbo watch full:dev",
     "dev:web": "turbo watch @sscan/web#dev",
