@@ -1,11 +1,11 @@
+import { type LinksFunction } from '@remix-run/cloudflare';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import styles from '@sscan/shared/styles/global.css?url';
 import { ThemeProvider } from 'next-themes';
 
-import '@sscan/ui/styles/global.css';
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
-import { type PropsWithChildren } from 'react';
-
-export function Layout({ children }: PropsWithChildren) {
+export function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning={true}>
 			<head>

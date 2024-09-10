@@ -1,5 +1,5 @@
 import { Link as RemixLink } from '@remix-run/react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/shared/ui/tooltip';
 import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react';
 
 export function Navbar() {

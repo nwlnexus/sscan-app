@@ -1,6 +1,6 @@
 import { Link as RemixLink } from '@remix-run/react';
-import { Button } from '@sscan/ui/button';
-import { SheetContent, SheetTrigger } from '@sscan/ui/sheet';
+import { Button } from '@sscan/shared/ui/button';
+import { SheetContent, SheetTrigger } from '@sscan/shared/ui/sheet';
 import {
 	Home,
 	LineChart,

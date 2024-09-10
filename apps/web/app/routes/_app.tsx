@@ -9,8 +9,8 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 	BreadcrumbSeparator,
-} from '@sscan/ui/breadcrumb';
-import { Input } from '@sscan/ui/input';
+} from '@sscan/shared/ui/breadcrumb';
+import { Input } from '@sscan/shared/ui/input';
 import { Search } from 'lucide-react';
 
 export const meta: MetaFunction = () => {
