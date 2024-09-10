@@ -16,22 +16,25 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@remix-run/cloudflare": "^2.11.1",
-    "@remix-run/cloudflare-pages": "^2.11.1",
-    "@remix-run/react": "^2.11.1",
+    "@neondatabase/serverless": "^0.9.5",
+    "@remix-run/cloudflare": "^2.12.0",
+    "@remix-run/cloudflare-pages": "^2.12.0",
+    "@remix-run/react": "^2.12.0",
+    "@sscan/db": "workspace:*",
     "@sscan/shared": "workspace:*",
     "drizzle-orm": "^0.33.0",
-    "isbot": "^4.1.0",
+    "isbot": "^5.1.17",
     "lucide-react": "^0.439.0",
     "next-themes": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remix-auth": "^3.7.0"
+    "remix-auth": "^3.7.0",
+    "remix-auth-form": "^1.5.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240903.0",
     "@playwright/test": "^1.28.1",
-    "@remix-run/dev": "^2.11.1",
+    "@remix-run/dev": "^2.12.0",
     "@repo/config": "workspace:*",
     "@repo/tailwind": "workspace:*",
     "@types/react": "^18.2.20",

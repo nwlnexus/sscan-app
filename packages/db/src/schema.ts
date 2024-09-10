@@ -1,7 +1,9 @@
 import { relations } from 'drizzle-orm';
 import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
-export const User = pgTable('user', {
+export const user = pgTable('user', {
 	id: uuid('id').notNull().primaryKey().defaultRandom(),
 	name: varchar('name', { length: 255 }),
 	email: varchar('email', { length: 255 }).notNull(),
@@ -10,20 +12,27 @@ export const User = pgTable('user', {
 		withTimezone: true,
 	}),
 	image: varchar('image', { length: 255 }),
+	passwordHash: varchar('passwordHash', { length: 255 }).notNull(),
 });
+export const userSelectSchema = createSelectSchema(user);
+export const userInsertSchema = createInsertSchema(user);
+export type User = z.infer<typeof userSelectSchema>;
 
-export const UserRelations = relations(User, ({ many }) => ({
-	accounts: many(Account),
+export const userRelations = relations(user, ({ many }) => ({
+	accounts: many(account),
 }));
 
-export const Account = pgTable('account', {
+export const account = pgTable('account', {
 	id: uuid('id').notNull().primaryKey().defaultRandom(),
 	userId: uuid('userId')
 		.notNull()
-		.references(() => User.id, { onDelete: 'cascade' }),
+		.references(() => user.id, { onDelete: 'cascade' }),
 	name: varchar('name', { length: 255 }),
 });
+export const accountSelectSchema = createSelectSchema(account);
+export const accountInsertSchema = createInsertSchema(account);
+export type Account = z.infer<typeof accountSelectSchema>;
 
-export const AccountRelations = relations(Account, ({ one }) => ({
-	user: one(User, { fields: [Account.userId], references: [User.id] }),
+export const accountRelations = relations(account, ({ one }) => ({
+	user: one(user, { fields: [account.userId], references: [user.id] }),
 }));

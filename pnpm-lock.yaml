@@ -124,15 +124,21 @@ importers:
 
   apps/web:
     dependencies:
+      '@neondatabase/serverless':
+        specifier: ^0.9.5
+        version: 0.9.5
       '@remix-run/cloudflare':
-        specifier: ^2.11.1
+        specifier: ^2.12.0
         version: 2.12.0(@cloudflare/workers-types@4.20240903.0)(typescript@5.6.2)
       '@remix-run/cloudflare-pages':
-        specifier: ^2.11.1
+        specifier: ^2.12.0
         version: 2.12.0(@cloudflare/workers-types@4.20240903.0)(typescript@5.6.2)
       '@remix-run/react':
-        specifier: ^2.11.1
+        specifier: ^2.12.0
         version: 2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
+      '@sscan/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@sscan/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -140,8 +146,8 @@ importers:
         specifier: ^0.33.0
         version: 0.33.0(@cloudflare/workers-types@4.20240903.0)(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.3.5)(react@18.3.1)
       isbot:
-        specifier: ^4.1.0
-        version: 4.4.0
+        specifier: ^5.1.17
+        version: 5.1.17
       lucide-react:
         specifier: ^0.439.0
         version: 0.439.0(react@18.3.1)
@@ -157,6 +163,9 @@ importers:
       remix-auth:
         specifier: ^3.7.0
         version: 3.7.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/server-runtime@2.12.0(typescript@5.6.2))
+      remix-auth-form:
+        specifier: ^1.5.0
+        version: 1.5.0(@remix-run/server-runtime@2.12.0(typescript@5.6.2))(remix-auth@3.7.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/server-runtime@2.12.0(typescript@5.6.2)))
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240903.0
@@ -165,7 +174,7 @@ importers:
         specifier: ^1.28.1
         version: 1.47.0
       '@remix-run/dev':
-        specifier: ^2.11.1
+        specifier: ^2.12.0
         version: 2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/serve@2.12.0(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.3(@types/node@22.5.4))(wrangler@3.75.0(@cloudflare/workers-types@4.20240903.0)(rollup@4.21.2))
       '@repo/config':
         specifier: workspace:*
@@ -4211,6 +4220,10 @@ packages:
     resolution: {integrity: sha512-8ZvOWUA68kyJO4hHJdWjyreq7TYNWTS9y15IzeqVdKxR9pPr3P/3r9AHcoIv9M0Rllkao5qWz2v1lmcyKIVCzQ==}
     engines: {node: '>=18'}
 
+  isbot@5.1.17:
+    resolution: {integrity: sha512-/wch8pRKZE+aoVhRX/hYPY1C7dMCeeMyhkQLNLNlYAbGQn9bkvMB8fOUXNnk5I0m4vDYbBJ9ciVtkr9zfBJ7qA==}
+    engines: {node: '>=18'}
+
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
@@ -5361,6 +5374,12 @@ packages:
 
   remark-rehype@10.1.0:
     resolution: {integrity: sha512-EFmR5zppdBp0WQeDVZ/b66CWJipB2q2VLNFMabzDSGR66Z2fQii83G5gTBbgGEnEEA0QRussvrFHxk1HWGJskw==}
+
+  remix-auth-form@1.5.0:
+    resolution: {integrity: sha512-xWM7T41vi4ZsIxL3f8gz/D6g2mxrnYF7LnG+rG3VqwHh6l13xCoKLraxzWRdbKMVKKQCMISKZRXAeJh9/PQwBA==}
+    peerDependencies:
+      '@remix-run/server-runtime': ^1.0.0 || ^2.0.0
+      remix-auth: ^3.6.0
 
   remix-auth@3.7.0:
     resolution: {integrity: sha512-2QVjp2nJVaYxuFBecMQwzixCO7CLSssttLBU5eVlNcNlVeNMmY1g7OkmZ1Ogw9sBcoMXZ18J7xXSK0AISVFcfQ==}
@@ -8343,7 +8362,7 @@ snapshots:
       '@babel/plugin-syntax-typescript': 7.25.4(@babel/core@7.25.2)
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.6
       '@vanilla-extract/css': 1.15.5
-      esbuild: 0.17.6
+      esbuild: 0.19.12
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -10443,6 +10462,8 @@ snapshots:
 
   isbot@4.4.0: {}
 
+  isbot@5.1.17: {}
+
   isexe@2.0.0: {}
 
   iterator.prototype@1.1.2:
@@ -11753,6 +11774,11 @@ snapshots:
       '@types/mdast': 3.0.15
       mdast-util-to-hast: 12.3.0
       unified: 10.1.2
+
+  remix-auth-form@1.5.0(@remix-run/server-runtime@2.12.0(typescript@5.6.2))(remix-auth@3.7.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/server-runtime@2.12.0(typescript@5.6.2))):
+    dependencies:
+      '@remix-run/server-runtime': 2.12.0(typescript@5.6.2)
+      remix-auth: 3.7.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/server-runtime@2.12.0(typescript@5.6.2))
 
   remix-auth@3.7.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/server-runtime@2.12.0(typescript@5.6.2)):
     dependencies:

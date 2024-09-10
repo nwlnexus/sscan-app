@@ -32,7 +32,7 @@
     },
     "@sscan/web#dev": {
       "persistent": true,
-      "dependsOn": ["^db:push"]
+      "dependsOn": ["^db:migrate"]
     },
     "format": {
       "outputs": ["node_modules/.cache/.prettiercache"],
@@ -53,14 +53,15 @@
       "cache": false
     },
     "db:generate": {
-      "cache": false,
-      "env": ["DATABASE_URL"],
-      "interactive": true
+      "cache": true,
+      "outputs": ["packages/db/migrations/*.sql"],
+      "env": ["DATABASE_URL"]
     },
-    "db:push": {
-      "cache": false,
+    "db:migrate": {
+      "cache": true,
+      "outputs": ["packages/db/migrations/meta/**"],
       "env": ["DATABASE_URL"],
-      "interactive": true
+      "dependsOn": ["db:generate"]
     },
     "db:studio": {
       "cache": false,

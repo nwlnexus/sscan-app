@@ -57,3 +57,5 @@ dist/
 **/gen/schemas
 # Auto generated 
 apps/desktop/src/routeTree.gen.ts
+apps/web/scripts/generate-hash.ts
+seeds/admin_user.sql
