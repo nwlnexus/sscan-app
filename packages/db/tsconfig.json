@@ -1,5 +1,5 @@
 {
-	"extends": "@repo/config/typescript",
+	"extends": "@nwlnexus/config/typescript",
 	"compilerOptions": {
 		"outDir": "./dist",
 		"tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"

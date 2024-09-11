@@ -29,7 +29,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@repo/config": "workspace:*"
+    "@nwlnexus/config": "^1.1.0"
   },
-  "prettier": "@repo/config/prettier"
+  "prettier": "@nwlnexus/config/prettier"
 }

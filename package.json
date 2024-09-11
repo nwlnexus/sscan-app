@@ -32,7 +32,7 @@
   "author": "Nigel Williams-Lucas",
   "license": "ISC",
   "devDependencies": {
-    "@repo/config": "workspace:*",
+    "@nwlnexus/config": "^1.1.0",
     "@turbo/gen": "^2.1.1",
     "enquirer": "^2.4.1",
     "turbo": "^2.1.1"
@@ -57,7 +57,7 @@
       "@melt-ui/svelte>svelte": "^5"
     }
   },
-  "prettier": "@repo/config/prettier",
+  "prettier": "@nwlnexus/config/prettier",
   "dependencies": {
     "eslint": "^9.10.0",
     "prettier": "^3.3.3",
