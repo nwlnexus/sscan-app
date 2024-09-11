@@ -11,8 +11,8 @@ import {
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-export const profiles = pgTable(
-	'profiles',
+export const profile = pgTable(
+	'profile',
 	{
 		id: uuid('id').notNull().primaryKey().defaultRandom(),
 		displayName: varchar('display_name', { length: 255 }),
@@ -30,49 +30,49 @@ export const profiles = pgTable(
 		profileEmailIdx: uniqueIndex('profile_email_idx').on(profile.email),
 	}),
 );
-export const profileSelectSchema = createSelectSchema(profiles);
-export const profileInsertSchema = createInsertSchema(profiles);
+export const profileSelectSchema = createSelectSchema(profile);
+export const profileInsertSchema = createInsertSchema(profile);
 export type Profile = z.infer<typeof profileSelectSchema>;
 
-export const profileRelations = relations(profiles, ({ many }) => ({
-	accounts: many(accounts),
+export const profileRelations = relations(profile, ({ many }) => ({
+	accounts: many(profileToAccount),
 }));
 
-export const profilesToAccounts = pgTable(
-	'profiles_to_accounts',
+export const profileToAccount = pgTable(
+	'profile_to_account',
 	{
 		profileId: uuid('profile_id')
 			.notNull()
-			.references(() => profiles.id),
+			.references(() => profile.id),
 		accountId: uuid('account_id')
 			.notNull()
-			.references(() => accounts.id),
+			.references(() => account.id),
 	},
 	(t) => ({
 		pk: primaryKey({ columns: [t.profileId, t.accountId] }),
 	}),
 );
 
-export const profilesToAccountsRelations = relations(profilesToAccounts, ({ one }) => ({
-	account: one(accounts, {
-		fields: [profilesToAccounts.accountId],
-		references: [accounts.id],
+export const profileToAccountRelations = relations(profileToAccount, ({ one }) => ({
+	account: one(account, {
+		fields: [profileToAccount.accountId],
+		references: [account.id],
 	}),
-	profile: one(profiles, {
-		fields: [profilesToAccounts.profileId],
-		references: [profiles.id],
+	profile: one(profile, {
+		fields: [profileToAccount.profileId],
+		references: [profile.id],
 	}),
 }));
 
-export const accounts = pgTable('accounts', {
+export const account = pgTable('account', {
 	id: uuid('id').notNull().primaryKey().defaultRandom(),
 	name: varchar('name', { length: 255 }),
 	createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow(),
 });
-export const accountSelectSchema = createSelectSchema(accounts);
-export const accountInsertSchema = createInsertSchema(accounts);
+export const accountSelectSchema = createSelectSchema(account);
+export const accountInsertSchema = createInsertSchema(account);
 export type Account = z.infer<typeof accountSelectSchema>;
 
-export const accountRelations = relations(accounts, ({ many }) => ({
-	profiles: many(profiles),
+export const accountRelations = relations(account, ({ many }) => ({
+	profiles: many(profileToAccount),
 }));

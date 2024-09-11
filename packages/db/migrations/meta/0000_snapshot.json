@@ -1,11 +1,11 @@
 {
-  "id": "4a69b5d5-6ceb-46e4-a1c7-a7aea63f9a74",
+  "id": "1441ba00-7aa7-4317-a9e3-35629d317182",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.accounts": {
-      "name": "accounts",
+    "public.account": {
+      "name": "account",
       "schema": "",
       "columns": {
         "id": {
@@ -34,8 +34,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.profiles": {
-      "name": "profiles",
+    "public.profile": {
+      "name": "profile",
       "schema": "",
       "columns": {
         "id": {
@@ -111,8 +111,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.profiles_to_accounts": {
-      "name": "profiles_to_accounts",
+    "public.profile_to_account": {
+      "name": "profile_to_account",
       "schema": "",
       "columns": {
         "profile_id": {
@@ -130,10 +130,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "profiles_to_accounts_profile_id_profiles_id_fk": {
-          "name": "profiles_to_accounts_profile_id_profiles_id_fk",
-          "tableFrom": "profiles_to_accounts",
-          "tableTo": "profiles",
+        "profile_to_account_profile_id_profile_id_fk": {
+          "name": "profile_to_account_profile_id_profile_id_fk",
+          "tableFrom": "profile_to_account",
+          "tableTo": "profile",
           "columnsFrom": [
             "profile_id"
           ],
@@ -143,10 +143,10 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "profiles_to_accounts_account_id_accounts_id_fk": {
-          "name": "profiles_to_accounts_account_id_accounts_id_fk",
-          "tableFrom": "profiles_to_accounts",
-          "tableTo": "accounts",
+        "profile_to_account_account_id_account_id_fk": {
+          "name": "profile_to_account_account_id_account_id_fk",
+          "tableFrom": "profile_to_account",
+          "tableTo": "account",
           "columnsFrom": [
             "account_id"
           ],
@@ -158,8 +158,8 @@
         }
       },
       "compositePrimaryKeys": {
-        "profiles_to_accounts_profile_id_account_id_pk": {
-          "name": "profiles_to_accounts_profile_id_account_id_pk",
+        "profile_to_account_profile_id_account_id_pk": {
+          "name": "profile_to_account_profile_id_account_id_pk",
           "columns": [
             "profile_id",
             "account_id"

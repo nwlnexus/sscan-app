@@ -2,10 +2,10 @@ import { type AppLoadContext, type SessionStorage } from '@remix-run/cloudflare'
 import { getDB } from '@services/db.server';
 
 // prettier-ignore
-import { profiles, type Profile } from '@sscan/db/schema';
+import { profile, type Profile } from '@sscan/db/schema';
 
 import { eq } from 'drizzle-orm';
-import { Authenticator, AuthorizationError } from 'remix-auth';
+import { Authenticator } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
 
 // Add these utility functions for password hashing
@@ -53,33 +53,27 @@ const getAuthenticator = async (context: AppLoadContext, sessionStorage: Session
 		if (
 			typeof email !== 'string' ||
 			!email ||
-			email?.length === 0 ||
+			email.length === 0 ||
 			typeof password !== 'string' ||
 			!password ||
-			password?.length === 0
+			password.length === 0
 		) {
-			throw new AuthorizationError('Bad Credentials: Email or Password is incorrect.');
-		}
-
-		const dbResult = await db.query.profiles.findFirst({
-			where: eq(profiles.email, email),
-		});
-
-		if (!dbResult || !dbResult.passwordHash) {
 			return null;
 		}
+
+		const dbResult = await db.query.profile.findFirst({
+			where: eq(profile.email, email),
+		});
+
+		if (!dbResult || !dbResult.passwordHash) return null;
 
 		// Verify the password
 		const isPasswordValid = await verifyPassword(dbResult.passwordHash, password);
-		if (!isPasswordValid) {
-			return null;
-		}
-
-		console.log('DB Result', dbResult);
+		if (!isPasswordValid) return null;
 
 		return dbResult;
 	});
-	const authenticator = new Authenticator<Profile | Error | null>(sessionStorage);
+	const authenticator = new Authenticator<Profile | null>(sessionStorage);
 	authenticator.use(strategy, 'user-pass');
 	return authenticator;
 };

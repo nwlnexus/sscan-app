@@ -1,4 +1,5 @@
-import { type ActionFunctionArgs, type LoaderFunctionArgs } from '@remix-run/cloudflare';
+import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/cloudflare';
+import { redirect } from '@remix-run/cloudflare';
 import { Form } from '@remix-run/react';
 import { getUserSession } from '@services/session.server';
 import { Button } from '@sscan/shared/ui/button';
@@ -14,7 +15,11 @@ import { Input } from '@sscan/shared/ui/input';
 import { Label } from '@sscan/shared/ui/label';
 
 export const loader = async ({ context, request }: LoaderFunctionArgs) => {
-	await getUserSession({ context, request });
+	const { user } = await getUserSession({ context, request });
+
+	if (user) {
+		return redirect('/dashboard');
+	}
 
 	return null;
 };
@@ -22,7 +27,10 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
 export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const { authenticator } = await getUserSession({ context, request });
 
-	return authenticator.authenticate('user-pass', request);
+	return authenticator.authenticate('user-pass', request, {
+		successRedirect: '/',
+		failureRedirect: '/login',
+	});
 };
 
 export default function Login() {
@@ -39,6 +47,7 @@ export default function Login() {
 							<Label htmlFor="email">Email</Label>
 							<Input
 								id="email"
+								name="email"
 								type="email"
 								placeholder="m@example.com"
 								required={true}
@@ -47,7 +56,13 @@ export default function Login() {
 						</div>
 						<div className="grid gap-2">
 							<Label htmlFor="password">Password</Label>
-							<Input id="password" type="password" required={true} className="p-2 rounded border" />
+							<Input
+								id="password"
+								name="password"
+								type="password"
+								required={true}
+								className="p-2 rounded border"
+							/>
 						</div>
 					</CardContent>
 					<CardFooter className="flex justify-between border-t pt-4">

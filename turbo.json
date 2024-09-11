@@ -59,7 +59,7 @@
     },
     "db:migrate": {
       "cache": true,
-      "outputs": ["packages/db/migrations/meta/**"],
+      "outputs": [],
       "env": ["DATABASE_URL"],
       "dependsOn": ["db:generate"]
     },

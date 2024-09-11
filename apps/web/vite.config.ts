@@ -29,6 +29,7 @@ export default defineConfig({
 
 		sourcemap: true,
 	},
+	clearScreen: false,
 	plugins: [
 		remixCloudflareDevProxy({ persist: { path: '../../.wrangler' } }),
 		remix({

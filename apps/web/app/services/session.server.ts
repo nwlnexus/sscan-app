@@ -1,5 +1,5 @@
 // prettier-ignore
-import { type AppLoadContext, createCookieSessionStorage, redirect } from '@remix-run/cloudflare';
+import { type AppLoadContext, createCookieSessionStorage } from '@remix-run/cloudflare';
 
 import { getAuthenticator } from './auth.server';
 
@@ -40,17 +40,11 @@ const getUserSession = async ({
 	const authenticator = await getAuthenticator(context, sessionStorage);
 	const user = await authenticator.isAuthenticated(request);
 
-	if (!user) {
-		const url = new URL(request.url);
-		const pathname = url.pathname;
-		if (['/login'].includes(pathname)) {
-			return {
-				user: null,
-				authenticator,
-			};
-		} else {
-			throw redirect(`/login?redirectTo=${encodeURIComponent(pathname)}`);
-		}
+	if (user instanceof Error) {
+		return {
+			user: null,
+			authenticator,
+		};
 	} else {
 		return {
 			user,
