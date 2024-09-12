@@ -7,12 +7,6 @@ import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-declare module '@remix-run/server-runtime' {
-	interface Future {
-		unstable_singleFetch: true; // 👈 enable _types_ for single-fetch
-	}
-}
-
 const isDev = process.env.NODE_ENV === 'development';
 export default defineConfig({
 	build: {
