@@ -1,25 +1,25 @@
 {
-	"extends": "@nwlnexus/config/tsconfig/remix",
-	"include": [
-		"**/*.ts",
-		"**/*.tsx",
-		"**/.server/**/*.ts",
-		"**/.server/**/*.tsx",
-		"**/.client/**/*.ts",
-		"**/.client/**/*.tsx"
-	],
-	"compilerOptions": {
-		"types": ["@remix-run/cloudflare", "vite/client", "@cloudflare/workers-types/experimental"],
-		"paths": {
-			"@css/*": ["./app/css/*"],
-			"@config/*": ["./app/config/*"],
-			"@context/*": ["./app/context/*"],
-			"@components": ["./app/components/index.ts"],
-			"@components/*": ["./app/components/*"],
-			"@hooks/*": ["./app/hooks/*"],
-			"@services/*": ["./app/services/*"],
-			"@assets/*": ["./app/assets/*"],
-			"@utils/*": ["./app/utils/*"]
-		}
-	}
+  "extends": "@nwlnexus/config/tsconfig/remix",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "types": ["@remix-run/cloudflare", "vite/client", "@cloudflare/workers-types/experimental"],
+    "paths": {
+      "@css/*": ["./app/css/*"],
+      "@config/*": ["./app/config/*"],
+      "@context/*": ["./app/context/*"],
+      "@components": ["./app/components/index.ts"],
+      "@components/*": ["./app/components/*"],
+      "@hooks/*": ["./app/hooks/*"],
+      "@services/*": ["./app/services/*"],
+      "@assets/*": ["./app/assets/*"],
+      "@utils/*": ["./app/utils/*"]
+    }
+  }
 }

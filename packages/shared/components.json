@@ -14,5 +14,5 @@
     "hooks": "@/hooks",
     "components": "@/",
     "ui": "@/ui"
-  } 
+  }
 }

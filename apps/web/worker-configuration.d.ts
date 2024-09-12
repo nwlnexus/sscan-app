@@ -2,7 +2,7 @@
 // by running `wrangler types`
 
 interface Env {
-	SESSION_SECRET: string;
-	DATABASE_URL: string;
-	NODE_ENV: string;
+  SESSION_SECRET: string;
+  DATABASE_URL: string;
+  NODE_ENV: string;
 }

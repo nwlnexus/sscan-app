@@ -134,12 +134,8 @@
           "name": "profile_to_account_profile_id_profile_id_fk",
           "tableFrom": "profile_to_account",
           "tableTo": "profile",
-          "columnsFrom": [
-            "profile_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["profile_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -147,12 +143,8 @@
           "name": "profile_to_account_account_id_account_id_fk",
           "tableFrom": "profile_to_account",
           "tableTo": "account",
-          "columnsFrom": [
-            "account_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["account_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -160,10 +152,7 @@
       "compositePrimaryKeys": {
         "profile_to_account_profile_id_account_id_pk": {
           "name": "profile_to_account_profile_id_account_id_pk",
-          "columns": [
-            "profile_id",
-            "account_id"
-          ]
+          "columns": ["profile_id", "account_id"]
         }
       },
       "uniqueConstraints": {}
