@@ -15,11 +15,13 @@ import { Input } from '@sscan/shared/ui/input';
 import { Label } from '@sscan/shared/ui/label';
 
 export const loader = async ({ context, request }: LoaderFunctionArgs) => {
-	const { user } = await getUserSession({ context, request });
+	const { authenticator } = await getUserSession({ context, request });
 
-	if (user) {
-		return redirect('/dashboard');
-	}
+	console.log(await authenticator.isAuthenticated(request));
+
+	// if (user) {
+	// 	return redirect('/dashboard');
+	// }
 
 	return null;
 };

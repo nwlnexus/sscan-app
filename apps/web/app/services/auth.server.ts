@@ -61,19 +61,19 @@ const getAuthenticator = async (context: AppLoadContext, sessionStorage: Session
 			return null;
 		}
 
-		const dbResult = await db.query.profile.findFirst({
+		const dbUser = await db.query.profile.findFirst({
 			where: eq(profile.email, email),
 		});
 
-		if (!dbResult || !dbResult.passwordHash) return null;
+		if (!dbUser || !dbUser.passwordHash) return null;
 
 		// Verify the password
-		const isPasswordValid = await verifyPassword(dbResult.passwordHash, password);
+		const isPasswordValid = await verifyPassword(dbUser.passwordHash, password);
 		if (!isPasswordValid) return null;
 
-		return dbResult;
+		return dbUser;
 	});
-	const authenticator = new Authenticator<Profile | null>(sessionStorage);
+	const authenticator = new Authenticator<Profile | Error | null>(sessionStorage);
 	authenticator.use(strategy, 'user-pass');
 	return authenticator;
 };

@@ -2,6 +2,7 @@ import {
 	vitePlugin as remix,
 	cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
 } from '@remix-run/dev';
+import { remixDevTools } from 'remix-development-tools';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -32,6 +33,7 @@ export default defineConfig({
 	clearScreen: false,
 	plugins: [
 		remixCloudflareDevProxy({ persist: { path: '../../.wrangler' } }),
+		remixDevTools(),
 		remix({
 			future: {
 				v3_fetcherPersist: true,
