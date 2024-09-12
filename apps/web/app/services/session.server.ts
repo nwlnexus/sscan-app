@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from '@remix-run/cloudflare';
+import { createCookieSessionStorage } from '@remix-run/cloudflare'
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -9,6 +9,6 @@ export const sessionStorage = createCookieSessionStorage({
     secrets: [import.meta.env.SESSION_SECRET],
     secure: import.meta.env.NODE_ENV === 'production',
   },
-});
+})
 
-export const { getSession, commitSession, destroySession } = sessionStorage;
+export const { getSession, commitSession, destroySession } = sessionStorage

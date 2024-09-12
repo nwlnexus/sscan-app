@@ -1,8 +1,8 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/cloudflare';
-import { Form, useLoaderData } from '@remix-run/react';
-import authenticator from '@services/auth.server';
-import { sessionStorage } from '@services/session.server';
-import { Button } from '@sscan/shared/ui/button';
+import { type ActionFunctionArgs, type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { Form, useLoaderData } from '@remix-run/react'
+import authenticator from '@services/auth.server'
+import { sessionStorage } from '@services/session.server'
+import { Button } from '@sscan/shared/ui/button'
 import {
   Card,
   CardContent,
@@ -10,22 +10,22 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@sscan/shared/ui/card';
-import { Input } from '@sscan/shared/ui/input';
-import { Label } from '@sscan/shared/ui/label';
+} from '@sscan/shared/ui/card'
+import { Input } from '@sscan/shared/ui/input'
+import { Label } from '@sscan/shared/ui/label'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  console.log('SESSION_SECRET', import.meta.env.SESSION_SECRET);
-  console.log('VITE_SESSION_SECRET', import.meta.env.VITE_SESSION_SECRET);
+  console.log('SESSION_SECRET', import.meta.env.SESSION_SECRET)
+  console.log('VITE_SESSION_SECRET', import.meta.env.VITE_SESSION_SECRET)
   await authenticator.isAuthenticated(request, {
     successRedirect: '/',
-  });
+  })
 
-  const session = await sessionStorage.getSession(request.headers.get('Cookie'));
+  const session = await sessionStorage.getSession(request.headers.get('Cookie'))
 
-  const error = session.get('sessionErrorKey');
-  return { error };
-};
+  const error = session.get('sessionErrorKey')
+  return { error }
+}
 
 export const action = async ({ request, context }: ActionFunctionArgs) => {
   const result = await authenticator.authenticate('user-pass', request, {
@@ -33,24 +33,24 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
     failureRedirect: '/login',
     throwOnError: true,
     context,
-  });
-  console.log(result);
+  })
+  console.log(result)
 
-  return result;
-};
+  return result
+}
 
 export default function Login() {
-  const { error } = useLoaderData<typeof loader>();
-  console.log(error);
+  const { error } = useLoaderData<typeof loader>()
+  console.log(error)
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex min-h-screen items-center justify-center">
       <Form method="post">
-        <Card className="w-full max-w-sm p-4 bg-muted/40">
+        <Card className="w-full max-w-sm bg-muted/40 p-4">
           <CardHeader className="mb-4 space-y-2">
             <CardTitle className="text-2xl">Login</CardTitle>
             <CardDescription>Enter your email below to login to your account.</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-4 mb-4">
+          <CardContent className="mb-4 grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -60,7 +60,7 @@ export default function Login() {
                 autoComplete="email"
                 placeholder="me@example.com"
                 required={true}
-                className="p-2 rounded border"
+                className="rounded border p-2"
               />
             </div>
             <div className="grid gap-2">
@@ -70,7 +70,7 @@ export default function Login() {
                 name="password"
                 type="password"
                 required={true}
-                className="p-2 rounded border"
+                className="rounded border p-2"
               />
             </div>
           </CardContent>
@@ -82,5 +82,5 @@ export default function Login() {
         </Card>
       </Form>
     </div>
-  );
+  )
 }

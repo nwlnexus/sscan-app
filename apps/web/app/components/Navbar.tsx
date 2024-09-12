@@ -1,6 +1,6 @@
-import { Link as RemixLink } from '@remix-run/react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/shared/ui/tooltip';
-import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react';
+import { Link as RemixLink } from '@remix-run/react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/shared/ui/tooltip'
+import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react'
 
 export function Navbar() {
   return (
@@ -89,5 +89,5 @@ export function Navbar() {
         </Tooltip>
       </nav>
     </TooltipProvider>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { type Config } from 'tailwindcss';
+import { type Config } from 'tailwindcss'
 
-import baseConfig from '@repo/tailwind/web';
+import baseConfig from '@repo/tailwind/web'
 
 export default {
   content: ['./src/**/*.tsx'],
   presets: [baseConfig],
-} satisfies Config;
+} satisfies Config

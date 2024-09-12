@@ -1,19 +1,19 @@
 import {
   vitePlugin as remix,
   cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
-} from '@remix-run/dev';
-import { remixDevTools } from 'remix-development-tools';
-import { ConfigEnv, defineConfig, loadEnv } from 'vite';
-import svgr from 'vite-plugin-svgr';
-import tsconfigPaths from 'vite-tsconfig-paths';
+} from '@remix-run/dev'
+import { remixDevTools } from 'remix-development-tools'
+import { type ConfigEnv, defineConfig, loadEnv } from 'vite'
+import svgr from 'vite-plugin-svgr'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development'
 
 export default ({ mode }: ConfigEnv) => {
   // Here we add env vars from .env files to process.env.
   // Note the last arg is a blank string so that all env vars
   // are loaded, not just those starting with "VITE_"
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, process.cwd(), '')
 
   return defineConfig({
     build: {
@@ -25,7 +25,7 @@ export default ({ mode }: ConfigEnv) => {
 
       assetsInlineLimit: (source: string) => {
         if (source.endsWith('sprite.svg')) {
-          return false;
+          return false
         }
       },
 
@@ -47,5 +47,5 @@ export default ({ mode }: ConfigEnv) => {
       svgr(),
       tsconfigPaths(),
     ],
-  });
-};
+  })
+}

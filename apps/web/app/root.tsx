@@ -1,9 +1,9 @@
-import { type LinksFunction } from '@remix-run/cloudflare';
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
-import styles from '@sscan/shared/styles/global.css?url';
-import { ThemeProvider } from 'next-themes';
+import { type LinksFunction } from '@remix-run/cloudflare'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import styles from '@sscan/shared/styles/global.css?url'
+import { ThemeProvider } from 'next-themes'
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }]
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,21 +26,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {children}
           <ScrollRestoration
             getKey={(location) => {
-              return location.pathname;
+              return location.pathname
             }}
           />
           <Scripts />
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
 
 export default function App() {
-  return <Outlet />;
+  return <Outlet />
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-  return <div>An error occurred: {JSON.stringify(error, null, 2)}</div>;
+  console.error(error)
+  return <div>An error occurred: {JSON.stringify(error, null, 2)}</div>
 }

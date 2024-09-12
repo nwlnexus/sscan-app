@@ -1,9 +1,14 @@
 {
   "extends": ["@nwlnexus/config/typescript"],
   "compilerOptions": {
+    "baseUrl": "./src",
     "outDir": "./dist",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "noEmit": false
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

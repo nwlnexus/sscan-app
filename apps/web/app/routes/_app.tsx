@@ -1,7 +1,6 @@
-import { MobileNav } from '@components/MobileNav';
-import { Navbar } from '@components/Navbar';
-import { type MetaFunction } from '@remix-run/cloudflare';
-import { Outlet, Link as RemixLink } from '@remix-run/react';
+import { Navbar } from '@components/Navbar'
+import { type MetaFunction } from '@remix-run/cloudflare'
+import { Outlet, Link as RemixLink } from '@remix-run/react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,13 +8,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@sscan/shared/ui/breadcrumb';
-import { Input } from '@sscan/shared/ui/input';
-import { Search } from 'lucide-react';
+} from '@sscan/shared/ui/breadcrumb'
+import { Input } from '@sscan/shared/ui/input'
+import { Search } from 'lucide-react'
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'SSCAN | App' }];
-};
+  return [{ title: 'SSCAN | App' }]
+}
 
 export default function AppLayout() {
   return (
@@ -24,7 +23,7 @@ export default function AppLayout() {
         <Navbar />
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-        <header className="sticky top-0 z-30 flex h-18 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <header className="h-18 sticky top-0 z-30 flex items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           {/* <MobileNav /> */}
           <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
@@ -59,5 +58,5 @@ export default function AppLayout() {
         </main>
       </div>
     </div>
-  );
+  )
 }

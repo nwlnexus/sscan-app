@@ -26,7 +26,6 @@
   "author": "Nigel Williams-Lucas",
   "license": "MIT",
   "devDependencies": {
-    "@nwlnexus/config": "^1.1.0",
     "@repo/tailwind": "workspace:*",
     "tailwindcss": "^3.4.11"
   },

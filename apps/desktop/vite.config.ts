@@ -1,8 +1,8 @@
-import { vitePlugin as remix } from '@remix-run/dev';
-import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { vitePlugin as remix } from '@remix-run/dev'
+import { defineConfig } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development'
 export default defineConfig({
   build: {
     cssMinify: !isDev,
@@ -13,7 +13,7 @@ export default defineConfig({
 
     assetsInlineLimit: (source: string) => {
       if (source.endsWith('sprite.svg')) {
-        return false;
+        return false
       }
     },
 
@@ -40,4 +40,4 @@ export default defineConfig({
       ignored: ['**/src-tauri/**'],
     },
   },
-});
+})
