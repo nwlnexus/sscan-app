@@ -1,5 +1,5 @@
 {
-	"extends": "@repo/config/typescript",
+	"extends": "@nwlnexus/config/typescript",
 	"compilerOptions": {
 		"lib": ["dom", "dom.iterable", "ES2022"],
 		"jsx": "preserve",

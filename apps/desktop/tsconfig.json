@@ -1,5 +1,5 @@
 {
-	"extends": "@repo/config/tsconfig/remix",
+	"extends": "@nwlnexus/config/tsconfig/remix",
 	"include": [
 		"**/*.ts",
 		"**/*.tsx",

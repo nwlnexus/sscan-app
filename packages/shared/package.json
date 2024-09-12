@@ -25,11 +25,11 @@
   "author": "Nigel Williams-Lucas",
   "license": "MIT",
   "devDependencies": {
-    "@repo/config": "workspace:*",
+    "@nwlnexus/config": "^1.1.0",
     "@repo/tailwind": "workspace:*",
     "tailwindcss": "^3.4.4"
   },
-  "prettier": "@repo/config/prettier",
+  "prettier": "@nwlnexus/config/prettier",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.0",

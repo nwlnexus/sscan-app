@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
+    "clean": "rm -rf .turbo node_modules",
     "deploy": "pnpm run build && wrangler pages deploy",
     "dev": "remix vite:dev",
     "full:dev": "pnpm run dev",
@@ -35,7 +36,7 @@
     "@cloudflare/workers-types": "^4.20240903.0",
     "@playwright/test": "^1.28.1",
     "@remix-run/dev": "^2.12.0",
-    "@repo/config": "workspace:*",
+    "@nwlnexus/config": "^1.1.0",
     "@repo/tailwind": "workspace:*",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
@@ -53,5 +54,5 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "prettier": "@repo/config/prettier"
+  "prettier": "@nwlnexus/config/prettier"
 }
