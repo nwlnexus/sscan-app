@@ -1,0 +1,1 @@
+DATABASE_URL="postgresql://{{op://Dev/j4l6atlxjujgovgeetxtxxoy64/username}}:{{op://Dev/j4l6atlxjujgovgeetxtxxoy64/password}}@{{op://Dev/j4l6atlxjujgovgeetxtxxoy64/server}}/{{op://Dev/j4l6atlxjujgovgeetxtxxoy64/database}}?schema=public&sslmode=require"

@@ -3,41 +3,49 @@ import {
   cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
 } from '@remix-run/dev';
 import { remixDevTools } from 'remix-development-tools';
-import { defineConfig } from 'vite';
+import { ConfigEnv, defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 const isDev = process.env.NODE_ENV === 'development';
-export default defineConfig({
-  build: {
-    cssMinify: !isDev,
 
-    rollupOptions: {
-      external: [/node:.*/, 'stream', 'crypto', 'fsevents'],
-    },
+export default ({ mode }: ConfigEnv) => {
+  // Here we add env vars from .env files to process.env.
+  // Note the last arg is a blank string so that all env vars
+  // are loaded, not just those starting with "VITE_"
+  const env = loadEnv(mode, process.cwd(), '');
 
-    assetsInlineLimit: (source: string) => {
-      if (source.endsWith('sprite.svg')) {
-        return false;
-      }
-    },
+  return defineConfig({
+    build: {
+      cssMinify: !isDev,
 
-    sourcemap: true,
-  },
-  clearScreen: false,
-  plugins: [
-    remixCloudflareDevProxy({ persist: { path: '../../.wrangler' } }),
-    remixDevTools(),
-    remix({
-      future: {
-        v3_fetcherPersist: true,
-        v3_relativeSplatPath: true,
-        v3_throwAbortReason: true,
-        unstable_singleFetch: true,
-        unstable_optimizeDeps: true,
+      rollupOptions: {
+        external: [/node:.*/, 'stream', 'crypto', 'fsevents'],
       },
-    }),
-    svgr(),
-    tsconfigPaths(),
-  ],
-});
+
+      assetsInlineLimit: (source: string) => {
+        if (source.endsWith('sprite.svg')) {
+          return false;
+        }
+      },
+
+      sourcemap: true,
+    },
+    clearScreen: false,
+    plugins: [
+      remixCloudflareDevProxy({ persist: { path: '../../.wrangler' } }),
+      remixDevTools(),
+      remix({
+        future: {
+          v3_fetcherPersist: true,
+          v3_relativeSplatPath: true,
+          v3_throwAbortReason: true,
+          unstable_singleFetch: true,
+          unstable_optimizeDeps: true,
+        },
+      }),
+      svgr(),
+      tsconfigPaths(),
+    ],
+  });
+};

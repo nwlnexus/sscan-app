@@ -10,12 +10,12 @@
     "dev": "remix vite:dev",
     "full:dev": "pnpm run dev",
     "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "wrangler pages dev ./build/client",
     "typecheck": "tsc",
-    "typegen": "wrangler types",
+    "typegen": "wrangler types && prettier --write --list-different ./worker-configuration.d.ts",
     "preview": "pnpm run build && wrangler pages dev",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types && prettier --write --list-different ./worker-configuration.d.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.5",
@@ -54,6 +54,5 @@
   },
   "engines": {
     "node": ">=20.0.0"
-  },
-  "prettier": "@nwlnexus/config/prettier"
+  }
 }

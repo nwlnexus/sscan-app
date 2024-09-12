@@ -9,7 +9,7 @@
     "dev": "remix vite:dev",
     "full:dev": "pnpm run tauri dev",
     "preview": "vite preview",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "start": "remix-serve ./build/server/index.js",
     "tauri": "tauri",
@@ -48,6 +48,5 @@
   },
   "engines": {
     "node": ">=20.0.0"
-  },
-  "prettier": "@nwlnexus/config/prettier"
+  }
 }

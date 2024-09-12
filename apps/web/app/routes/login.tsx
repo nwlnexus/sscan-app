@@ -1,7 +1,7 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/cloudflare';
-import { Form } from '@remix-run/react';
+import { Form, useLoaderData } from '@remix-run/react';
 import authenticator from '@services/auth.server';
-import { appSessionStorage, SessionConfig } from '@services/session.server';
+import { sessionStorage } from '@services/session.server';
 import { Button } from '@sscan/shared/ui/button';
 import {
   Card,
@@ -14,33 +14,34 @@ import {
 import { Input } from '@sscan/shared/ui/input';
 import { Label } from '@sscan/shared/ui/label';
 
-export const loader = async ({ context, request }: LoaderFunctionArgs) => {
-  const sessionConfig = {
-    nodeEnv: context.cloudflare.env.NODE_ENV,
-    secrets: [context.cloudflare.env.SESSION_SECRET],
-  } satisfies SessionConfig;
-  const sessionStorage = appSessionStorage(sessionConfig);
-  const authenticator = await getAuthenticator(sessionStorage);
-  const user = await authenticator.isAuthenticated(request);
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  console.log('SESSION_SECRET', import.meta.env.SESSION_SECRET);
+  console.log('VITE_SESSION_SECRET', import.meta.env.VITE_SESSION_SECRET);
+  await authenticator.isAuthenticated(request, {
+    successRedirect: '/',
+  });
 
-  return user;
+  const session = await sessionStorage.getSession(request.headers.get('Cookie'));
+
+  const error = session.get('sessionErrorKey');
+  return { error };
 };
 
 export const action = async ({ request, context }: ActionFunctionArgs) => {
-  const sessionConfig = {
-    nodeEnv: context.cloudflare.env.NODE_ENV,
-    secrets: [context.cloudflare.env.SESSION_SECRET],
-  } satisfies SessionConfig;
-  const sessionStorage = appSessionStorage(sessionConfig);
-  const authenticator = await getAuthenticator(sessionStorage);
-
-  const result = await authenticator.authenticate('user-pass', request);
+  const result = await authenticator.authenticate('user-pass', request, {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    throwOnError: true,
+    context,
+  });
   console.log(result);
 
-  return null;
+  return result;
 };
 
 export default function Login() {
+  const { error } = useLoaderData<typeof loader>();
+  console.log(error);
   return (
     <div className="flex items-center justify-center min-h-screen">
       <Form method="post">

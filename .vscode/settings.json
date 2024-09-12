@@ -1,7 +1,14 @@
 {
+  "eslint.useFlatConfig": true,
   "eslint.workingDirectories": [
     {
-      "mode": "auto"
+      "pattern": "./packages/*/"
+    },
+    {
+      "pattern": "./apps/*/"
+    },
+    {
+      "pattern": "./tooling/*/"
     }
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
