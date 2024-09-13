@@ -17,11 +17,11 @@ import { Label } from '@sscan/shared/ui/label'
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   console.log('SESSION_SECRET', import.meta.env.SESSION_SECRET)
   console.log('VITE_SESSION_SECRET', import.meta.env.VITE_SESSION_SECRET)
-  await authenticator.isAuthenticated(request, {
-    successRedirect: '/',
-  })
+  const clonedRequest = request.clone()
+  const isAuthenticated = await authenticator.isAuthenticated(request)
+  console.log('isAuthenticated', isAuthenticated)
 
-  const session = await sessionStorage.getSession(request.headers.get('Cookie'))
+  const session = await sessionStorage.getSession(clonedRequest.headers.get('Cookie'))
 
   const error = session.get('sessionErrorKey')
   return { error }

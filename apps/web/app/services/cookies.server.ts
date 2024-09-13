@@ -9,7 +9,7 @@ export const authRedirectCookie = () => {
     httpOnly: true,
     expires: new Date(Date.now() + 60_000),
     maxAge: 60,
-    secrets: [import.meta.env.SESSION_SECRET],
+    secrets: [import.meta.env.VITE_SESSION_SECRET],
     secure: import.meta.env.NODE_ENV === 'production',
   })
 }

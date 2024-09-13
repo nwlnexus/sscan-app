@@ -78,5 +78,5 @@ const authenticator = new Authenticator<Profile | null>(sessionStorage, {
 })
 authenticator.use(strategy, 'user-pass')
 
-export { verifyPassword, hashPassword }
+export { authenticator, verifyPassword, hashPassword }
 export default authenticator
