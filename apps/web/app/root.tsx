@@ -40,7 +40,7 @@ export default function App() {
   return <Outlet />
 }
 
-// export function ErrorBoundary({ error }: { error: Error }) {
-//   console.error(error)
-//   return <div>An error occurred: {JSON.stringify(error, null, 2)}</div>
-// }
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error)
+  return <div>An error occurred: {JSON.stringify(error, null, 2)}</div>
+}

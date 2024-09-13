@@ -1,6 +1,5 @@
-import { Navbar } from '@components/Navbar'
-import { type MetaFunction } from '@remix-run/cloudflare'
-import { Outlet, Link as RemixLink } from '@remix-run/react'
+import { type LoaderFunctionArgs, type MetaFunction } from '@remix-run/cloudflare'
+import { useLoaderData, Outlet, Link as RemixLink } from '@remix-run/react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,12 +10,23 @@ import {
 } from '@sscan/shared/ui/breadcrumb'
 import { Input } from '@sscan/shared/ui/input'
 import { Search } from 'lucide-react'
+import { Navbar } from '@/components/Navbar'
+import { authenticator } from '@/services/auth.server'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'SSCAN | App' }]
 }
 
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  await authenticator.isAuthenticated(request, {
+    failureRedirect: '/login',
+  })
+  return { message: 'You are logged in!' }
+}
+
 export default function AppLayout() {
+  const { message } = useLoaderData<typeof loader>()
+  console.log(message)
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">

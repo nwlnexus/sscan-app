@@ -11,15 +11,15 @@
   "compilerOptions": {
     "types": ["@remix-run/cloudflare", "vite/client", "@cloudflare/workers-types/experimental"],
     "paths": {
-      "@css/*": ["./app/css/*"],
-      "@config/*": ["./app/config/*"],
-      "@context/*": ["./app/context/*"],
-      "@components": ["./app/components/index.ts"],
-      "@components/*": ["./app/components/*"],
-      "@hooks/*": ["./app/hooks/*"],
-      "@services/*": ["./app/services/*"],
-      "@assets/*": ["./app/assets/*"],
-      "@utils/*": ["./app/utils/*"]
+      "@/css/*": ["./app/css/*"],
+      "@/config/*": ["./app/config/*"],
+      "@/context/*": ["./app/context/*"],
+      "@/components": ["./app/components/index.ts"],
+      "@/components/*": ["./app/components/*"],
+      "@/hooks/*": ["./app/hooks/*"],
+      "@/services/*": ["./app/services/*"],
+      "@/assets/*": ["./app/assets/*"],
+      "@/utils/*": ["./app/utils/*"]
     }
   }
 }
