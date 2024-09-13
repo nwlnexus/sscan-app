@@ -1,12 +1,10 @@
+import { type AppLoadContext } from '@remix-run/cloudflare'
 import { getDB } from '@services/db.server'
 import { sessionStorage } from '@services/session.server'
-
-// prettier-ignore
-import { profile, type Profile } from '@sscan/db/schema';
-
+import { profile as dbProfile, type Profile } from '@sscan/db/schema'
 import { eq } from 'drizzle-orm'
 import { Authenticator } from 'remix-auth'
-import { FormStrategy } from 'remix-auth-form'
+import { Auth0Strategy } from 'remix-auth-auth0'
 
 // Add these utility functions for password hashing
 const hashPassword = async (password: string): Promise<string> => {
@@ -43,40 +41,34 @@ const verifyPassword = async (storedHash: string, password: string): Promise<boo
   return computedHashHex === hashHex
 }
 
-const strategy = new FormStrategy(async ({ context, request }) => {
+const getAuthenticator = async ({ context }: { context: AppLoadContext }) => {
   const db = getDB(context.cloudflare.env)
-  const formData = await request.formData()
-  const email = formData.get('email')
-  const password = formData.get('password')
+  const auth0strategy = new Auth0Strategy(
+    {
+      domain: 'dev-235323.auth0.com',
+      clientID: '235323',
+      clientSecret: '235323',
+      callbackURL: 'http://localhost:8000/auth/auth0/callback',
+    },
+    async ({ accessToken, refreshToken, extraParams, profile }) => {
+      if (!profile || !profile.emails || profile.emails.length <= 0) return null
 
-  if (
-    typeof email !== 'string' ||
-    !email ||
-    email.length === 0 ||
-    typeof password !== 'string' ||
-    !password ||
-    password.length === 0
-  ) {
-    return null
-  }
+      const entry = profile.emails[0]
+      if (!entry) return null
 
-  const dbUser = await db.query.profile.findFirst({
-    where: eq(profile.email, email),
-  })
+      const dbUser = await db.query.profile.findFirst({
+        where: eq(dbProfile.email, entry.value),
+      })
 
-  if (!dbUser || !dbUser.passwordHash) return null
+      if (!dbUser) return null
 
-  // Verify the password
-  const isPasswordValid = await verifyPassword(dbUser.passwordHash, password)
-  if (!isPasswordValid) return null
+      return dbUser
+    },
+  )
+  const authenticator = new Authenticator<Profile | null>(sessionStorage)
+  authenticator.use(auth0strategy)
+  return authenticator
+}
 
-  return dbUser
-})
-const authenticator = new Authenticator<Profile | null>(sessionStorage, {
-  sessionKey: 'sessionKey', // keep in sync
-  sessionErrorKey: 'sessionErrorKey', // keep in sync
-})
-authenticator.use(strategy, 'user-pass')
-
-export { authenticator, verifyPassword, hashPassword }
-export default authenticator
+export { getAuthenticator, verifyPassword, hashPassword }
+export default getAuthenticator
