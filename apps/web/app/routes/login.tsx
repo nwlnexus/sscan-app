@@ -1,4 +1,5 @@
-import { Form } from '@remix-run/react'
+import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { Form, redirect } from '@remix-run/react'
 import { Button, type ButtonProps } from '@sscan/shared/ui/button'
 import {
   Card,
@@ -10,8 +11,19 @@ import {
 } from '@sscan/shared/ui/card'
 import { Input } from '@sscan/shared/ui/input'
 import { Label } from '@sscan/shared/ui/label'
-import { type AuthStrategy } from '@/services/auth.server'
+import { getAuthenticator, type AuthStrategy } from '@/services/auth.server'
 import { AuthStrategies } from '@/services/auth_strategies'
+
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+  const authenticator = await getAuthenticator({ context })
+  const profile = await authenticator.isAuthenticated(request)
+
+  if (profile) {
+    return redirect('/dashboard')
+  }
+
+  return { profile }
+}
 
 interface SocialButtonProps extends ButtonProps {
   provider: AuthStrategy
@@ -45,6 +57,7 @@ export default function LoginRoute() {
                   <Input
                     id="email"
                     type="email"
+                    name="email"
                     placeholder="me@example.com"
                     required={true}
                     className="rounded border p-2"
@@ -55,6 +68,7 @@ export default function LoginRoute() {
                   <Input
                     id="password"
                     type="password"
+                    name="password"
                     required={true}
                     className="rounded border p-2"
                   />

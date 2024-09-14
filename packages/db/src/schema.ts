@@ -9,7 +9,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { type z } from 'zod'
+import { z } from 'zod'
 
 export const profile = pgTable(
   'profile',
@@ -76,3 +76,8 @@ export type Account = z.infer<typeof accountSelectSchema>
 export const accountRelations = relations(account, ({ many }) => ({
   profiles: many(profileToAccount),
 }))
+
+export const profileWithAccountsSchema = profileSelectSchema.extend({
+  accounts: z.array(accountSelectSchema).nullable(),
+})
+export type ProfileWithAccounts = z.infer<typeof profileWithAccountsSchema>

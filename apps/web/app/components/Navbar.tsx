@@ -1,8 +1,10 @@
-import { Link as RemixLink } from '@remix-run/react'
+import { Link as RemixLink, useLoaderData } from '@remix-run/react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/shared/ui/tooltip'
 import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react'
+import { type AppLoaderData } from '../routes/_app'
 
-export function Navbar() {
+export const Navbar = () => {
+  const { profile } = useLoaderData<AppLoaderData>()
   return (
     <TooltipProvider>
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -74,20 +76,22 @@ export function Navbar() {
           <TooltipContent side="right">Analytics</TooltipContent>
         </Tooltip>
       </nav>
-      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RemixLink
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Settings className="h-5 w-5" />
-              <span className="sr-only">Settings</span>
-            </RemixLink>
-          </TooltipTrigger>
-          <TooltipContent side="right">Settings</TooltipContent>
-        </Tooltip>
-      </nav>
+      {profile.isAdmin && (
+        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <RemixLink
+                to="/admin"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Settings className="h-5 w-5" />
+                <span className="sr-only">Admin settings</span>
+              </RemixLink>
+            </TooltipTrigger>
+            <TooltipContent side="right">Admin settings</TooltipContent>
+          </Tooltip>
+        </nav>
+      )}
     </TooltipProvider>
   )
 }

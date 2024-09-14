@@ -1,32 +1,26 @@
 import { type LoaderFunctionArgs, type MetaFunction } from '@remix-run/cloudflare'
-import { useLoaderData, Outlet, Link as RemixLink } from '@remix-run/react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@sscan/shared/ui/breadcrumb'
-import { Input } from '@sscan/shared/ui/input'
-import { Search } from 'lucide-react'
+import { Outlet } from '@remix-run/react'
+import { BreadcrumbDisplay } from '@/components/Breadcrumb'
+import { MobileNav } from '@/components/MobileNav'
 import { Navbar } from '@/components/Navbar'
-import { authenticator } from '@/services/auth.server'
+import { Search } from '@/components/Search'
+import { UserMenu } from '@/components/UserMenu'
+import { getAuthenticator } from '@/services/auth.server'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'SSCAN | App' }]
 }
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await authenticator.isAuthenticated(request, {
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+  const authenticator = await getAuthenticator({ context })
+  const profile = await authenticator.isAuthenticated(request, {
     failureRedirect: '/login',
   })
-  return { message: 'You are logged in!' }
+  return { profile }
 }
+export type AppLoaderData = typeof loader
 
 export default function AppLayout() {
-  const { message } = useLoaderData<typeof loader>()
-  console.log(message)
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -34,34 +28,12 @@ export default function AppLayout() {
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="h-18 sticky top-0 z-30 flex items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          {/* <MobileNav /> */}
-          <Breadcrumb className="hidden md:flex">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <RemixLink to="#">Dashboard</RemixLink>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <RemixLink to="#">Products</RemixLink>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>All Products</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <MobileNav />
+          <BreadcrumbDisplay />
           <div className="relative ml-auto flex-1 md:grow-0">
-            <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
-            />
+            <Search />
           </div>
+          <UserMenu />
         </header>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Outlet />

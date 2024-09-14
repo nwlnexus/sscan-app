@@ -8,11 +8,7 @@
     "build": {
       "dependsOn": ["^build"],
       "env": ["API_URL"],
-      "outputs": [
-        ".svelte-kit/**",
-        "dist/**",
-        "build/**"
-      ]
+      "outputs": [".svelte-kit/**", "dist/**", "build/**"]
     },
     "dev": {
       "persistent": true,
@@ -72,10 +68,6 @@
       "cache": false,
       "interactive": true,
       "env": ["DATABASE_URL"]
-    },
-    "ui-add": {
-      "cache": false,
-      "interactive": true
     }
   },
   "globalEnv": [
@@ -87,9 +79,5 @@
     "API_URL",
     "PORT"
   ],
-  "globalPassThroughEnv": [
-    "NODE_ENV",
-    "CI",
-    "npm_lifecycle_event"
-  ]
+  "globalPassThroughEnv": ["NODE_ENV", "CI", "npm_lifecycle_event"]
 }

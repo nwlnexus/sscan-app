@@ -1,6 +1,7 @@
-import { type ActionFunctionArgs } from '@remix-run/cloudflare'
-import { authenticator } from '@/services/auth.server'
+import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { getAuthenticator } from '@/services/auth.server'
 
-export const action = async ({ request }: ActionFunctionArgs) => {
-  await authenticator.logout(request, { redirectTo: '/' })
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+  const authenticator = await getAuthenticator({ context })
+  return await authenticator.logout(request, { redirectTo: '/' })
 }

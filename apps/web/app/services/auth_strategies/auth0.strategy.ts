@@ -1,11 +1,11 @@
 // Refer to https://github.com/danestves/remix-auth-auth0 for more information
 import { type AppLoadContext } from '@remix-run/cloudflare'
-import { type Profile } from '@sscan/db/schema'
+import { type ProfileWithAccounts } from '@sscan/db/schema'
 import { Auth0Strategy } from 'remix-auth-auth0'
 import { AuthStrategies } from '@/services/auth_strategies'
 
 export const auth0Strategy = (context: AppLoadContext) =>
-  new Auth0Strategy<Profile>(
+  new Auth0Strategy<ProfileWithAccounts>(
     {
       clientID: context.cloudflare.env.AUTH0_CLIENT_ID,
       clientSecret: context.cloudflare.env.AUTH0_CLIENT_SECRET,
