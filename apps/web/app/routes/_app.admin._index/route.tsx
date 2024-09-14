@@ -5,6 +5,6 @@ export const handle: RouteHandle = {
   breadcrumb: () => <span>Dashboard</span>,
 }
 
-export default function DashboardView() {
-  return <div>Hello World</div>
+export default function AdminDashboard() {
+  return <div>AdminDashboard</div>
 }

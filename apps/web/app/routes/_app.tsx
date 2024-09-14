@@ -1,6 +1,6 @@
 import { type LoaderFunctionArgs, type MetaFunction } from '@remix-run/cloudflare'
 import { Outlet } from '@remix-run/react'
-import { BreadcrumbDisplay } from '@/components/Breadcrumb'
+import { HeaderDisplay } from '@/components/HeaderDisplay'
 import { MobileNav } from '@/components/MobileNav'
 import { Navbar } from '@/components/Navbar'
 import { Search } from '@/components/Search'
@@ -29,7 +29,7 @@ export default function AppLayout() {
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="h-18 sticky top-0 z-30 flex items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <MobileNav />
-          <BreadcrumbDisplay />
+          <HeaderDisplay />
           <div className="relative ml-auto flex-1 md:grow-0">
             <Search />
           </div>

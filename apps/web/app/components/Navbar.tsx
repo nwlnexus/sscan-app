@@ -1,6 +1,14 @@
 import { Link as RemixLink, useLoaderData } from '@remix-run/react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/shared/ui/tooltip'
-import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react'
+import {
+  Home,
+  LineChart,
+  Package,
+  Package2,
+  ShieldEllipsis,
+  ShoppingCart,
+  Users2,
+} from 'lucide-react'
 import { type AppLoaderData } from '../routes/_app'
 
 export const Navbar = () => {
@@ -84,7 +92,7 @@ export const Navbar = () => {
                 to="/admin"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
-                <Settings className="h-5 w-5" />
+                <ShieldEllipsis className="h-5 w-5" />
                 <span className="sr-only">Admin settings</span>
               </RemixLink>
             </TooltipTrigger>

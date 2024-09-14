@@ -10,8 +10,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@sscan/shared/ui/dropdown-menu'
-import { LogOut, Settings, UserIcon } from 'lucide-react'
+import { CircleHelp, LogOut, Settings, UserIcon } from 'lucide-react'
 import { type AppLoaderData } from '../routes/_app'
+
+const UserMenuItems = [
+  {
+    icon: Settings,
+    label: 'Preferences',
+    href: '/settings',
+  },
+  {
+    icon: CircleHelp,
+    label: 'Support',
+    href: '/support',
+  },
+]
 
 export const UserMenu = () => {
   const { profile } = useLoaderData<AppLoaderData>()
@@ -28,29 +41,36 @@ export const UserMenu = () => {
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56 space-y-2 rounded border p-2">
+        <DropdownMenuContent
+          align="end"
+          className="z-50 w-56 min-w-[8rem] space-y-2 overflow-hidden rounded border bg-popover p-2 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+        >
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex flex-col items-start">
+          <DropdownMenuSeparator className="-mx-1 bg-muted" />
+          <DropdownMenuItem className="data-[disabled]:opacity-50flex relative flex cursor-default select-none flex-col items-start items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none">
             <span>{profile.displayName}</span>
             <span className="text-muted-foreground">{profile.email}</span>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="-mx-1 bg-muted" />
           <DropdownMenuGroup>
-            <DropdownMenuItem className="">
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
+            {UserMenuItems.map((item) => (
+              <DropdownMenuItem
+                key={item.label}
+                className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+              >
+                <RemixLink to={item.href} className="flex flex-row items-center">
+                  <item.icon className="mr-2 h-4 w-4" />
+                  <span>{item.label}</span>
+                </RemixLink>
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <Button asChild variant="ghost">
-              <RemixLink to="/logout" className="flex flex-row items-center gap-2">
-                <LogOut className="h-4 w-4" />
-                Logout
-              </RemixLink>
-            </Button>
+          <DropdownMenuSeparator className="-mx-1 bg-muted" />
+          <DropdownMenuItem className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+            <RemixLink to="/logout" className="flex flex-row items-center">
+              <LogOut className="mr-2 h-4 w-4" />
+              Logout
+            </RemixLink>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

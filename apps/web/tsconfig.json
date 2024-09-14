@@ -19,7 +19,9 @@
       "@/hooks/*": ["./app/hooks/*"],
       "@/services/*": ["./app/services/*"],
       "@/assets/*": ["./app/assets/*"],
-      "@/utils/*": ["./app/utils/*"]
+      "@/utils/*": ["./app/utils/*"],
+      "@/types": ["./app/types/index.ts"],
+      "@/types/*": ["./app/types/*"]
     }
   }
 }
