@@ -17,7 +17,7 @@
       "@/components": ["./app/components/index.ts"],
       "@/components/*": ["./app/components/*"],
       "@/ui/*": ["./app/components/ui/*"],
-      "@/hooks/*": ["../../packages/shared/src/hooks/*"],
+      "@/hooks/*": ["./app/hooks/*"],
       "@/services/*": ["./app/services/*"],
       "@/assets/*": ["./app/assets/*"],
       "@/utils": ["./app/utils/index.ts"],

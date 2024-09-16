@@ -1,6 +1,8 @@
 import { Link as RemixLink, useLoaderData } from '@remix-run/react'
-import { Avatar, AvatarImage, AvatarFallback } from '@sscan/shared/ui/avatar'
-import { Button } from '@sscan/shared/ui/button'
+import { LogOut, UserIcon } from 'lucide-react'
+import { type AppLoaderData } from '../routes/_app'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,10 +11,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@sscan/shared/ui/dropdown-menu'
-import { LogOut, UserIcon } from 'lucide-react'
-import { UserMenuItems } from '../constants'
-import { type AppLoaderData } from '../routes/_app'
+} from '@/components/ui/dropdown-menu'
+import { UserMenuItems } from '@/constants'
 
 export const UserMenu = () => {
   const { profile } = useLoaderData<AppLoaderData>()

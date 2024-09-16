@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
   useRouteError,
 } from '@remix-run/react'
-import '@sscan/shared/styles/global.css'
+import '@/css/global.css'
 import { ThemeProvider } from 'next-themes'
 
 export function Layout({ children }: { children: React.ReactNode }) {

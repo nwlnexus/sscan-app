@@ -1,8 +1,8 @@
 import { Link as RemixLink } from '@remix-run/react'
-import { Button } from '@sscan/shared/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@sscan/shared/ui/card'
-import { Input } from '@sscan/shared/ui/input'
 import { ArrowRight, CheckCircle, Star } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 
 export default function LandingPage() {
   return (
