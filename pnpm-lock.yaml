@@ -52,9 +52,6 @@ importers:
       '@remix-run/serve':
         specifier: ^2.12.0
         version: 2.12.0(typescript@5.6.2)
-      '@sscan/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
       '@tauri-apps/plugin-deep-link':
         specifier: ^2.0.0-rc.2
         version: 2.0.0-rc.2
@@ -134,9 +131,9 @@ importers:
       '@sscan/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@sscan/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       drizzle-orm:
         specifier: ^0.33.0
         version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.3.5)(react@18.3.1)
@@ -167,6 +164,12 @@ importers:
       remix-auth-google:
         specifier: ^2.0.0
         version: 2.0.0(@remix-run/server-runtime@2.12.0(typescript@5.6.2))(remix-auth@3.7.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/server-runtime@2.12.0(typescript@5.6.2)))
+      tailwind-merge:
+        specifier: ^2.5.2
+        version: 2.5.2
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.11(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2)))
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240903.0
@@ -274,18 +277,27 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.45)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      postcss:
+        specifier: ^8.4.45
+        version: 8.4.45
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
       tailwind-variants:
         specifier: ^0.2.1
         version: 0.2.1(tailwindcss@3.4.11(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2)))
+      tailwindcss:
+        specifier: ^3.4.11
+        version: 3.4.11(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.11(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2)))
@@ -293,9 +305,6 @@ importers:
       '@repo/tailwind':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      tailwindcss:
-        specifier: ^3.4.11
-        version: 3.4.11(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))
 
   tooling/tailwind:
     dependencies:

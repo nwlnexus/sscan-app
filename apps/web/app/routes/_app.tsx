@@ -5,17 +5,14 @@ import { MobileNav } from '@/components/MobileNav'
 import { Navbar } from '@/components/Navbar'
 import { Search } from '@/components/Search'
 import { UserMenu } from '@/components/UserMenu'
-import { getAuthenticator } from '@/services/auth.server'
+import { appAuthGuard } from '@/services/auth.server'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'SSCAN | App' }]
 }
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-  const authenticator = await getAuthenticator({ context })
-  const profile = await authenticator.isAuthenticated(request, {
-    failureRedirect: '/login',
-  })
+  const profile = await appAuthGuard({ context, request })
   return { profile }
 }
 export type AppLoaderData = typeof loader

@@ -15,7 +15,10 @@
     "typecheck": "tsc",
     "typegen": "wrangler types && prettier --write --list-different ./worker-configuration.d.ts",
     "preview": "pnpm run build && wrangler pages dev",
-    "cf-typegen": "wrangler types && prettier --write --list-different ./worker-configuration.d.ts"
+    "cf-typegen": "wrangler types && prettier --write --list-different ./worker-configuration.d.ts",
+    "ui-add": "pnpm dlx shadcn@latest add",
+    "ui-update": "pnpm dlx shadcn-ui@latest update",
+    "ui-check": "pnpm dlx shadcn-ui@latest check"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.5",
@@ -23,7 +26,7 @@
     "@remix-run/cloudflare-pages": "^2.12.0",
     "@remix-run/react": "^2.12.0",
     "@sscan/db": "workspace:*",
-    "@sscan/shared": "workspace:*",
+    "clsx": "^2.1.1",
     "drizzle-orm": "^0.33.0",
     "isbot": "^5.1.17",
     "lucide-react": "^0.439.0",
@@ -33,7 +36,9 @@
     "remix-auth": "^3.7.0",
     "remix-auth-auth0": "^1.10.0",
     "remix-auth-form": "^1.5.0",
-    "remix-auth-google": "^2.0.0"
+    "remix-auth-google": "^2.0.0",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240903.0",

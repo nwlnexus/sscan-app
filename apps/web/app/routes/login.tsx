@@ -1,5 +1,5 @@
 import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { Form, redirect } from '@remix-run/react'
+import { Form, useSearchParams } from '@remix-run/react'
 import { Button, type ButtonProps } from '@sscan/shared/ui/button'
 import {
   Card,
@@ -11,16 +11,11 @@ import {
 } from '@sscan/shared/ui/card'
 import { Input } from '@sscan/shared/ui/input'
 import { Label } from '@sscan/shared/ui/label'
-import { getAuthenticator, type AuthStrategy } from '@/services/auth.server'
+import { appAuthGuard, type AuthStrategy } from '@/services/auth.server'
 import { AuthStrategies } from '@/services/auth_strategies'
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-  const authenticator = await getAuthenticator({ context })
-  const profile = await authenticator.isAuthenticated(request)
-
-  if (profile) {
-    return redirect('/dashboard')
-  }
+  const profile = await appAuthGuard({ context, request })
 
   return { profile }
 }
@@ -28,10 +23,11 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 interface SocialButtonProps extends ButtonProps {
   provider: AuthStrategy
   label: string
+  redirectTo: string
 }
 
-const SocialButton = ({ provider, label, ...props }: SocialButtonProps) => (
-  <Form action={`/auth/${provider}`} method="post">
+const SocialButton = ({ provider, label, redirectTo, ...props }: SocialButtonProps) => (
+  <Form action={`/auth/${provider}?redirectTo=${redirectTo}`} method="post" className="w-full">
     <Button className="w-full rounded" {...props}>
       {label}
     </Button>
@@ -39,18 +35,24 @@ const SocialButton = ({ provider, label, ...props }: SocialButtonProps) => (
 )
 
 export default function LoginRoute() {
+  const [searchParams] = useSearchParams()
+  const redirectTo =
+    searchParams.get('redirectTo') ||
+    btoa('/dashboard').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+
   return (
     <>
       <div className="flex min-h-screen items-center justify-center">
-        <Card className="w-full max-w-sm bg-muted/40 p-4">
-          <CardHeader className="mb-4 space-y-2">
+        <Card>
+          <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>
             <CardDescription className="text-sm">
               Enter your credentials to login to your account.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Form action="/auth/form" method="post">
+            <Form action={`/auth/${AuthStrategies.FORM}?redirectTo=${redirectTo}`} method="post">
+              <input type="hidden" name="redirectTo" value={redirectTo} />
               <div className="grid gap-2">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
@@ -79,9 +81,19 @@ export default function LoginRoute() {
               </div>
             </Form>
           </CardContent>
-          <CardFooter className="flex flex-col justify-between gap-2 border-t pt-4">
-            <SocialButton provider={AuthStrategies.GOOGLE} label="Login with Google" disabled />
-            <SocialButton provider={AuthStrategies.AUTH0} label="Login with Auth0" disabled />
+          <CardFooter className="flex w-full flex-col space-y-2">
+            <SocialButton
+              provider={AuthStrategies.GOOGLE}
+              label="Login with Google"
+              redirectTo={redirectTo}
+              disabled
+            />
+            <SocialButton
+              provider={AuthStrategies.AUTH0}
+              label="Login with Auth0"
+              redirectTo={redirectTo}
+              disabled
+            />
           </CardFooter>
         </Card>
       </div>

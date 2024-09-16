@@ -2,6 +2,6 @@ import baseConfig from '@repo/tailwind/web'
 import { type Config } from 'tailwindcss'
 
 export default {
-  content: [...baseConfig.content, './src/**/*.tsx'],
+  content: ['./src/**/*.tsx', 'node_modules/@sscan/shared/**/*.tsx'],
   presets: [baseConfig],
 } satisfies Config

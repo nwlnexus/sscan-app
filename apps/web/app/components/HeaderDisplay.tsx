@@ -1,4 +1,5 @@
 import { Link as RemixLink, useLocation, useMatches } from '@remix-run/react'
+import { House } from 'lucide-react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,9 +7,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@sscan/shared/ui/breadcrumb'
-import { House } from 'lucide-react'
-import { type RouteMatch } from '../types'
+} from '@/components/ui/breadcrumb'
+import { type RouteMatch } from '@/types'
 
 export const HeaderDisplay = () => {
   const { pathname } = useLocation()

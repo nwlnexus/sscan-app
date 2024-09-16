@@ -1,4 +1,4 @@
-import baseConfig from '@nwlnexus/config/eslint'
+import eslintConfig from '@nwlnexus/config/eslint'
 
 /** @type {import('eslint').Linter.Config[]} */
-export default baseConfig
+export default [...eslintConfig]

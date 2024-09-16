@@ -1,14 +1,24 @@
 {
   "extends": ["@nwlnexus/config/typescript"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
+  ],
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "ES2022"],
     "jsx": "preserve",
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
     "paths": {
-      "@/": ["./src"],
-      "@/*": ["./src/*"]
+      "@/lib/*": ["./src/lib/*"],
+      "@/ui/*": ["./src/ui/*"],
+      "@/components/*": ["./src/components/"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/utils": ["./src/utils/index.ts"],
+      "@/utils/*": ["./src/utils/*"],
     }
-  },
-  "include": ["*.ts", "src"],
-  "exclude": ["node_modules"]
+  }
 }
