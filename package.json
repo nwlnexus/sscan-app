@@ -24,7 +24,7 @@
     "lint": "turbo run lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
     "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
     "typecheck": "turbo run typecheck",
-    "ui-add": "pnpm --filter @sscan/web,@sscan/desktop ui-add"
+    "ui-add": "pnpm --filter \"@sscan/web,@sscan/desktop\" ui-add"
   },
   "keywords": [
     "sscan"

@@ -2,6 +2,7 @@ import { type LoaderFunctionArgs, type MetaFunction } from '@remix-run/cloudflar
 import { Outlet } from '@remix-run/react'
 import { HeaderDisplay } from '@/components/HeaderDisplay'
 import { MobileNav } from '@/components/MobileNav'
+import { ModeSwitcher } from '@/components/ModeSwitcher'
 import { Navbar } from '@/components/Navbar'
 import { Search } from '@/components/Search'
 import { UserMenu } from '@/components/UserMenu'
@@ -30,6 +31,7 @@ export default function AppLayout() {
           <div className="relative ml-auto flex-1 md:grow-0">
             <Search />
           </div>
+          <ModeSwitcher />
           <UserMenu />
         </header>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
