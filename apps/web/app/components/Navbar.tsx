@@ -40,7 +40,7 @@ export const Navbar = () => {
                 to="/admin"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
-                <ShieldEllipsis className="h-5 w-5" />
+                <ShieldEllipsis className="h-5 w-5" color="orange" />
                 <span className="sr-only">Admin settings</span>
               </RemixLink>
             </TooltipTrigger>

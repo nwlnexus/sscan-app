@@ -29,7 +29,7 @@ export const UserMenu = () => {
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="bg-background">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex flex-col items-start">
