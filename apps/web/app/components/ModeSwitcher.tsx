@@ -1,13 +1,13 @@
+import { MoonIcon, SunIcon } from 'lucide-react'
+import { useTheme } from 'next-themes'
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@radix-ui/react-dropdown-menu'
-import { MoonIcon, SunIcon } from 'lucide-react'
-import { useTheme } from 'next-themes'
-import { useState, useEffect } from 'react'
-import { Button } from './ui/button'
+} from '@/components/ui/dropdown-menu'
 
 export const ModeSwitcher = () => {
   const [mounted, setMounted] = useState(false)
