@@ -1,6 +1,7 @@
 import { relations } from 'drizzle-orm'
 import {
   boolean,
+  integer,
   pgTable,
   primaryKey,
   timestamp,
@@ -81,3 +82,24 @@ export const profileWithAccountsSchema = profileSelectSchema.extend({
   accounts: z.array(accountSelectSchema).nullable(),
 })
 export type ProfileWithAccounts = z.infer<typeof profileWithAccountsSchema>
+
+export const record = pgTable('record', {
+  id: uuid('id').notNull().primaryKey().defaultRandom(),
+  accountId: uuid('account_id').references(() => account.id, { onDelete: 'set null' }),
+  upc: varchar('upc', { length: 12 }).notNull(),
+  realCount: integer('real_count').notNull(),
+  reportedCount: integer('reported_count').notNull(),
+  artist: varchar('artist', { length: 255 }),
+  title: varchar('title', { length: 255 }),
+  createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow(),
+})
+export const recordSelectSchema = createSelectSchema(record)
+export const recordInsertSchema = createInsertSchema(record)
+export type Record = z.infer<typeof recordSelectSchema>
+
+export const recordRelations = relations(record, ({ one }) => ({
+  account: one(account, {
+    fields: [record.accountId],
+    references: [account.id],
+  }),
+}))

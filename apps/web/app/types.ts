@@ -19,4 +19,4 @@ export type MenuItem = {
   href: string
 }
 
-export type AuthProfile = Profile | null
+export type AuthProfile = Omit<Profile, 'passwordHash'> | null

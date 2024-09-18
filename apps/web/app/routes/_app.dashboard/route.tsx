@@ -1,10 +1,15 @@
 import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { useLoaderData } from '@remix-run/react'
+import { account, profile as profileSchema, record } from '@sscan/db/schema'
+import { count, countDistinct } from 'drizzle-orm'
 import { type icons } from 'lucide-react'
 import { type PropsWithChildren } from 'react'
 import Icon from '@/components/Icon'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { appAuthGuard } from '@/services/auth.server'
+import { getDB } from '@/services/db.server'
 import { type RouteHandle } from '@/types'
+import { cn } from '@/utils'
 
 export const handle: RouteHandle = {
   title: 'Dashboard',
@@ -12,24 +17,29 @@ export const handle: RouteHandle = {
 }
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-  await appAuthGuard({ context, request })
-  return null
+  const profile = await appAuthGuard({ context, request })
+
+  const db = getDB(context.cloudflare.env)
+  const acctsCount = await db.select({ count: count(account.id) }).from(account)
+  const profilesCount = await db.select({ count: count(profileSchema.id) }).from(profileSchema)
+  const recordsCount = await db.select({ count: countDistinct(record.upc) }).from(record)
+
+  return { acctsCount, profilesCount, recordsCount }
 }
 
 export default function DashboardView() {
+  const { acctsCount, profilesCount, recordsCount } = useLoaderData<typeof loader>()
+
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-        <DashCard title="Total Users" icon="User">
+      <div className={cn('grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3')}>
+        <DashCard title="Records processed" icon="Disc3">
           <div className="text-2xl font-bold">100</div>
         </DashCard>
-        <DashCard title="Total Users">
+        <DashCard title="Artists" icon="MicVocal">
           <div className="text-2xl font-bold">100</div>
         </DashCard>
-        <DashCard title="Total Users">
-          <div className="text-2xl font-bold">100</div>
-        </DashCard>
-        <DashCard title="Total Users">
+        <DashCard title="Counts" icon="FileDigit">
           <div className="text-2xl font-bold">100</div>
         </DashCard>
       </div>

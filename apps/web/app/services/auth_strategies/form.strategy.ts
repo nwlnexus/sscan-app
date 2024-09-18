@@ -1,5 +1,5 @@
 // Refer to https://github.com/sergiodxa/remix-auth-form for more information
-import { profile as dbProfile } from '@sscan/db/schema'
+import { profile as dbProfile, profileSelectSchema } from '@sscan/db/schema'
 import { eq } from 'drizzle-orm'
 import { FormStrategy } from 'remix-auth-form'
 import { getDb } from '@/services/db.server'
@@ -23,6 +23,6 @@ export const formStrategy = new FormStrategy<AuthProfile>(async ({ form, context
   const passwordMatch = await verifyPassword(profile.passwordHash, password)
 
   if (!passwordMatch) return null
-
-  return profile
+  const appProfile = profileSelectSchema.omit({ passwordHash: true }).parse(profile)
+  return appProfile
 })
