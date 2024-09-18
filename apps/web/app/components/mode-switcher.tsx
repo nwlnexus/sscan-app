@@ -1,6 +1,6 @@
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
-import Icon from '@/components/Icon'
+import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,

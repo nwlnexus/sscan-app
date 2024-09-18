@@ -40,6 +40,7 @@
     "@remix-run/cloudflare-pages": "^2.12.0",
     "@remix-run/react": "^2.12.0",
     "@sscan/db": "workspace:*",
+    "@tanstack/react-table": "^8.20.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.33.0",

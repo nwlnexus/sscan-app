@@ -1,10 +1,10 @@
 import { type LoaderFunctionArgs, type MetaFunction } from '@remix-run/cloudflare'
 import { Outlet } from '@remix-run/react'
-import { HeaderDisplay } from '@/components/HeaderDisplay'
-import { MobileNav } from '@/components/MobileNav'
-import { Navbar } from '@/components/Navbar'
-import { Search } from '@/components/Search'
-import { UserMenu } from '@/components/UserMenu'
+import { HeaderDisplay } from '@/components/header-display'
+import { MobileNav } from '@/components/mobile-nav'
+import { Navbar } from '@/components/navbar'
+import { Search } from '@/components/search'
+import { UserMenu } from '@/components/user-menu'
 import { appAuthGuard } from '@/services/auth.server'
 
 export const meta: MetaFunction = () => {

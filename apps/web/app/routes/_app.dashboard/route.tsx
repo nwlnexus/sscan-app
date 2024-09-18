@@ -1,11 +1,11 @@
 import { invariantResponse } from '@epic-web/invariant'
 import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
-import { account, profile as profileSchema, record } from '@sscan/db/schema'
-import { count, countDistinct, eq } from 'drizzle-orm'
+import { profile as profileSchema, record } from '@sscan/db/schema'
+import { eq } from 'drizzle-orm'
 import { type icons } from 'lucide-react'
 import { type PropsWithChildren } from 'react'
-import Icon from '@/components/Icon'
+import Icon from '@/components/icon'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { appAuthGuard } from '@/services/auth.server'
@@ -35,17 +35,6 @@ export default function DashboardView() {
 
   return (
     <>
-      <div className={cn('grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3')}>
-        <DashCard title="Records processed" icon="Disc3">
-          <div className="text-2xl font-bold">100</div>
-        </DashCard>
-        <DashCard title="Artists" icon="MicVocal">
-          <div className="text-2xl font-bold">100</div>
-        </DashCard>
-        <DashCard title="Counts" icon="FileDigit">
-          <div className="text-2xl font-bold">100</div>
-        </DashCard>
-      </div>
       <section className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8">
         <Tabs defaultValue="all">
           <TabsList>
@@ -54,14 +43,13 @@ export default function DashboardView() {
             <TabsTrigger value="counts">Counts</TabsTrigger>
           </TabsList>
           <TabsContent value="all">
-            <Card>
-              <CardHeader>
-                <CardTitle>All</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">100</div>
-              </CardContent>
-            </Card>
+            <AllTabContent />
+          </TabsContent>
+          <TabsContent value="artists">
+            <ArtistsTabContent />
+          </TabsContent>
+          <TabsContent value="counts">
+            <CountsTabContent />
           </TabsContent>
         </Tabs>
       </section>
@@ -84,4 +72,25 @@ const DashCard = ({ title, icon, children }: PropsWithChildren<DashCardProps>) =
       <CardContent>{children}</CardContent>
     </Card>
   )
+}
+
+const AllTabContent = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>All</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold">100</div>
+      </CardContent>
+    </Card>
+  )
+}
+
+const ArtistsTabContent = () => {
+  return <div>Artists</div>
+}
+
+const CountsTabContent = () => {
+  return <div>Counts</div>
 }
