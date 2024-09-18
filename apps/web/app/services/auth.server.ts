@@ -35,7 +35,7 @@ export const appAuthGuard = async ({
 }: {
   context: AppLoadContext
   request: Request
-}): Promise<AuthProfile> => {
+}) => {
   const url = new URL(request.url)
   const authenticator = await getAuthenticator({ context })
   const redirectTo =

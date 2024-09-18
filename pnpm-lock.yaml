@@ -116,6 +116,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@epic-web/invariant':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@neondatabase/serverless':
         specifier: ^0.9.5
         version: 0.9.5
@@ -573,6 +576,9 @@ packages:
 
   '@epic-web/config@1.12.0':
     resolution: {integrity: sha512-hEwVh+GTp97mR8fURLQ/mmwNhvRl7OivCJBE/Gl6TSSxDYO4emyvjD5+sqLgbDQenHde96vqPyf6UsO7ForAOw==}
+
+  '@epic-web/invariant@1.0.0':
+    resolution: {integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==}
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
@@ -6531,6 +6537,8 @@ snapshots:
       - supports-color
       - typescript
       - vitest
+
+  '@epic-web/invariant@1.0.0': {}
 
   '@esbuild-kit/core-utils@3.3.2':
     dependencies:

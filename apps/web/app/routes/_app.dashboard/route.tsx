@@ -1,11 +1,13 @@
+import { invariantResponse } from '@epic-web/invariant'
 import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 import { account, profile as profileSchema, record } from '@sscan/db/schema'
-import { count, countDistinct } from 'drizzle-orm'
+import { count, countDistinct, eq } from 'drizzle-orm'
 import { type icons } from 'lucide-react'
 import { type PropsWithChildren } from 'react'
 import Icon from '@/components/Icon'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { appAuthGuard } from '@/services/auth.server'
 import { getDB } from '@/services/db.server'
 import { type RouteHandle } from '@/types'
@@ -18,17 +20,18 @@ export const handle: RouteHandle = {
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
   const profile = await appAuthGuard({ context, request })
+  invariantResponse(profile, 'Profile not found')
 
   const db = getDB(context.cloudflare.env)
-  const acctsCount = await db.select({ count: count(account.id) }).from(account)
-  const profilesCount = await db.select({ count: count(profileSchema.id) }).from(profileSchema)
-  const recordsCount = await db.select({ count: countDistinct(record.upc) }).from(record)
+  const recs = await db.query.record.findMany({
+    where: eq(record.accountId, profile.id),
+  })
 
-  return { acctsCount, profilesCount, recordsCount }
+  return { recs }
 }
 
 export default function DashboardView() {
-  const { acctsCount, profilesCount, recordsCount } = useLoaderData<typeof loader>()
+  const { recs } = useLoaderData<typeof loader>()
 
   return (
     <>
@@ -43,24 +46,25 @@ export default function DashboardView() {
           <div className="text-2xl font-bold">100</div>
         </DashCard>
       </div>
-      <div className="grid gap-4 md:gap-8 lg:grid-cols-2">
-        <Card className="bg-background">
-          <CardHeader>
-            <CardTitle>Total Users</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">100</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-background">
-          <CardHeader>
-            <CardTitle>Total Users</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">100</div>
-          </CardContent>
-        </Card>
-      </div>
+      <section className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8">
+        <Tabs defaultValue="all">
+          <TabsList>
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="artists">Artists</TabsTrigger>
+            <TabsTrigger value="counts">Counts</TabsTrigger>
+          </TabsList>
+          <TabsContent value="all">
+            <Card>
+              <CardHeader>
+                <CardTitle>All</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">100</div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </section>
     </>
   )
 }
@@ -72,7 +76,7 @@ type DashCardProps = {
 
 const DashCard = ({ title, icon, children }: PropsWithChildren<DashCardProps>) => {
   return (
-    <Card className="bg-background">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         {icon && <Icon name={icon} className="size-4 text-muted-foreground" />}
