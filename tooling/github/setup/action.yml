@@ -4,20 +4,20 @@ description: Setup the GitHub Actions environment
 runs:
   using: 'composite'
 
-steps:
-  - name: ⎔ Install pnpm
-    uses: pnpm/action-setup@v2
-    with:
-      version: 9
+  steps:
+    - name: ⎔ Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 9
 
-  - name: ⚙️ Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '22.x'
-      cache: 'pnpm'
+    - name: ⚙️ Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.x'
+        cache: 'pnpm'
 
-  - shell: ⚙️ Install turbo
-    run: pnpm add -g turbo
+    - shell: ⚙️ Install turbo
+      run: pnpm add -g turbo
 
-  - name: 📦 Install dependencies
-    run: pnpm install
+    - name: 📦 Install dependencies
+      run: pnpm install
