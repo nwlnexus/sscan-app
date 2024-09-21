@@ -16,7 +16,8 @@ runs:
         node-version: '22.x'
         cache: 'pnpm'
 
-    - shell: ⚙️ Install turbo
+    - name: ⚙️ Install turbo
+      shell: bash
       run: pnpm add -g turbo
 
     - name: 📦 Install dependencies
