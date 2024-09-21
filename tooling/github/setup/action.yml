@@ -21,4 +21,5 @@ runs:
       run: pnpm add -g turbo
 
     - name: 📦 Install dependencies
+      shell: bash
       run: pnpm install
