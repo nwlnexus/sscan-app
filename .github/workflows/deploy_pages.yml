@@ -1,0 +1,43 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check_org:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'nwlnexus'
+    steps:
+      - name: Check organization
+        run: echo "Running workflow for nwlnexus organization"
+
+  deploy:
+    needs: check_org
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./tooling/github/setup
+
+      - name: 📦 Build
+        run: pnpm run build
+
+      - name: 🚀 Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: sscan
+          directory: ./dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'

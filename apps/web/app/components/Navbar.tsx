@@ -1,12 +1,12 @@
-import { Link as RemixLink, useLoaderData } from '@remix-run/react'
+import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
 import { ShieldEllipsis } from 'lucide-react'
-import { type AppLoaderData } from '../routes/_app'
+import { type RootLoaderData } from '../root'
 import S from '@/assets/S.svg?react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { SidebarMenuItems } from '@/constants'
 
 export const Navbar = () => {
-  const { profile } = useLoaderData<AppLoaderData>()
+  const { profile } = useRouteLoaderData<RootLoaderData>('root')
   return (
     <TooltipProvider>
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">

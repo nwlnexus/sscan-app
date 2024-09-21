@@ -3,14 +3,13 @@ import {
   boolean,
   integer,
   pgTable,
-  primaryKey,
   timestamp,
   uniqueIndex,
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { z } from 'zod'
+import { type z } from 'zod'
 
 export const profile = pgTable(
   'profile',
@@ -25,6 +24,7 @@ export const profile = pgTable(
     image: varchar('image', { length: 255 }),
     passwordHash: varchar('password_hash', { length: 255 }).notNull(),
     isAdmin: boolean('is_admin').notNull().default(false),
+    accountId: uuid('account_id').references(() => account.id, { onDelete: 'set null' }),
     createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow(),
   },
   (profile) => ({
@@ -35,33 +35,10 @@ export const profileSelectSchema = createSelectSchema(profile)
 export const profileInsertSchema = createInsertSchema(profile)
 export type Profile = z.infer<typeof profileSelectSchema>
 
-export const profileRelations = relations(profile, ({ many }) => ({
-  accounts: many(profileToAccount),
-}))
-
-export const profileToAccount = pgTable(
-  'profile_to_account',
-  {
-    profileId: uuid('profile_id')
-      .notNull()
-      .references(() => profile.id),
-    accountId: uuid('account_id')
-      .notNull()
-      .references(() => account.id),
-  },
-  (t) => ({
-    pk: primaryKey({ columns: [t.profileId, t.accountId] }),
-  }),
-)
-
-export const profileToAccountRelations = relations(profileToAccount, ({ one }) => ({
+export const profileRelations = relations(profile, ({ one }) => ({
   account: one(account, {
-    fields: [profileToAccount.accountId],
+    fields: [profile.accountId],
     references: [account.id],
-  }),
-  profile: one(profile, {
-    fields: [profileToAccount.profileId],
-    references: [profile.id],
   }),
 }))
 
@@ -75,13 +52,14 @@ export const accountInsertSchema = createInsertSchema(account)
 export type Account = z.infer<typeof accountSelectSchema>
 
 export const accountRelations = relations(account, ({ many }) => ({
-  profiles: many(profileToAccount),
+  profiles: many(profile),
+  records: many(record),
 }))
 
-export const profileWithAccountsSchema = profileSelectSchema.extend({
-  accounts: z.array(accountSelectSchema).nullable(),
+export const profileWithAccountSchema = profileSelectSchema.extend({
+  account: accountSelectSchema.nullable(),
 })
-export type ProfileWithAccounts = z.infer<typeof profileWithAccountsSchema>
+export type ProfileWithAccount = z.infer<typeof profileWithAccountSchema>
 
 export const record = pgTable('record', {
   id: uuid('id').notNull().primaryKey().defaultRandom(),

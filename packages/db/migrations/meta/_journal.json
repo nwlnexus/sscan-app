@@ -15,6 +15,13 @@
       "when": 1726613455057,
       "tag": "0001_stormy_carlie_cooper",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726949561434,
+      "tag": "0002_exotic_mad_thinker",
+      "breakpoints": true
     }
   ]
 }

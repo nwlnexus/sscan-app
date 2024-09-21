@@ -1,6 +1,6 @@
-import { Link as RemixLink, useLoaderData } from '@remix-run/react'
+import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
 import { LogOut, UserIcon } from 'lucide-react'
-import { type AppLoaderData } from '../routes/_app'
+import { type RootLoaderData } from '../root'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -15,7 +15,7 @@ import {
 import { UserMenuItems } from '@/constants'
 
 export const UserMenu = () => {
-  const { profile } = useLoaderData<AppLoaderData>()
+  const { profile } = useRouteLoaderData<RootLoaderData>('root')
   return (
     <>
       <DropdownMenu>

@@ -1,0 +1,17 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Get Help
+    url: https://github.com/nwlnexus/sscan/discussions/new?category=q-a
+    about:
+      If you can't get something to work the way you expect, open a question in the discussions.
+  - name: Feature request
+    url: https://github.com/nwlnexus/sscan/discussions/new?category=ideas
+    about: Feature requests should be opened as discussions
+  - name: 🐛 Bug report
+    url: https://github.com/nwlnexus/sscan/issues
+    about: If you have a bug report, please open an issue.
+  - name: 👮 ESLint Rule Suggestion
+    url: https://github.com/nwlnexus/sscan/discussions/new?category=eslint-suggestion
+    about:
+      We appreciate you taking the time to improve `@nwlnexus/sscan` with your ideas, but we use the
+      Discussions for this instead of the issues tab 🙂.

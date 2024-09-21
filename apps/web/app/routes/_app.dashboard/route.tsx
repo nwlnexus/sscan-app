@@ -1,14 +1,12 @@
 import { invariantResponse } from '@epic-web/invariant'
 import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
-import { profile as profileSchema, record, recordSelectSchema, type Record } from '@sscan/db/schema'
-import { type ColumnDef } from '@tanstack/react-table'
+import { record, type Record } from '@sscan/db/schema'
 import { eq } from 'drizzle-orm'
-import { type icons } from 'lucide-react'
-import { type PropsWithChildren } from 'react'
-import { DataTable } from '@/components/data-table'
-import Icon from '@/components/icon'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { recColumns } from './columns'
+import { AllTabContent } from './tab-content-all'
+import { ArtistsTabContent } from './tab-content-artists'
+import { CountsTabContent } from './tab-content-counts'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { appAuthGuard } from '@/services/auth.server'
 import { getDB } from '@/services/db.server'
@@ -24,17 +22,17 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
   invariantResponse(profile, 'Profile not found')
 
   const db = getDB(context.cloudflare.env)
-  const recs = await db.query.record.findMany({
-    where: eq(record.accountId, profile.id),
-  })
+  const recs = profile.isAdmin
+    ? await db.query.record.findMany()
+    : await db.query.record.findMany({
+        where: eq(record.accountId, profile.id),
+      })
 
   return { recs }
 }
 
 export default function DashboardView() {
   const { recs } = useLoaderData<typeof loader>()
-
-  const recColumns: ColumnDef<Record>[] = []
 
   return (
     <>
@@ -46,7 +44,7 @@ export default function DashboardView() {
             <TabsTrigger value="counts">Counts</TabsTrigger>
           </TabsList>
           <TabsContent value="all">
-            <AllTabContent columns={recColumns} data={recs} />
+            <AllTabContent<Record> columns={recColumns} data={recs} />
           </TabsContent>
           <TabsContent value="artists">
             <ArtistsTabContent />
@@ -58,42 +56,4 @@ export default function DashboardView() {
       </section>
     </>
   )
-}
-
-type DashCardProps = {
-  title: string
-  icon?: keyof typeof icons
-}
-
-const DashCard = ({ title, icon, children }: PropsWithChildren<DashCardProps>) => {
-  return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        {icon && <Icon name={icon} className="size-4 text-muted-foreground" />}
-      </CardHeader>
-      <CardContent>{children}</CardContent>
-    </Card>
-  )
-}
-
-const AllTabContent = <T,>({ columns, data }: { columns: ColumnDef<T>[]; data: T[] }) => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>All</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <DataTable columns={columns} data={data} />
-      </CardContent>
-    </Card>
-  )
-}
-
-const ArtistsTabContent = () => {
-  return <div>Artists</div>
-}
-
-const CountsTabContent = () => {
-  return <div>Counts</div>
 }

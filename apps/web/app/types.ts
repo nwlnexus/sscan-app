@@ -1,4 +1,4 @@
-import { type Profile } from '@sscan/db/schema'
+import { type ProfileWithAccount } from '@sscan/db/schema'
 
 export type RouteMatch = {
   id: string
@@ -19,4 +19,4 @@ export type MenuItem = {
   href: string
 }
 
-export type AuthProfile = Omit<Profile, 'passwordHash'> | null
+export type AuthProfile = Omit<ProfileWithAccount, 'passwordHash'> | null
