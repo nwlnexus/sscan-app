@@ -15,9 +15,9 @@ import { appAuthGuard, type AuthStrategy } from '@/services/auth.server'
 import { AuthStrategies } from '@/services/auth_strategies'
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-  const profile = await appAuthGuard({ context, request })
+  await appAuthGuard({ context, request })
 
-  return { profile }
+  return null
 }
 
 interface SocialButtonProps extends ButtonProps {
