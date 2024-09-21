@@ -23,6 +23,8 @@
     "format:fix": "turbo run format --continue -- --write --cache --cache-location node_modules/.cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
     "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
+    "lint:ws": "pnpm dlx sherif@latest",
+    "postinstall": "pnpm lint:ws",
     "typecheck": "turbo run typecheck",
     "ui-add": "pnpm --filter \"@sscan/web,@sscan/desktop\" ui-add"
   },
@@ -31,16 +33,14 @@
   ],
   "author": "Nigel Williams-Lucas",
   "license": "ISC",
-  "dependencies": {
-    "@nwlnexus/config": "^1.1.3",
-    "eslint": "^9.10.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.2"
-  },
   "devDependencies": {
+    "@nwlnexus/config": "^1.1.3",
     "@turbo/gen": "^2.1.1",
     "enquirer": "^2.4.1",
-    "turbo": "^2.1.1"
+    "eslint": "^9.10.0",
+    "prettier": "^3.3.3",
+    "turbo": "^2.1.1",
+    "typescript": "^5.6.2"
   },
   "pnpm": {
     "peerDependencyRules": {
