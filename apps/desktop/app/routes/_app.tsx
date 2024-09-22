@@ -1,4 +1,4 @@
-import { Outlet, Link as RemixLink, useLocation, useMatches } from '@remix-run/react'
+import { Outlet, Link as RemixLink } from '@remix-run/react'
 import { ModeSwitcher } from '@sscan/shared/components/mode-switcher'
 import { Navbar } from '@sscan/shared/components/navbar'
 import { Search } from '@sscan/shared/components/search'
@@ -45,7 +45,7 @@ export default function AppLayout() {
             </BreadcrumbList>
           </Breadcrumb>
           <div className="relative ml-auto flex-1 md:grow-0">
-            <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
+            <Search />
           </div>
           <ModeSwitcher />
         </header>

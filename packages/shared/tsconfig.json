@@ -1,15 +1,16 @@
 {
-  "extends": ["@nwlnexus/config/remix"],
+  "extends": ["@nwlnexus/config/react-library"],
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
-      "@/": ["./src/"],
-      "@/assets/*": ["./src/assets/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "@/types": ["./src/types.ts"],
-      "@/ui/*": ["./src/ui/*"],
-      "@/utils": ["./src/utils/index.ts"]
+      "@/lib/*": ["src/lib/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/types": ["src/types.ts"],
+      "@/ui/*": ["src/ui/*"],
+      "@/utils": ["src/utils.ts"]
     },
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },

@@ -16,7 +16,7 @@
       "./src/ui/*.tsx",
       "./src/ui/*.ts"
     ],
-    "./utils/*": "./src/utils.ts"
+    "./utils": "./src/utils.ts"
   },
   "scripts": {
     "clean": "rm -rf .turbo node_modules",

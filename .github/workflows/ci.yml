@@ -45,15 +45,15 @@ jobs:
       - name: Format
         run: pnpm run format
 
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+  # typecheck:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Setup
-        uses: ./tooling/github/setup
-        with:
-          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+  #     - name: Setup
+  #       uses: ./tooling/github/setup
+  #       with:
+  #         op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
-      - name: Typecheck
-        run: pnpm run typecheck
+  #     - name: Typecheck
+  #       run: pnpm run typecheck

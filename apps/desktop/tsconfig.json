@@ -11,15 +11,21 @@
   "compilerOptions": {
     "types": ["@remix-run/node", "vite/client"],
     "paths": {
-      "@css/*": ["./app/css/*"],
-      "@config/*": ["./app/config/*"],
-      "@context/*": ["./app/context/*"],
-      "@components": ["./app/components/index.ts"],
-      "@components/*": ["./app/components/*"],
-      "@hooks/*": ["./app/hooks/*"],
-      "@services/*": ["./app/services/*"],
-      "@assets/*": ["./app/assets/*"],
-      "@utils/*": ["./app/utils/*"]
+      "@/css/*": ["./app/styles/*"],
+      "@/config/*": ["./app/config/*"],
+      "@/context/*": ["./app/context/*"],
+      "@/components": ["./app/components/index.ts"],
+      "@/components/*": ["./app/components/*"],
+      "@/ui/*": ["./app/components/ui/*"],
+      "@/hooks/*": ["./app/hooks/*"],
+      "@/services/*": ["./app/services/*"],
+      "@/assets/*": ["./app/assets/*"],
+      "@/utils": ["./app/utils/index.ts"],
+      "@/utils/*": ["./app/utils/*"],
+      "@/types": ["./app/types.ts"],
+      "@/types/*": ["./app/types/*"],
+      "@/constants": ["./app/constants.ts"],
+      "@/": ["./app/"]
     }
   }
 }

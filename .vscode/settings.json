@@ -50,6 +50,8 @@
       "pattern": "./tooling/*/"
     }
   ],
+  "tailwindConfigViewer.workspacePath": "./apps/web",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "rust-analyzer.linkedProjects": ["apps/desktop/src-tauri/Cargo.toml"]
+  "rust-analyzer.linkedProjects": ["apps/desktop/src-tauri/Cargo.toml"],
+  "ansible.python.interpreterPath": "/run/current-system/sw/bin/python"
 }
