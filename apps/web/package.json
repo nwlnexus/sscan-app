@@ -61,8 +61,5 @@
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^5.0.1",
     "wrangler": "3.76.0"
-  },
-  "engines": {
-    "node": ">=20.0.0"
   }
 }
