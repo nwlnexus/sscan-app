@@ -26,7 +26,19 @@
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "editor.formatOnSave": true,
   "eslint.useFlatConfig": true,
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc"
+  ],
   "eslint.workingDirectories": [
     {
       "pattern": "./packages/*/"
@@ -38,6 +50,8 @@
       "pattern": "./tooling/*/"
     }
   ],
+  "tailwindConfigViewer.workspacePath": "./apps/web",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "rust-analyzer.linkedProjects": ["apps/desktop/src-tauri/Cargo.toml"]
+  "rust-analyzer.linkedProjects": ["apps/desktop/src-tauri/Cargo.toml"],
+  "ansible.python.interpreterPath": "/run/current-system/sw/bin/python"
 }

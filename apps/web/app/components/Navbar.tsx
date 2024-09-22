@@ -1,8 +1,17 @@
-import { Link as RemixLink } from '@remix-run/react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/shared/ui/tooltip'
-import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react'
+import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../../../packages/shared/src/ui/tooltip'
+import { ShieldEllipsis } from 'lucide-react'
+import { type RootLoaderData } from '../root'
+import S from '@/assets/S.svg?react'
+import { SidebarMenuItems } from '@/constants'
 
-export function Navbar() {
+export const Navbar = () => {
+  const { profile } = useRouteLoaderData<RootLoaderData>('root')
   return (
     <TooltipProvider>
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -10,84 +19,40 @@ export function Navbar() {
           to="/"
           className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
         >
-          <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
+          <S className="h-4 w-4 transition-all group-hover:scale-110" />
           <span className="sr-only">Acme Inc</span>
         </RemixLink>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RemixLink
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Home className="h-5 w-5" />
-              <span className="sr-only">Dashboard</span>
-            </RemixLink>
-          </TooltipTrigger>
-          <TooltipContent side="right">Dashboard</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RemixLink
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Orders</span>
-            </RemixLink>
-          </TooltipTrigger>
-          <TooltipContent side="right">Orders</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RemixLink
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Package className="h-5 w-5" />
-              <span className="sr-only">Products</span>
-            </RemixLink>
-          </TooltipTrigger>
-          <TooltipContent side="right">Products</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RemixLink
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Users2 className="h-5 w-5" />
-              <span className="sr-only">Customers</span>
-            </RemixLink>
-          </TooltipTrigger>
-          <TooltipContent side="right">Customers</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RemixLink
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <LineChart className="h-5 w-5" />
-              <span className="sr-only">Analytics</span>
-            </RemixLink>
-          </TooltipTrigger>
-          <TooltipContent side="right">Analytics</TooltipContent>
-        </Tooltip>
+        {SidebarMenuItems.map((item, idx) => (
+          <Tooltip key={idx}>
+            <TooltipTrigger asChild>
+              <RemixLink
+                to={item.href}
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <item.icon className="h-5 w-5" />
+                <span className="sr-only">{item.label}</span>
+              </RemixLink>
+            </TooltipTrigger>
+            <TooltipContent side="right">{item.label}</TooltipContent>
+          </Tooltip>
+        ))}
       </nav>
-      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RemixLink
-              to="/"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Settings className="h-5 w-5" />
-              <span className="sr-only">Settings</span>
-            </RemixLink>
-          </TooltipTrigger>
-          <TooltipContent side="right">Settings</TooltipContent>
-        </Tooltip>
-      </nav>
+      {profile.isAdmin && (
+        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <RemixLink
+                to="/admin"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <ShieldEllipsis className="h-5 w-5" color="orange" />
+                <span className="sr-only">Admin settings</span>
+              </RemixLink>
+            </TooltipTrigger>
+            <TooltipContent side="right">Admin settings</TooltipContent>
+          </Tooltip>
+        </nav>
+      )}
     </TooltipProvider>
   )
 }

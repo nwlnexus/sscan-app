@@ -13,8 +13,7 @@ export default ({ mode }: ConfigEnv) => {
   // Here we add env vars from .env files to process.env.
   // Note the last arg is a blank string so that all env vars
   // are loaded, not just those starting with "VITE_"
-  const viteEnv = loadEnv(mode, process.cwd(), '')
-  process.env = { ...process.env, ...viteEnv }
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
   return defineConfig({
     build: {

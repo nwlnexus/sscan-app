@@ -1,0 +1,65 @@
+name: Deploy Pages applications
+
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check_org:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'nwlnexus'
+    steps:
+      - name: 🔍 Check organization
+        run: echo "Running workflow for nwlnexus organization"
+
+  deploy:
+    needs: check_org
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup
+        uses: ./tooling/github/setup
+        with:
+          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+      - name: 🔐 Load secrets
+        uses: 1password/load-secrets-action@v2
+        id: load_secrets
+        env:
+          CLOUDFLARE_API_TOKEN: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
+          CLOUDFLARE_ACCOUNT_ID: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/account_id
+          SESSION_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/session_secret
+          VITE_SESSION_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/session_secret
+          DATABASE_URL: op://Dev/67tvaj42r55gdgjuvgkduo7nvy/DATABASE_URL
+          AUTH0_DOMAIN: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_DOMAIN
+          AUTH0_CLIENT_ID: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_CLIENT_SECRET
+          GOOGLE_CLIENT_ID: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/GOOGLE_CLIENT_ID
+          GOOGLE_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/GOOGLE_CLIENT_SECRET
+          CALLBACK_URL: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/CALLBACK_URL
+
+      - name: 📝 Run migrations
+        run: pnpm run db:migrate
+
+      - name: 📦 Build
+        working-directory: ./apps/web
+        run: pnpm run build
+
+      - name: 🚀 Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: sscan
+          directory: ./apps/web/build/client
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'

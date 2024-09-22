@@ -1,8 +1,17 @@
+import base from '@repo/tailwind/web'
 import { type Config } from 'tailwindcss'
-
-import baseConfig from '@repo/tailwind/web'
+import { fontFamily } from 'tailwindcss/defaultTheme'
 
 export default {
-  content: ['./src/**/*.tsx'],
-  presets: [baseConfig],
+  content: [...base.content, './src/**/*.{js,jsx,ts,tsx}'],
+  presets: [base],
+  safelist: ['dark'],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', ...fontFamily.sans],
+        mono: [...fontFamily.mono],
+      },
+    },
+  },
 } satisfies Config

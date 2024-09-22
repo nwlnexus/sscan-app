@@ -1,14 +1,19 @@
 {
-  "extends": ["@nwlnexus/config/typescript"],
+  "extends": ["@nwlnexus/config/react-library"],
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "ES2022"],
-    "jsx": "preserve",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "baseUrl": "./",
     "paths": {
-      "@/": ["./src"],
-      "@/*": ["./src/*"]
-    }
+      "@/lib/*": ["src/lib/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/types": ["src/types.ts"],
+      "@/ui/*": ["src/ui/*"],
+      "@/utils": ["src/utils.ts"]
+    },
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
-  "include": ["*.ts", "src"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
 }
