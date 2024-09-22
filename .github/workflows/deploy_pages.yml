@@ -1,12 +1,16 @@
-name: Deploy Pages
+name: Deploy Pages applications
 
 on:
   push:
+    # paths:
+    #   - '.github/workflows/deploy_pages.yml'
+    #   - 'apps/web/**'
+    #   - 'apps/api/**'
     branches:
-      - main
+      - release
   pull_request:
     branches:
-      - main
+      - release
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -16,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'nwlnexus'
     steps:
-      - name: Check organization
+      - name: 🔍 Check organization
         run: echo "Running workflow for nwlnexus organization"
 
   deploy:
@@ -26,18 +30,40 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup
+      - name: 🔧 Setup
         uses: ./tooling/github/setup
 
       - name: 📦 Build
         run: pnpm run build
 
+      - name: 🔐 Load secrets
+        uses: 1password/load-secrets-action@v2
+        id: load_secrets
+        env:
+          CLOUDFLARE_API_TOKEN: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
+          CLOUDFLARE_ACCOUNT_ID: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/account_id
+          SESSION_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/session_secret
+          VITE_SESSION_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/session_secret
+          DATABASE_URL: op://Dev/67tvaj42r55gdgjuvgkduo7nvy/DATABASE_URL
+          AUTH0_DOMAIN: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_DOMAIN
+          AUTH0_CLIENT_ID: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_CLIENT_SECRET
+          GOOGLE_CLIENT_ID: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/GOOGLE_CLIENT_ID
+          GOOGLE_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/GOOGLE_CLIENT_SECRET
+          CALLBACK_URL: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/CALLBACK_URL
+
+      - name: 📝 Generate migrations
+        run: pnpm run db:generate
+
+      - name: 📝 Run migrations
+        run: pnpm run db:migrate
+
       - name: 🚀 Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
           projectName: sscan
-          directory: ./dist
+          directory: ./build/client
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
