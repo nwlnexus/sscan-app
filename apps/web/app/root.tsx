@@ -9,7 +9,7 @@ import {
   ScrollRestoration,
   useRouteError,
 } from '@remix-run/react'
-import '@/css/global.css'
+import '@sscan/shared/styles/global.css'
 import { ThemeProvider } from 'next-themes'
 import { appAuthGuard } from '@/services/auth.server'
 

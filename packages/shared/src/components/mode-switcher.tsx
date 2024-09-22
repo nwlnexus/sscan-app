@@ -1,13 +1,13 @@
-import Icon from '../../../../packages/shared/src/components/icon'
-import { Button } from '../../../../packages/shared/src/ui/button'
+import { useTheme } from 'next-themes'
+import { useState, useEffect } from 'react'
+import Icon from '@/components/icon'
+import { Button } from '@/ui/button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '../../../../packages/shared/src/ui/dropdown-menu'
-import { useTheme } from 'next-themes'
-import { useState, useEffect } from 'react'
+} from '@/ui/dropdown-menu'
 
 export const ModeSwitcher = () => {
   const [themeIcon, setThemeIcon] = useState<'SunMoon' | 'Sun' | 'Moon'>('SunMoon')

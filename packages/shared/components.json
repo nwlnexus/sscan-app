@@ -4,15 +4,15 @@
   "tsx": true,
   "tailwind": {
     "config": "./tailwind.config.ts",
-    "css": "./styles/global.css",
+    "css": "./src/styles/global.css",
     "baseColor": "zinc",
     "cssVariables": true
   },
   "aliases": {
-    "lib": "@/lib",
-    "utils": "@/lib/utils",
+    "lib": "@/",
+    "utils": "@/utils",
     "hooks": "@/hooks",
-    "components": "@/",
+    "components": "@/components",
     "ui": "@/ui"
   }
 }

@@ -1,6 +1,8 @@
-import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
-import { Avatar, AvatarImage, AvatarFallback } from '../../../../packages/shared/src/ui/avatar'
-import { Button } from '../../../../packages/shared/src/ui/button'
+import { Link as RemixLink } from '@remix-run/react'
+import { LogOut, UserIcon } from 'lucide-react'
+import { type NavbarProps } from '@/types'
+import { Avatar, AvatarImage, AvatarFallback } from '@/ui/avatar'
+import { Button } from '@/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,13 +11,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../../../packages/shared/src/ui/dropdown-menu'
-import { LogOut, UserIcon } from 'lucide-react'
-import { type RootLoaderData } from '../root'
-import { UserMenuItems } from '@/constants'
+} from '@/ui/dropdown-menu'
 
-export const UserMenu = () => {
-  const { profile } = useRouteLoaderData<RootLoaderData>('root')
+export function UserMenu<T>({ profile, items }: Omit<NavbarProps<T>, 'type' | 'icon' | 'title'>) {
   return (
     <>
       <DropdownMenu>
@@ -38,7 +36,7 @@ export const UserMenu = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            {UserMenuItems.map((item) => (
+            {items.map((item) => (
               <DropdownMenuItem key={item.label} asChild={true}>
                 <RemixLink to={item.href} className="flex flex-row items-center">
                   <item.icon className="mr-2 h-4 w-4" />

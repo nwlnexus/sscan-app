@@ -20,11 +20,11 @@
     },
     "@sscan/desktop#tauri:dev": {
       "persistent": true,
-      "dependsOn": ["db:push"]
+      "dependsOn": ["^db:migrate"]
     },
     "@sscan/desktop#dev": {
       "persistent": true,
-      "dependsOn": ["db:push"]
+      "dependsOn": ["^db:migrate"]
     },
     "@sscan/web#dev": {
       "persistent": true,

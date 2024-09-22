@@ -1,8 +1,13 @@
 import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../../../packages/shared/src/ui/tooltip'
 import { ShieldEllipsis } from 'lucide-react'
 import { type RootLoaderData } from '../root'
 import S from '@/assets/S.svg?react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { SidebarMenuItems } from '@/constants'
 
 export const Navbar = () => {

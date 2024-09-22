@@ -1,4 +1,5 @@
-import { Link as RemixLink, useLocation, useMatches } from '@remix-run/react'
+import { Link as RemixLink } from '@remix-run/react'
+import { House } from 'lucide-react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,17 +7,28 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '../../../../packages/shared/src/ui/breadcrumb'
-import { House } from 'lucide-react'
-import { type RouteMatch } from '@/types'
+} from '@/ui/breadcrumb'
 
-export const HeaderDisplay = () => {
-  const { pathname } = useLocation()
-  const matches = useMatches()
-  const filteredMatches = (matches as RouteMatch[]).filter(
-    (match) => match.handle && match.handle.title,
-  )
-  const matchesLength = filteredMatches.length
+type Params<T extends string = never> = { [P in T]: string | string[] }
+
+type RouteMatch = {
+  id: string
+  pathname: string
+  params: Params<string>
+  data: unknown
+  handle: {
+    title?: string
+    breadcrumb?: (match: RouteMatch) => React.ReactNode
+  }
+}
+
+type HeaderDisplayProps = {
+  pathname: string
+  matches: RouteMatch[]
+}
+
+export const HeaderDisplay = ({ matches, pathname }: HeaderDisplayProps) => {
+  const matchesLength = matches.length
 
   return (
     <Breadcrumb className="hidden md:flex">
@@ -29,7 +41,7 @@ export const HeaderDisplay = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        {filteredMatches.map((match, index) => (
+        {matches.map((match, index) => (
           <div key={index}>
             {match.pathname !== pathname && (
               <BreadcrumbItem>

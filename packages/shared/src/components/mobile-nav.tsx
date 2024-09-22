@@ -1,13 +1,13 @@
 import { Link as RemixLink } from '@remix-run/react'
-import { Button } from '../../../../packages/shared/src/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '../../../../packages/shared/src/ui/sheet'
 import { PanelLeft } from 'lucide-react'
 import S from '@/assets/S.svg?react'
-import { SidebarMenuItems } from '@/constants'
+import { type NavbarProps } from '@/types'
+import { Button } from '@/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/ui/sheet'
 
 export const description = 'Mobile navigation'
 
-export const MobileNav = () => {
+export function MobileNav<T>({ items, title }: Omit<NavbarProps<T>, 'type' | 'profile'>) {
   return (
     <Sheet>
       <SheetTrigger asChild={true}>
@@ -23,9 +23,9 @@ export const MobileNav = () => {
             className="group flex size-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
           >
             <S className="size-5 transition-all group-hover:scale-110" />
-            <span className="sr-only">Acme Inc</span>
+            {title && <span className="sr-only">{title}</span>}
           </RemixLink>
-          {SidebarMenuItems.map((item, idx) => (
+          {items.map((item, idx) => (
             <RemixLink
               key={idx}
               to={item.href}
