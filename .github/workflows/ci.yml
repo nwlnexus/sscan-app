@@ -26,6 +26,8 @@ jobs:
 
       - name: Setup
         uses: ./tooling/github/setup
+        with:
+          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Lint
         run: pnpm run lint && pnpm run lint:ws
@@ -37,6 +39,8 @@ jobs:
 
       - name: Setup
         uses: ./tooling/github/setup
+        with:
+          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Format
         run: pnpm run format
@@ -48,6 +52,8 @@ jobs:
 
       - name: Setup
         uses: ./tooling/github/setup
+        with:
+          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Typecheck
         run: pnpm run typecheck

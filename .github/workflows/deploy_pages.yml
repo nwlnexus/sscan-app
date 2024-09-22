@@ -2,10 +2,6 @@ name: Deploy Pages applications
 
 on:
   push:
-    # paths:
-    #   - '.github/workflows/deploy_pages.yml'
-    #   - 'apps/web/**'
-    #   - 'apps/api/**'
     branches:
       - release
   pull_request:
@@ -32,9 +28,8 @@ jobs:
 
       - name: 🔧 Setup
         uses: ./tooling/github/setup
-
-      - name: 📦 Build
-        run: pnpm run build
+        with:
+          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: 🔐 Load secrets
         uses: 1password/load-secrets-action@v2
@@ -58,12 +53,16 @@ jobs:
       - name: 📝 Run migrations
         run: pnpm run db:migrate
 
+      - name: 📦 Build
+        working-directory: ./apps/web
+        run: pnpm run build
+
       - name: 🚀 Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
           projectName: sscan
-          directory: ./build/client
+          directory: ./apps/web/build/client
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

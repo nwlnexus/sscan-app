@@ -1,9 +1,14 @@
 name: Setup
 description: Setup the GitHub Actions environment
 
+inputs:
+  op_service_account_token:
+    type: string
+    description: The token for the 1Password service account
+    required: true
+
 runs:
   using: 'composite'
-
   steps:
     - name: ⎔ Install pnpm
       uses: pnpm/action-setup@v2
@@ -26,4 +31,4 @@ runs:
 
     - uses: 1password/load-secrets-action/configure@v2
       with:
-        service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+        service-account-token: ${{ inputs.op_service_account_token }}
