@@ -30,6 +30,7 @@ jobs:
           else
             echo "Environment: development"
             echo "::set-output name=env::DEV"
+          fi
 
   deploy:
     needs: determine_env
