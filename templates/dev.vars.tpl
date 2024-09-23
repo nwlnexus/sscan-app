@@ -1,3 +1,7 @@
 DATABASE_URL="{{op://Dev/u2djddditxramzdmcemimb4lbq/${SECTION}/DATABASE_URL}}"
 AUTH0_CLIENT_SECRET="{{op://Dev/u2djddditxramzdmcemimb4lbq/${SECTION}/AUTH0_CLIENT_SECRET}}"
 GOOGLE_CLIENT_SECRET="{{op://Dev/u2djddditxramzdmcemimb4lbq/${SECTION}/GOOGLE_CLIENT_SECRET}}"
+AUTH0_DOMAIN="{{op://Dev/u2djddditxramzdmcemimb4lbq/${SECTION}/AUTH0_DOMAIN}}"
+AUTH0_CLIENT_ID="{{op://Dev/u2djddditxramzdmcemimb4lbq/${SECTION}/AUTH0_CLIENT_ID}}"
+GOOGLE_CLIENT_ID="{{op://Dev/u2djddditxramzdmcemimb4lbq/${SECTION}/GOOGLE_CLIENT_ID}}"
+APP_URL="{{op://Dev/u2djddditxramzdmcemimb4lbq/${SECTION}/APP_URL}}"

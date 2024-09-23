@@ -29,7 +29,7 @@ export default ({ mode }: ConfigEnv) => {
         }
       },
 
-      sourcemap: true,
+      sourcemap: isDev,
     },
     clearScreen: false,
     plugins: [
