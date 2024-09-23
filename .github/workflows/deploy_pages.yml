@@ -26,10 +26,10 @@ jobs:
         run: |
           if [[ ${{ github.ref }} == "refs/heads/release" ]]; then
             echo "Environment: production"
-            echo "::set-output name=env::PROD"
+            echo "env=PROD" >> $GITHUB_OUTPUT
           else
             echo "Environment: development"
-            echo "::set-output name=env::DEV"
+            echo "env=DEV" >> $GITHUB_OUTPUT
           fi
 
   deploy:
@@ -50,7 +50,10 @@ jobs:
       - name: 🔐 Load secrets
         uses: 1password/load-secrets-action@v2
         id: load_secrets
+        with:
+          export-env: true
         env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           CLOUDFLARE_API_TOKEN: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
           CLOUDFLARE_ACCOUNT_ID: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/account_id
           VITE_SESSION_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/${{ needs.determine_env.outputs.determined_env }}/session_secret
