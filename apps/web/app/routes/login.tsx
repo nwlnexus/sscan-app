@@ -1,6 +1,6 @@
 import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { Form, useSearchParams } from '@remix-run/react'
-import { Button, type ButtonProps } from '../../../../packages/shared/src/ui/button'
+import { Button, type ButtonProps } from '@sscan/shared/ui/button'
 import {
   Card,
   CardContent,
@@ -8,9 +8,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../../../../packages/shared/src/ui/card'
-import { Input } from '../../../../packages/shared/src/ui/input'
-import { Label } from '../../../../packages/shared/src/ui/label'
+} from '@sscan/shared/ui/card'
+import { Input } from '@sscan/shared/ui/input'
+import { Label } from '@sscan/shared/ui/label'
 import { appAuthGuard, type AuthStrategy } from '@/services/auth.server'
 import { AuthStrategies } from '@/services/auth_strategies'
 

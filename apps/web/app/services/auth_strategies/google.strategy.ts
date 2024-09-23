@@ -9,7 +9,7 @@ export const googleStrategy = (context: AppLoadContext) =>
     {
       clientID: context.cloudflare.env.GOOGLE_CLIENT_ID,
       clientSecret: context.cloudflare.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${context.cloudflare.env.CALLBACK_URL}/${AuthStrategies.GOOGLE}/callback`,
+      callbackURL: `${context.cloudflare.env.APP_URL}/auth/${AuthStrategies.GOOGLE}/callback`,
     },
     async ({ accessToken, refreshToken, extraParams, profile }) => {
       // Do something with the tokens and profile

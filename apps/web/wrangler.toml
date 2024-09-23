@@ -10,9 +10,17 @@ mode = "off"
 
 [vars]
 NODE_VERSION = "20"
+AUTH0_DOMAIN="dev-fqlx2duj4fgl8np2.us.auth0.com"
+AUTH0_CLIENT_ID="NmAJPXqBiYuiXmbtDUS1G3fW98GADhdl"
+GOOGLE_CLIENT_ID=" "
+APP_URL="http://localhost:5173"
 
 [env.production.placement]
 mode = "smart"
 
 [env.production.vars]
 NODE_VERSION = "20"
+AUTH0_DOMAIN="dev-fqlx2duj4fgl8np2.us.auth0.com"
+AUTH0_CLIENT_ID="NmAJPXqBiYuiXmbtDUS1G3fW98GADhdl"
+GOOGLE_CLIENT_ID=""
+APP_URL="https://sscan.nwlnexus.xyz"

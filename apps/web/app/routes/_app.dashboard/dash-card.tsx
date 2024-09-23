@@ -1,14 +1,14 @@
+import Icon from '@sscan/shared/components/icon'
+import { Card, CardHeader, CardTitle, CardContent } from '@sscan/shared/ui/card'
 import { type icons } from 'lucide-react'
 import { type PropsWithChildren } from 'react'
-import Icon from '@/components/icon'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 
 type DashCardProps = {
   title: string
   icon?: keyof typeof icons
 }
 
-const DashCard = ({ title, icon, children }: PropsWithChildren<DashCardProps>) => {
+export const DashCard = ({ title, icon, children }: PropsWithChildren<DashCardProps>) => {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

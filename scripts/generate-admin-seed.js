@@ -4,7 +4,7 @@ import enquirer from 'enquirer'
 
 const { prompt } = enquirer
 
-const hashPassword = async (password: string): Promise<string> => {
+const hashPassword = async (/** @type {string} */ password) => {
   const encoder = new TextEncoder()
   const salt = crypto.getRandomValues(new Uint8Array(16))
   const passwordBuffer = encoder.encode(password)
@@ -24,11 +24,14 @@ const hashPassword = async (password: string): Promise<string> => {
 
 async function generateAdminSeed() {
   // Prompt for password
-  const response = await prompt<{ password: string }>({
-    type: 'password',
-    name: 'password',
-    message: 'Enter the admin password:',
-  })
+  const response =
+    (await prompt) <
+    { password: string } >
+    {
+      type: 'password',
+      name: 'password',
+      message: 'Enter the admin password:',
+    }
 
   // Hash the password
   const hashedPassword = await hashPassword(response.password)

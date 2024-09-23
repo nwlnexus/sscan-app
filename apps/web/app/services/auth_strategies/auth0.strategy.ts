@@ -10,7 +10,7 @@ export const auth0Strategy = (context: AppLoadContext) =>
       clientID: context.cloudflare.env.AUTH0_CLIENT_ID,
       clientSecret: context.cloudflare.env.AUTH0_CLIENT_SECRET,
       domain: context.cloudflare.env.AUTH0_DOMAIN,
-      callbackURL: `${context.cloudflare.env.CALLBACK_URL}/${AuthStrategies.AUTH0}/callback`,
+      callbackURL: `${context.cloudflare.env.APP_URL}/auth/${AuthStrategies.AUTH0}/callback`,
     },
     async ({ accessToken, refreshToken, profile, extraParams }) => {
       // Do something with the tokens and profile
