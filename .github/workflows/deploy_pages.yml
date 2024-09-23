@@ -63,7 +63,7 @@ jobs:
           AUTH0_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/${{ needs.determine_env.outputs.determined_env }}/AUTH0_CLIENT_SECRET
           GOOGLE_CLIENT_ID: op://Dev/u2djddditxramzdmcemimb4lbq/${{ needs.determine_env.outputs.determined_env }}/GOOGLE_CLIENT_ID
           GOOGLE_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/${{ needs.determine_env.outputs.determined_env }}/GOOGLE_CLIENT_SECRET
-          CALLBACK_URL: op://Dev/u2djddditxramzdmcemimb4lbq/${{ needs.determine_env.outputs.determined_env }}/CALLBACK_URL
+          APP_URL: op://Dev/u2djddditxramzdmcemimb4lbq/${{ needs.determine_env.outputs.determined_env }}/APP_URL
 
       - name: 📝 Run migrations
         run: pnpm run db:migrate
