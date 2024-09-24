@@ -117,6 +117,7 @@ jobs:
         with:
           apiToken: ${{ env.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+          packageManager: pnpm
           command: pages deploy ./build/client --project-name ${PROJECT_NAME} --branch ${BRANCH_NAME}
           workingDirectory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
           wranglerVersion: '3'
