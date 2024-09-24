@@ -56,8 +56,7 @@
     "db:migrate": {
       "cache": true,
       "outputs": [],
-      "env": ["DATABASE_URL"],
-      "dependsOn": ["db:generate"]
+      "env": ["DATABASE_URL"]
     },
     "db:studio": {
       "cache": false,
