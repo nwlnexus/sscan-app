@@ -86,7 +86,7 @@ jobs:
         run: pnpm run db:migrate
 
       - name: 📦 Build
-        working-directory: ${{ matrix.app }}
+        working-directory: ./pages_apps/${{ matrix.app }}
         run: pnpm run build
 
       - name: 📝 Read app name
