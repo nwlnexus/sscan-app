@@ -16,7 +16,6 @@ jobs:
         run: echo "Running workflow for nwlnexus organization"
 
   determine_env:
-    needs: check_org
     runs-on: ubuntu-latest
     outputs:
       determined_env: ${{ steps.set_env.outputs.env }}
@@ -32,12 +31,30 @@ jobs:
             echo "env=DEV" >> $GITHUB_OUTPUT
           fi
 
+  find_pages_apps:
+    runs-on: ubuntu-latest
+    outputs:
+      folders: ${{ steps.apps.outputs.folders }}
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - id: apps
+        uses: kmanimaran/list-folder-action@v4
+        with:
+          path: ./pages_apps
+
+
   deploy:
-    needs: determine_env
+    name: Deploy Pages applications
+    needs: [determine_env, check_org, find_pages_apps]
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
+    strategy:
+      matrix:
+        app: ${{ fromJSON(needs.find_pages_apps.outputs.folders) }}
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
@@ -48,8 +65,8 @@ jobs:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: 🔐 Load secrets
-        uses: 1password/load-secrets-action@v2
         id: load_secrets
+        uses: 1password/load-secrets-action@v2
         with:
           export-env: true
         env:
@@ -69,16 +86,23 @@ jobs:
         run: pnpm run db:migrate
 
       - name: 📦 Build
-        working-directory: ./apps/web
+        working-directory: ${{ matrix.app }}
         run: pnpm run build
+
+      - name: 📝 Read app name
+        id: read_toml
+        uses: SebRollen/toml-action@v1.2.0
+        with:
+          file: ${{ matrix.app }}/wrangler.toml
+          field: 'name'
 
       - name: 🚀 Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ env.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: sscan
+          projectName: ${{ steps.read_toml.outputs.value }}
           directory: ./build/client
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          workingDirectory: ./apps/web
+          workingDirectory: ${{ matrix.app }}
           wranglerVersion: '3'

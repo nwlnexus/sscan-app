@@ -1,10 +1,5 @@
 import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../../../../packages/shared/src/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@sscan/shared/ui/tooltip'
 import { ShieldEllipsis } from 'lucide-react'
 import { type RootLoaderData } from '../root'
 import S from '@/assets/S.svg?react'

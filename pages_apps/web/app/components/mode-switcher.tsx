@@ -1,11 +1,11 @@
-import Icon from '../../../../packages/shared/src/components/icon'
-import { Button } from '../../../../packages/shared/src/ui/button'
+import Icon from '@sscan/shared/components/icon'
+import { Button } from '@sscan/shared/ui/button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '../../../../packages/shared/src/ui/dropdown-menu'
+} from '@sscan/shared/ui/dropdown-menu'
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 
