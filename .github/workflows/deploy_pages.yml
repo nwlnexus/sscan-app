@@ -1,4 +1,4 @@
-name: 'Deploy Pages applications'
+name: 'Deploy Pages'
 
 on:
   workflow_dispatch:
@@ -7,13 +7,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+
+env:
+  PAGES_APPS_DIR: ./pages_apps
+
 jobs:
   check_org:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'nwlnexus'
     steps:
       - name: 🔍 Check organization
-        run: echo "Running workflow for nwlnexus organization"
+        run: echo "Running workflow for NWL Nexus organization"
 
   determine_env:
     runs-on: ubuntu-latest
@@ -42,7 +46,7 @@ jobs:
       - id: apps
         uses: kmanimaran/list-folder-action@v4
         with:
-          path: ./pages_apps
+          path: ${{ env.PAGES_APPS_DIR }}
 
 
   deploy:
@@ -86,14 +90,14 @@ jobs:
         run: pnpm run db:migrate
 
       - name: 📦 Build
-        working-directory: ./pages_apps/${{ matrix.app }}
+        working-directory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
         run: pnpm run build
 
       - name: 📝 Read app name
         id: read_toml
         uses: SebRollen/toml-action@v1.2.0
         with:
-          file: ${{ matrix.app }}/wrangler.toml
+          file: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}/wrangler.toml
           field: 'name'
 
       - name: 🚀 Deploy to Cloudflare Pages
@@ -104,5 +108,5 @@ jobs:
           projectName: ${{ steps.read_toml.outputs.value }}
           directory: ./build/client
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          workingDirectory: ${{ matrix.app }}
+          workingDirectory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
           wranglerVersion: '3'
