@@ -120,7 +120,6 @@ jobs:
           packageManager: pnpm
           command: pages deploy ./build/client --project-name ${PROJECT_NAME} --branch ${BRANCH_NAME}
           workingDirectory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
-          wranglerVersion: '3'
           secrets: |
             VITE_SESSION_SECRET
             DATABASE_URL
