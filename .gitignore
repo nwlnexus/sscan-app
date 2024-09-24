@@ -58,3 +58,4 @@ dist/
 # Auto generated 
 seeds/admin_user.sql
 seeds/admin-profile.sql
+.act.secrets
