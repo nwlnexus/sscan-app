@@ -103,6 +103,8 @@ jobs:
 
       - name: 📦 Build
         working-directory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
+        env:
+          VITE_SESSION_SECRET: ${{ steps.load_secrets.outputs.VITE_SESSION_SECRET }}
         run: pnpm run build
 
       - name: Deploy secrets for pages app
