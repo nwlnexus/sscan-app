@@ -107,7 +107,7 @@ jobs:
 
       - name: Deploy secrets for pages app
         id: deploy_secrets
-        uses: nwlnexus/cf-pages-secrets@v1.4.0
+        uses: nwlnexus/cf-pages-secrets@v1
         env:
           VITE_SESSION_SECRET: ${{ steps.load_secrets.outputs.VITE_SESSION_SECRET }}
           DATABASE_URL: ${{ steps.load_secrets.outputs.DATABASE_URL }}
