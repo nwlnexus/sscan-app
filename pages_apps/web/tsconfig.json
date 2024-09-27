@@ -7,7 +7,7 @@
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
     "**/.client/**/*.tsx"
-, "../../scripts/generate-hash.js"  ],
+  ],
   "compilerOptions": {
     "types": ["@remix-run/cloudflare", "vite/client", "@cloudflare/workers-types/experimental"],
     "paths": {

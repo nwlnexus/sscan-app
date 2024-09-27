@@ -26,6 +26,17 @@
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[yaml]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "keep",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    }
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
@@ -50,7 +61,6 @@
       "pattern": "./tooling/*/"
     }
   ],
-  "tailwindConfigViewer.workspacePath": "./apps/web",
   "typescript.tsdk": "node_modules/typescript/lib",
   "rust-analyzer.linkedProjects": ["apps/desktop/src-tauri/Cargo.toml"],
   "ansible.python.interpreterPath": "/run/current-system/sw/bin/python"

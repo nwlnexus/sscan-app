@@ -6,7 +6,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '../../../../packages/shared/src/ui/breadcrumb'
+} from '@sscan/shared/ui/breadcrumb'
 import { House } from 'lucide-react'
 import { type RouteMatch } from '@/types'
 

@@ -1,6 +1,6 @@
 import { Link as RemixLink } from '@remix-run/react'
-import { Button } from '../../../../packages/shared/src/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '../../../../packages/shared/src/ui/sheet'
+import { Button } from '@sscan/shared/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@sscan/shared/ui/sheet'
 import { PanelLeft } from 'lucide-react'
 import S from '@/assets/S.svg?react'
 import { SidebarMenuItems } from '@/constants'

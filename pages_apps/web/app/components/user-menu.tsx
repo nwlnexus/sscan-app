@@ -1,6 +1,6 @@
 import { Link as RemixLink, useRouteLoaderData } from '@remix-run/react'
-import { Avatar, AvatarImage, AvatarFallback } from '../../../../packages/shared/src/ui/avatar'
-import { Button } from '../../../../packages/shared/src/ui/button'
+import { Avatar, AvatarImage, AvatarFallback } from '@sscan/shared/ui/avatar'
+import { Button } from '@sscan/shared/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../../../packages/shared/src/ui/dropdown-menu'
+} from '@sscan/shared/ui/dropdown-menu'
 import { LogOut, UserIcon } from 'lucide-react'
 import { type RootLoaderData } from '../root'
 import { UserMenuItems } from '@/constants'

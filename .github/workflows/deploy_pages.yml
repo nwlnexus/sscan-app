@@ -1,16 +1,14 @@
-name: Deploy Pages applications
+name: 'Deploy Pages'
 
 on:
-  push:
-    branches:
-      - release
-  pull_request:
-    branches:
-      - release
   workflow_dispatch:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  PAGES_APPS_DIR: ./pages_apps
 
 jobs:
   check_org:
@@ -18,49 +16,140 @@ jobs:
     if: github.repository_owner == 'nwlnexus'
     steps:
       - name: 🔍 Check organization
-        run: echo "Running workflow for nwlnexus organization"
+        run: echo "Running workflow for NWL Nexus organization"
+
+  needed_info:
+    runs-on: ubuntu-latest
+    outputs:
+      determined_env: ${{ steps.set_env.outputs.env }}
+    steps:
+      - name: 🔍 Determine environment
+        id: set_env
+        run: |
+          if [[ ${{ github.ref }} == "refs/heads/release" ]]; then
+            echo "Environment: production"
+            echo "env=PROD" >> $GITHUB_OUTPUT
+          else
+            echo "Environment: development"
+            echo "env=DEV" >> $GITHUB_OUTPUT
+          fi
+
+  find_pages_apps:
+    runs-on: ubuntu-latest
+    outputs:
+      folders: ${{ steps.apps.outputs.folders }}
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - id: apps
+        uses: kmanimaran/list-folder-action@v4
+        with:
+          path: ${{ env.PAGES_APPS_DIR }}
 
   deploy:
-    needs: check_org
+    name: Deploy Pages applications
+    needs: [check_org, needed_info, find_pages_apps]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    strategy:
+      matrix:
+        app: ${{ fromJSON(needs.find_pages_apps.outputs.folders) }}
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
       - name: 🔧 Setup
         uses: ./tooling/github/setup
+
+      - name: 📝 Read app name
+        id: read_toml
+        uses: SebRollen/toml-action@v1.2.0
         with:
-          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          file: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}/wrangler.toml
+          field: 'name'
+
+      - name: Set the APP_URL
+        id: set_app_url
+        run: |
+          SANITIZED_REF_NAME=$(echo ${{ github.ref_name }} | sed 's/[\/_\.]/-/g')
+          echo "fqdn=${SANITIZED_REF_NAME}.${{ steps.read_toml.outputs.value }}.pages.dev" >> $GITHUB_OUTPUT
 
       - name: 🔐 Load secrets
-        uses: 1password/load-secrets-action@v2
         id: load_secrets
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: false
         env:
-          CLOUDFLARE_API_TOKEN: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
-          CLOUDFLARE_ACCOUNT_ID: op://Dev/jwis7zcfc2tcrvm4qxsw4mhknu/account_id
-          SESSION_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/session_secret
-          VITE_SESSION_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/session_secret
-          DATABASE_URL: op://Dev/67tvaj42r55gdgjuvgkduo7nvy/DATABASE_URL
-          AUTH0_DOMAIN: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_DOMAIN
-          AUTH0_CLIENT_ID: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_CLIENT_ID
-          AUTH0_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/AUTH0_CLIENT_SECRET
-          GOOGLE_CLIENT_ID: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/GOOGLE_CLIENT_ID
-          GOOGLE_CLIENT_SECRET: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/GOOGLE_CLIENT_SECRET
-          CALLBACK_URL: op://Dev/u2djddditxramzdmcemimb4lbq/PROD/CALLBACK_URL
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          CLOUDFLARE_API_TOKEN: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/api_token
+          CLOUDFLARE_API_KEY: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
+          CLOUDFLARE_API_EMAIL: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/email
+          CLOUDFLARE_ACCOUNT_ID: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/account_id
+          VITE_SESSION_SECRET: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.needed_info.outputs.determined_env }}/session_secret
+          DATABASE_URL: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.needed_info.outputs.determined_env }}/DATABASE_URL
+          AUTH0_DOMAIN: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.needed_info.outputs.determined_env }}/AUTH0_DOMAIN
+          AUTH0_CLIENT_ID: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.needed_info.outputs.determined_env }}/AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.needed_info.outputs.determined_env }}/AUTH0_CLIENT_SECRET
+          GOOGLE_CLIENT_ID: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.needed_info.outputs.determined_env }}/GOOGLE_CLIENT_ID
+          GOOGLE_CLIENT_SECRET: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.needed_info.outputs.determined_env }}/GOOGLE_CLIENT_SECRET
 
       - name: 📝 Run migrations
         run: pnpm run db:migrate
+        env:
+          DATABASE_URL: ${{ steps.load_secrets.outputs.DATABASE_URL }}
 
       - name: 📦 Build
-        working-directory: ./apps/web
+        working-directory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
+        env:
+          VITE_SESSION_SECRET: ${{ steps.load_secrets.outputs.VITE_SESSION_SECRET }}
         run: pnpm run build
 
+      - name: Deploy secrets for pages app
+        id: deploy_secrets
+        uses: nwlnexus/cf-pages-secrets@v1
+        env:
+          VITE_SESSION_SECRET: ${{ steps.load_secrets.outputs.VITE_SESSION_SECRET }}
+          DATABASE_URL: ${{ steps.load_secrets.outputs.DATABASE_URL }}
+          AUTH0_DOMAIN: ${{ steps.load_secrets.outputs.AUTH0_DOMAIN }}
+          AUTH0_CLIENT_ID: ${{ steps.load_secrets.outputs.AUTH0_CLIENT_ID }}
+          AUTH0_CLIENT_SECRET: ${{ steps.load_secrets.outputs.AUTH0_CLIENT_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ steps.load_secrets.outputs.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ steps.load_secrets.outputs.GOOGLE_CLIENT_SECRET }}
+        with:
+          apiEmail: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_EMAIL }}
+          apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_KEY }}
+          accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ steps.read_toml.outputs.value }}
+          createProject: true
+          productionBranch: 'release'
+          wranglerConfigPath: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}/wrangler.toml
+          vars: |-
+            APP_URL="https://${{ steps.set_app_url.outputs.fqdn }}"
+          secrets: |-
+            VITE_SESSION_SECRET
+            DATABASE_URL
+            AUTH0_DOMAIN
+            AUTH0_CLIENT_ID
+            AUTH0_CLIENT_SECRET
+            GOOGLE_CLIENT_ID
+            GOOGLE_CLIENT_SECRET
+
       - name: 🚀 Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        if: ${{ !env.ACT }}
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: sscan
-          directory: ./apps/web/build/client
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+          packageManager: pnpm
+          command: pages deploy ./build/client --project-name=${{ steps.read_toml.outputs.value }} --branch=${{ github.ref_name }}
+          workingDirectory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
+
+      - name: 📝 Print deployment-url
+        if: ${{ !env.ACT }}
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: echo $DEPLOYMENT_URL
