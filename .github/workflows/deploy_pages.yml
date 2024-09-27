@@ -137,7 +137,6 @@ jobs:
             AUTH0_CLIENT_SECRET
             GOOGLE_CLIENT_ID
             GOOGLE_CLIENT_SECRET
-            APP_URL
 
       - name: 🚀 Deploy to Cloudflare Pages
         if: ${{ !env.ACT }}
