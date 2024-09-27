@@ -77,10 +77,11 @@ jobs:
         id: load_secrets
         uses: 1password/load-secrets-action@v2
         with:
-          export-env: true
+          export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          CLOUDFLARE_API_TOKEN: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/api_token
+          CLOUDFLARE_API_TOKEN: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
+          CLOUDFLARE_API_EMAIL: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/email
           CLOUDFLARE_ACCOUNT_ID: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/account_id
           VITE_SESSION_SECRET: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.determine_env.outputs.determined_env }}/session_secret
           DATABASE_URL: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.determine_env.outputs.determined_env }}/DATABASE_URL
@@ -93,22 +94,56 @@ jobs:
 
       - name: 📝 Run migrations
         run: pnpm run db:migrate
+        env:
+          DATABASE_URL: ${{ steps.load_secrets.outputs.DATABASE_URL }}
 
       - name: 📦 Build
         working-directory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
         run: pnpm run build
 
+      - name: Deploy secrets for pages app
+        id: deploy_secrets
+        uses: nwlnexus/cf-pages-secrets@v1.3.0
+        env:
+          VITE_SESSION_SECRET: ${{ steps.load_secrets.outputs.VITE_SESSION_SECRET }}
+          DATABASE_URL: ${{ steps.load_secrets.outputs.DATABASE_URL }}
+          AUTH0_DOMAIN: ${{ steps.load_secrets.outputs.AUTH0_DOMAIN }}
+          AUTH0_CLIENT_ID: ${{ steps.load_secrets.outputs.AUTH0_CLIENT_ID }}
+          AUTH0_CLIENT_SECRET: ${{ steps.load_secrets.outputs.AUTH0_CLIENT_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ steps.load_secrets.outputs.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ steps.load_secrets.outputs.GOOGLE_CLIENT_SECRET }}
+          APP_URL: ${{ steps.load_secrets.outputs.APP_URL }}
+        with:
+          apiEmail: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_EMAIL }}
+          apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ steps.read_toml.outputs.value }}
+          createProject: true
+          productionBranch: 'release'
+          wranglerConfigPath: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}/wrangler.toml
+          secrets: |-
+            VITE_SESSION_SECRET
+            DATABASE_URL
+            AUTH0_DOMAIN
+            AUTH0_CLIENT_ID
+            AUTH0_CLIENT_SECRET
+            GOOGLE_CLIENT_ID
+            GOOGLE_CLIENT_SECRET
+            APP_URL
+
       - name: 🚀 Deploy to Cloudflare Pages
+        if: ${{ !env.ACT }}
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ env.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
           packageManager: pnpm
           command: pages deploy ./build/client --project-name=${{ steps.read_toml.outputs.value }} --branch=${{ github.ref_name }}
           workingDirectory: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}
 
       - name: 📝 Print deployment-url
+        if: ${{ !env.ACT }}
         env:
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
         run: echo $DEPLOYMENT_URL
