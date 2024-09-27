@@ -80,7 +80,8 @@ jobs:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          CLOUDFLARE_API_TOKEN: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
+          CLOUDFLARE_API_TOKEN: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/api_token
+          CLOUDFLARE_API_KEY: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/global_key
           CLOUDFLARE_API_EMAIL: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/email
           CLOUDFLARE_ACCOUNT_ID: op://h2apd5x5ncu6djh6svr3lcr25a/jwis7zcfc2tcrvm4qxsw4mhknu/account_id
           VITE_SESSION_SECRET: op://h2apd5x5ncu6djh6svr3lcr25a/${{ steps.read_toml.outputs.value }}/${{ needs.determine_env.outputs.determined_env }}/session_secret
@@ -115,7 +116,7 @@ jobs:
           APP_URL: ${{ steps.load_secrets.outputs.APP_URL }}
         with:
           apiEmail: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_EMAIL }}
-          apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_TOKEN }}
+          apiToken: ${{ steps.load_secrets.outputs.CLOUDFLARE_API_KEY }}
           accountId: ${{ steps.load_secrets.outputs.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ steps.read_toml.outputs.value }}
           createProject: true
