@@ -1,4 +1,3 @@
-import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import {
   isRouteErrorResponse,
   Link,
@@ -11,13 +10,6 @@ import {
 } from '@remix-run/react'
 import '@sscan/shared/styles/global.css'
 import { ThemeProvider } from 'next-themes'
-import { appAuthGuard } from '@/services/auth.server'
-
-export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-  const profile = await appAuthGuard({ context, request })
-  return { profile }
-}
-export type RootLoaderData = typeof loader
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

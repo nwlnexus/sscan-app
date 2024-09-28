@@ -1,16 +1,23 @@
+import { type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { Outlet, useRouteLoaderData } from '@remix-run/react'
 import { type Profile } from '@sscan/db/schema'
 import { ModeSwitcher } from '@sscan/shared/components/mode-switcher'
 import { Navbar } from '@sscan/shared/components/navbar'
 import { Search } from '@sscan/shared/components/search'
-import { type RootLoaderData } from '../root'
 import { HeaderDisplay } from '@/components/header-display'
 import { MobileNav } from '@/components/mobile-nav'
 import { UserMenu } from '@/components/user-menu'
 import { SidebarMenuItems } from '@/constants'
+import { appAuthGuard } from '@/services/auth.server'
+
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+  const profile = await appAuthGuard({ context, request })
+  return { profile }
+}
+export type AppLayoutLoaderData = typeof loader
 
 export default function AppLayout() {
-  const { profile } = useRouteLoaderData<RootLoaderData>('root')
+  const { profile } = useRouteLoaderData<AppLayoutLoaderData>('root')
   if (profile) {
     return (
       <div className="flex min-h-screen w-full flex-col bg-muted/40">

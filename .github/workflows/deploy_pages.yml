@@ -49,7 +49,7 @@ jobs:
 
   deploy:
     name: Deploy Pages applications
-    needs: [check_org, needed_info, find_pages_apps]
+    needs: [needed_info, find_pages_apps]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -127,7 +127,7 @@ jobs:
           productionBranch: 'release'
           wranglerConfigPath: ${{ env.PAGES_APPS_DIR }}/${{ matrix.app }}/wrangler.toml
           vars: |-
-            APP_URL="https://${{ steps.set_app_url.outputs.fqdn }}"
+            APP_URL=https://${{ steps.set_app_url.outputs.fqdn }}
           secrets: |-
             VITE_SESSION_SECRET
             DATABASE_URL
