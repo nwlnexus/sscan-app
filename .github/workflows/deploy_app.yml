@@ -3,7 +3,11 @@ name: 'Deploy App'
 on:
   push:
     branches:
+      - main
       - release
+    paths:
+      - 'apps/desktop/src-tauri/**'
+      - '.github/workflows/deploy_app.yml'
   workflow_dispatch:
 
 # This workflow will trigger on each push to the `release` branch to create or update a GitHub release, build your app, and upload the artifacts to the release.
@@ -33,11 +37,12 @@ jobs:
         uses: ./tooling/github/setup
 
       - name: install Rust stable
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@master
         with:
+          toolchain: "nightly-2024-09-27"
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets:
-            ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' ||''}}
+            ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.

@@ -1,5 +1,6 @@
 {
   "extends": ["@nwlnexus/config/remix"],
+  "baseUrl": "./",
   "include": [
     "**/*.ts",
     "**/*.tsx",
@@ -11,21 +12,21 @@
   "compilerOptions": {
     "types": ["@remix-run/node", "vite/client"],
     "paths": {
-      "@/css/*": ["./app/styles/*"],
-      "@/config/*": ["./app/config/*"],
-      "@/context/*": ["./app/context/*"],
-      "@/components": ["./app/components/index.ts"],
-      "@/components/*": ["./app/components/*"],
-      "@/ui/*": ["./app/components/ui/*"],
-      "@/hooks/*": ["./app/hooks/*"],
-      "@/services/*": ["./app/services/*"],
-      "@/assets/*": ["./app/assets/*"],
-      "@/utils": ["./app/utils/index.ts"],
-      "@/utils/*": ["./app/utils/*"],
-      "@/types": ["./app/types.ts"],
-      "@/types/*": ["./app/types/*"],
-      "@/constants": ["./app/constants.ts"],
-      "@/": ["./app/"]
+      "@css/*": ["./app/styles/*"],
+      "@config/*": ["./app/config/*"],
+      "@context/*": ["./app/context/*"],
+      "@components": ["./app/components/index.ts"],
+      "@components/*": ["./app/components/*"],
+      "@ui/*": ["./app/components/ui/*"],
+      "@hooks/*": ["./app/hooks/*"],
+      "@services/*": ["./app/services/*"],
+      "@assets/*": ["./app/assets/*"],
+      "@utils": ["./app/utils/index.ts"],
+      "@utils/*": ["./app/utils/*"],
+      "@types": ["./app/types.ts"],
+      "@types/*": ["./app/types/*"],
+      "@constants": ["./app/constants.ts"],
+      "@constants/*": ["./app/constants/*"]
     }
   }
 }

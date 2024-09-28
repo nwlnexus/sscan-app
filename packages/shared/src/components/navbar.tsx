@@ -1,8 +1,8 @@
 import { Link as RemixLink } from '@remix-run/react'
+import { type NavbarProps } from '@ui/types'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@ui/ui/tooltip'
 import { ShieldEllipsis } from 'lucide-react'
 import S from '@/assets/S.svg?react'
-import { type NavbarProps } from '@/types'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/ui/tooltip'
 
 export function Navbar<T>({ items, profile, title, type = 'web' }: NavbarProps<T>) {
   const isDesktop = type === 'desktop'

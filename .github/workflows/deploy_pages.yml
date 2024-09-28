@@ -1,6 +1,13 @@
 name: 'Deploy Pages'
 
 on:
+  push:
+    branches:
+      - 'main'
+      - 'release'
+    paths:
+      - 'apps/pages_apps/**'
+      - '.github/workflows/deploy_pages.yml'
   workflow_dispatch:
 
 concurrency:
