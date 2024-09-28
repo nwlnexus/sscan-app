@@ -31,8 +31,6 @@ jobs:
 
       - name: 🔧 Setup
         uses: ./tooling/github/setup
-        with:
-          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -49,6 +47,9 @@ jobs:
         # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
 
+      - name: install tauri-cli globally
+        run: cargo install tauri-cli@^2.0.0-rc.12
+
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -57,5 +58,8 @@ jobs:
           releaseName: 'App v__VERSION__'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
-          prerelease: false
+          prerelease: ${{ github.ref == 'refs/heads/release' }}
+          includeDebug: ${{ github.ref != 'refs/heads/release' }}
+          projectPath: apps/desktop/src-tauri
           args: ${{ matrix.args }}
+          tauriScript: cargo tauri

@@ -34,6 +34,7 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   clearScreen: false,
+  envPrefix: ['VITE_', 'TAURI_'],
   server: {
     port: 1420,
     strictPort: true,

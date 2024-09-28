@@ -35,7 +35,7 @@
     "@nwlnexus/config": "^1.1.3",
     "@remix-run/dev": "^2.12.0",
     "@repo/tailwind": "workspace:*",
-    "@tauri-apps/cli": "2.0.0-rc.12",
+    "@tauri-apps/cli": "^2.0.0-rc.17",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
