@@ -1,5 +1,4 @@
 import { Link as RemixLink } from '@remix-run/react'
-import { House } from 'lucide-react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,7 +6,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/ui/breadcrumb'
+} from '@shared/ui/breadcrumb'
+import { House } from 'lucide-react'
 
 type Params<T extends string = never> = { [P in T]: string | string[] }
 

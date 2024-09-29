@@ -1,4 +1,4 @@
-import { Input } from '@ui/ui/input'
+import { Input } from '@shared/ui/input'
 import { Search as SearchIcon } from 'lucide-react'
 
 export const Search = () => {

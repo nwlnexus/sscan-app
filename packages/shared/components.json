@@ -9,10 +9,10 @@
     "cssVariables": true
   },
   "aliases": {
-    "lib": "@/lib",
-    "utils": "@/utils",
-    "hooks": "@/hooks",
-    "components": "@/components",
-    "ui": "@/ui"
+    "lib": "@shared/lib",
+    "utils": "@shared/utils",
+    "hooks": "@shared/hooks",
+    "components": "@shared/components",
+    "ui": "@shared/ui"
   }
 }

@@ -1,4 +1,4 @@
-import { cn } from '@ui/utils'
+import { cn } from '@shared/utils'
 import * as React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

@@ -1,9 +1,9 @@
 import { Link as RemixLink } from '@remix-run/react'
+import { type NavbarProps } from '@shared/types'
+import { Button } from '@shared/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@shared/ui/sheet'
 import { PanelLeft } from 'lucide-react'
 import S from '@/assets/S.svg?react'
-import { type NavbarProps } from '@/types'
-import { Button } from '@/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/ui/sheet'
 
 export const description = 'Mobile navigation'
 

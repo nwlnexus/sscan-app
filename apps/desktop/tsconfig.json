@@ -26,7 +26,8 @@
       "@types": ["./app/types.ts"],
       "@types/*": ["./app/types/*"],
       "@constants": ["./app/constants.ts"],
-      "@constants/*": ["./app/constants/*"]
+      "@constants/*": ["./app/constants/*"],
+      "@shared/*": ["../../packages/shared/src/*"]
     }
   }
 }

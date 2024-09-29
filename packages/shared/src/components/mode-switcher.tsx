@@ -1,13 +1,13 @@
-import { useTheme } from 'next-themes'
-import { useState, useEffect } from 'react'
-import Icon from '@/components/icon'
-import { Button } from '@/ui/button'
+import Icon from '@shared/components/icon'
+import { Button } from '@shared/ui/button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/ui/dropdown-menu'
+} from '@shared/ui/dropdown-menu'
+import { useTheme } from 'next-themes'
+import { useState, useEffect } from 'react'
 
 export const ModeSwitcher = () => {
   const [themeIcon, setThemeIcon] = useState<'SunMoon' | 'Sun' | 'Moon'>('SunMoon')

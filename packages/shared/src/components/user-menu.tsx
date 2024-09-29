@@ -1,7 +1,7 @@
 import { Link as RemixLink } from '@remix-run/react'
-import { type NavbarProps } from '@ui/types'
-import { Avatar, AvatarImage, AvatarFallback } from '@ui/ui/avatar'
-import { Button } from '@ui/ui/button'
+import { type NavbarProps } from '@shared/types'
+import { Avatar, AvatarImage, AvatarFallback } from '@shared/ui/avatar'
+import { Button } from '@shared/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@ui/ui/dropdown-menu'
+} from '@shared/ui/dropdown-menu'
 import { LogOut, UserIcon } from 'lucide-react'
 
 export function UserMenu<T>({ profile, items }: Omit<NavbarProps<T>, 'type' | 'icon' | 'title'>) {
