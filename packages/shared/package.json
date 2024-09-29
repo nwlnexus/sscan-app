@@ -5,11 +5,11 @@
   "type": "module",
   "exports": {
     "./tailwind.config": "./tailwind.config.ts",
+    "./styles/*": "./src/styles/*",
     "./*": {
       "types": [
         "./src/*.tsx",
         "./src/*.ts",
-        "./src/styles/*",
         "./src/ui/*.tsx",
         "./src/ui/*.ts",
         "./src/components/*.tsx",
@@ -21,7 +21,6 @@
       "default": [
         "./src/*.tsx",
         "./src/*.ts",
-        "./src/styles/*",
         "./src/ui/*.tsx",
         "./src/ui/*.ts",
         "./src/components/*.tsx",

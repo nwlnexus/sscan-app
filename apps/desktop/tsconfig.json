@@ -1,6 +1,5 @@
 {
   "extends": ["@nwlnexus/config/remix"],
-  "baseUrl": "./",
   "include": [
     "**/*.ts",
     "**/*.tsx",
@@ -10,6 +9,7 @@
     "**/.client/**/*.tsx"
   ],
   "compilerOptions": {
+    "baseUrl": "./",
     "types": ["@remix-run/node", "vite/client"],
     "paths": {
       "@css/*": ["./app/styles/*"],
@@ -28,6 +28,7 @@
       "@constants": ["./app/constants.ts"],
       "@constants/*": ["./app/constants/*"],
       "@shared/*": ["../../packages/shared/src/*"]
-    }
+    },
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   }
 }

@@ -36,7 +36,7 @@ export function Navbar<T>({ items, profile, title, type = 'web' }: NavbarProps<T
             </Tooltip>
           ))}
         </nav>
-        {profile.isAdmin && (
+        {profile && profile.isAdmin && (
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
             <Tooltip>
               <TooltipTrigger asChild>

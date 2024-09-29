@@ -7,7 +7,7 @@ export type MenuItem = {
 export type NavbarProps<T> = {
   type?: 'desktop' | 'web'
   items: MenuItem[]
-  profile: T extends Profile ? T : never
+  profile?: T extends Profile ? T : never
   icon?: React.ElementType
   title?: string
 }

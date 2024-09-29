@@ -27,6 +27,7 @@
       "@/constants": ["./app/constants.ts"],
       "@/": ["./app/"],
       "@shared/*": ["../../packages/shared/src/*"]
-    }
+    },
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   }
 }
