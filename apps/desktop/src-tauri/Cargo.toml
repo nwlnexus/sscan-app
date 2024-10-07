@@ -40,7 +40,7 @@ tauri-plugin-fs = "2.0.0-rc.5"
 tauri-plugin-process = "2.0.0-rc.1"
 tauri-plugin-shell = "2.0.0-rc.3"
 tauri-plugin-deep-link = "2.0.0-rc.6"
-tauri-plugin-store = "2.0.0-rc.3"
+tauri-plugin-store = "2.0.0-rc.4"
 
 [dependencies.tauri-plugin-sql]
 features = ["sqlite"]  # or "postgres", or "mysql"
