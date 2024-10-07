@@ -3150,7 +3150,7 @@ dependencies = [
  "wasm-bindgen-futures",
  "wasm-streams",
  "web-sys",
- "windows-registry",
+ "windows-registry 0.2.0",
 ]
 
 [[package]]
@@ -4126,9 +4126,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-deep-link"
-version = "2.0.0-rc.6"
+version = "2.0.0-rc.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4a2e49d1fb1aef2bd3a973aa7634474cfdac6bb894854f76a238e2fadf939d37"
+checksum = "151d194b318449f23cc93ae18cfc4292398a15c808251b8b52be683ffcffcfd5"
 dependencies = [
  "dunce",
  "log",
@@ -4140,7 +4140,7 @@ dependencies = [
  "tauri-utils",
  "thiserror",
  "url",
- "windows-registry",
+ "windows-registry 0.3.0",
  "windows-result",
 ]
 
@@ -5100,7 +5100,7 @@ dependencies = [
  "windows-implement",
  "windows-interface",
  "windows-result",
- "windows-strings",
+ "windows-strings 0.1.0",
  "windows-targets 0.52.6",
 ]
 
@@ -5133,7 +5133,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e400001bb720a623c1c69032f8e3e4cf09984deec740f007dd2b03ec864804b0"
 dependencies = [
  "windows-result",
- "windows-strings",
+ "windows-strings 0.1.0",
+ "windows-targets 0.52.6",
+]
+
+[[package]]
+name = "windows-registry"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bafa604f2104cf5ae2cc2db1dee84b7e6a5d11b05f737b60def0ffdc398cbc0a"
+dependencies = [
+ "windows-result",
+ "windows-strings 0.2.0",
  "windows-targets 0.52.6",
 ]
 
@@ -5153,6 +5164,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4cd9b125c486025df0eabcb585e62173c6c9eddcec5d117d3b6e8c30e2ee4d10"
 dependencies = [
  "windows-result",
+ "windows-targets 0.52.6",
+]
+
+[[package]]
+name = "windows-strings"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "978d65aedf914c664c510d9de43c8fd85ca745eaff1ed53edf409b479e441663"
+dependencies = [
  "windows-targets 0.52.6",
 ]
 
